@@ -169,7 +169,7 @@ StartPage::~StartPage()
 void StartPage::init()
 {
     button.insert(std::make_pair("Startup_button_main", new GameButton(this,pic(Startup_button_main_1),pic(Startup_button_main_2),"开始游戏",800,400,this,startGame)));
-    object.insert(std::make_pair("Cloud_0_cute",new GameObject(this, pic(Cloud_0_cute),0,100,1,0,0)));
+    object.insert(std::make_pair("Cloud_0_cute",new GameObject(this, pic(Cloud_0_cute),0,100,1,0,0,0,this->width(),0,this->height())));
 }
 
 void StartPage::paintEvent(QPaintEvent *event)
