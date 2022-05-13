@@ -105,6 +105,10 @@ public:
 
     void setSpeed(int speedx,int speedy,int speedRad);
 
+    void setReverseSpeed();
+
+    void checkOutBorder();
+
     bool isCollision(GameObject& other);
 
 signals:

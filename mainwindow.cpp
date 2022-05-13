@@ -44,7 +44,7 @@ void GameButton::mouseReleaseEvent(QMouseEvent *e)
 }
 
 //-------------------------------------------------------------------
-GameObject::GameObject(QWidget *parent, QString str, int x, int y, int speedX, int speedY, int speedRad):QWidget(parent),img(str), speedX(speedX), speedY(speedY), speedRad(speedRad)
+GameObject::GameObject(QWidget *parent, QString str, int x, int y, int speedX, int speedY, int speedRad, int xLower, int xUpper, int yLower, int yUpper):QWidget(parent),img(str), speedX(speedX), speedY(speedY), speedRad(speedRad), xLower(xLower), xUpper(xUpper), yLower(yLower), yUpper(yUpper)
 {
     setFixedSize(QSize(img.width(),img.height()));
     move(x,y);
@@ -89,6 +89,21 @@ void GameObject::setSpeed(int speedx,int speedy,int speedrad)
     update();
 }
 
+void GameObject::setReverseSpeed()
+{
+    speedX=-speedX;
+    speedY=-speedY;
+    update();
+}
+
+void GameObject::checkOutBorder()
+{
+    if(x()<xLower)speedX=abs(speedX);
+    if(x()>xUpper)speedX=-abs(speedX);
+    if(y()<yLower)speedY=abs(speedY);
+    if(y()>yUpper)speedY=-abs(speedY);
+}
+
 bool GameObject::isCollision(GameObject& other)
 {
     return rect().intersects(other.rect());
@@ -96,6 +111,7 @@ bool GameObject::isCollision(GameObject& other)
 
 void GameObject::updateLocation()
 {
+    checkOutBorder();
     matrix.rotate(speedRad);
     move(x()+speedX,y()+speedY);
     update();
