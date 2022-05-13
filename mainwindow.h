@@ -13,8 +13,9 @@
 #include <QtMultimedia/QMediaPlayer>
 #include <QMediaPlaylist>
 
-namespace Ui {
-class MainWindow;
+namespace Ui
+{
+    class MainWindow;
 }
 
 extern QTimer main_timer;
