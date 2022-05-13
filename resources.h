@@ -3,6 +3,6 @@
 
 #define pic(x) ":/game_resources/image/"#x".png"
 
-#define snd(x)  "qrc:/game_resources/sound/"#x".mp3"
+#define snd(x1)  "qrc:/game_resources/sound/"#x1".mp3"
 
 #endif // RESOURCES_H
