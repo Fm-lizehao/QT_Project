@@ -44,7 +44,7 @@ void GameButton::mouseReleaseEvent(QMouseEvent *e)
 }
 
 //-------------------------------------------------------------------
-GameObject::GameObject(QWidget *parent, QString str, int x, int y, int speedX, int speedY, int speedRad, int xLower, int xUpper, int yLower, int yUpper):QWidget(parent),img(str), speedX(speedX), speedY(speedY), speedRad(speedRad), xLower(xLower), xUpper(xUpper), yLower(yLower), yUpper(yUpper)
+GameObject::GameObject(QWidget *parent, QString str, int x, int y, int speedX, int speedY, int speedRad, int xLower, int xUpper, int yLower, int yUpper, bool stubborn):QWidget(parent),img(str), speedX(speedX), speedY(speedY), speedRad(speedRad), xLower(xLower), xUpper(xUpper), yLower(yLower), yUpper(yUpper), isStubborn(stubborn)
 {
     setFixedSize(QSize(img.width(),img.height()));
     move(x,y);
@@ -99,9 +99,9 @@ void GameObject::setReverseSpeed()
 void GameObject::checkOutBorder()
 {
     if(x()<xLower)speedX=abs(speedX);
-    if(x()>xUpper)speedX=-abs(speedX);
+    if(x()+width()>xUpper)speedX=-abs(speedX);
     if(y()<yLower)speedY=abs(speedY);
-    if(y()>yUpper)speedY=-abs(speedY);
+    if(y()+height()>yUpper)speedY=-abs(speedY);
 }
 
 bool GameObject::isCollision(GameObject& other)
@@ -115,6 +115,29 @@ void GameObject::updateLocation()
     matrix.rotate(speedRad);
     move(x()+speedX,y()+speedY);
     update();
+}
+
+
+
+IllusoryObject::IllusoryObject(QWidget *parent, QString str, int x, int y, int speedX, int speedY, int speedRad, int xLower, int xUpper, int yLower, int yUpper, bool stubborn):GameObject(parent, str, x, y, speedX, speedY, speedRad, xLower, xUpper, yLower, yUpper,stubborn)
+{
+
+}
+
+IllusoryObject::~IllusoryObject()
+{
+
+}
+
+
+RealObject::RealObject(QWidget *parent, QString str, int x, int y, int speedX, int speedY, int speedRad, int xLower, int xUpper, int yLower, int yUpper, bool stubborn):GameObject(parent, str, x, y, speedX, speedY, speedRad, xLower, xUpper, yLower, yUpper, stubborn)
+{
+
+}
+
+RealObject::~RealObject()
+{
+
 }
 
 //-------------------------------------------------------------------
@@ -168,8 +191,8 @@ StartPage::~StartPage()
 
 void StartPage::init()
 {
-    button.insert(std::make_pair("Startup_button_main", new GameButton(this,pic(Startup_button_main_1),pic(Startup_button_main_2),"开始游戏",800,400,this,startGame)));
-    object.insert(std::make_pair("Cloud_0_cute",new GameObject(this, pic(Cloud_0_cute),0,100,1,0,0,0,this->width(),0,this->height())));
+    button.insert(std::make_pair("001:Start", new GameButton(this,pic(Startup_button_main_1),pic(Startup_button_main_2),"开始游戏",800,400,this,startGame)));
+    object.insert(std::make_pair("001:Cloud",new IllusoryObject(this, pic(Cloud_0_cute),0,100,1,0,0,0,this->width(),0,this->height(),true)));
 }
 
 void StartPage::paintEvent(QPaintEvent *event)
