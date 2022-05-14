@@ -207,16 +207,6 @@ signals:
 
 public slots:
 
-    void startGame();
-
-    void mapEdit();
-
-    void readMe();
-
-    void setConfig();
-
-    void exit();
-
 };
 
 //-------------------------------------------------------------------
@@ -242,6 +232,20 @@ public:
     explicit MainWindow(QWidget *parent = 0);
 
     ~MainWindow();
+
+signals:
+
+public slots:
+
+    void startGame();
+
+    void mapEdit();
+
+    void readMe();
+
+    void setConfig();
+
+    void exit();
 
 };
 

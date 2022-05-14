@@ -555,8 +555,8 @@ int GamePage::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     return _id;
 }
 struct qt_meta_stringdata_StartPage_t {
-    QByteArrayData data[7];
-    char stringdata0[51];
+    QByteArrayData data[1];
+    char stringdata0[10];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -565,21 +565,89 @@ struct qt_meta_stringdata_StartPage_t {
     )
 static const qt_meta_stringdata_StartPage_t qt_meta_stringdata_StartPage = {
     {
-QT_MOC_LITERAL(0, 0, 9), // "StartPage"
-QT_MOC_LITERAL(1, 10, 9), // "startGame"
-QT_MOC_LITERAL(2, 20, 0), // ""
-QT_MOC_LITERAL(3, 21, 7), // "mapEdit"
-QT_MOC_LITERAL(4, 29, 6), // "readMe"
-QT_MOC_LITERAL(5, 36, 9), // "setConfig"
-QT_MOC_LITERAL(6, 46, 4) // "exit"
+QT_MOC_LITERAL(0, 0, 9) // "StartPage"
 
     },
-    "StartPage\0startGame\0\0mapEdit\0readMe\0"
-    "setConfig\0exit"
+    "StartPage"
 };
 #undef QT_MOC_LITERAL
 
 static const uint qt_meta_data_StartPage[] = {
+
+ // content:
+       7,       // revision
+       0,       // classname
+       0,    0, // classinfo
+       0,    0, // methods
+       0,    0, // properties
+       0,    0, // enums/sets
+       0,    0, // constructors
+       0,       // flags
+       0,       // signalCount
+
+       0        // eod
+};
+
+void StartPage::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
+{
+    Q_UNUSED(_o);
+    Q_UNUSED(_id);
+    Q_UNUSED(_c);
+    Q_UNUSED(_a);
+}
+
+const QMetaObject StartPage::staticMetaObject = {
+    { &GamePage::staticMetaObject, qt_meta_stringdata_StartPage.data,
+      qt_meta_data_StartPage,  qt_static_metacall, Q_NULLPTR, Q_NULLPTR}
+};
+
+
+const QMetaObject *StartPage::metaObject() const
+{
+    return QObject::d_ptr->metaObject ? QObject::d_ptr->dynamicMetaObject() : &staticMetaObject;
+}
+
+void *StartPage::qt_metacast(const char *_clname)
+{
+    if (!_clname) return Q_NULLPTR;
+    if (!strcmp(_clname, qt_meta_stringdata_StartPage.stringdata0))
+        return static_cast<void*>(const_cast< StartPage*>(this));
+    return GamePage::qt_metacast(_clname);
+}
+
+int StartPage::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
+{
+    _id = GamePage::qt_metacall(_c, _id, _a);
+    if (_id < 0)
+        return _id;
+    return _id;
+}
+struct qt_meta_stringdata_MainWindow_t {
+    QByteArrayData data[7];
+    char stringdata0[52];
+};
+#define QT_MOC_LITERAL(idx, ofs, len) \
+    Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
+    qptrdiff(offsetof(qt_meta_stringdata_MainWindow_t, stringdata0) + ofs \
+        - idx * sizeof(QByteArrayData)) \
+    )
+static const qt_meta_stringdata_MainWindow_t qt_meta_stringdata_MainWindow = {
+    {
+QT_MOC_LITERAL(0, 0, 10), // "MainWindow"
+QT_MOC_LITERAL(1, 11, 9), // "startGame"
+QT_MOC_LITERAL(2, 21, 0), // ""
+QT_MOC_LITERAL(3, 22, 7), // "mapEdit"
+QT_MOC_LITERAL(4, 30, 6), // "readMe"
+QT_MOC_LITERAL(5, 37, 9), // "setConfig"
+QT_MOC_LITERAL(6, 47, 4) // "exit"
+
+    },
+    "MainWindow\0startGame\0\0mapEdit\0readMe\0"
+    "setConfig\0exit"
+};
+#undef QT_MOC_LITERAL
+
+static const uint qt_meta_data_MainWindow[] = {
 
  // content:
        7,       // revision
@@ -609,10 +677,10 @@ static const uint qt_meta_data_StartPage[] = {
        0        // eod
 };
 
-void StartPage::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
+void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
 {
     if (_c == QMetaObject::InvokeMetaMethod) {
-        StartPage *_t = static_cast<StartPage *>(_o);
+        MainWindow *_t = static_cast<MainWindow *>(_o);
         Q_UNUSED(_t)
         switch (_id) {
         case 0: _t->startGame(); break;
@@ -623,83 +691,6 @@ void StartPage::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, v
         default: ;
         }
     }
-    Q_UNUSED(_a);
-}
-
-const QMetaObject StartPage::staticMetaObject = {
-    { &GamePage::staticMetaObject, qt_meta_stringdata_StartPage.data,
-      qt_meta_data_StartPage,  qt_static_metacall, Q_NULLPTR, Q_NULLPTR}
-};
-
-
-const QMetaObject *StartPage::metaObject() const
-{
-    return QObject::d_ptr->metaObject ? QObject::d_ptr->dynamicMetaObject() : &staticMetaObject;
-}
-
-void *StartPage::qt_metacast(const char *_clname)
-{
-    if (!_clname) return Q_NULLPTR;
-    if (!strcmp(_clname, qt_meta_stringdata_StartPage.stringdata0))
-        return static_cast<void*>(const_cast< StartPage*>(this));
-    return GamePage::qt_metacast(_clname);
-}
-
-int StartPage::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
-{
-    _id = GamePage::qt_metacall(_c, _id, _a);
-    if (_id < 0)
-        return _id;
-    if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 5)
-            qt_static_metacall(this, _c, _id, _a);
-        _id -= 5;
-    } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 5)
-            *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 5;
-    }
-    return _id;
-}
-struct qt_meta_stringdata_MainWindow_t {
-    QByteArrayData data[1];
-    char stringdata0[11];
-};
-#define QT_MOC_LITERAL(idx, ofs, len) \
-    Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
-    qptrdiff(offsetof(qt_meta_stringdata_MainWindow_t, stringdata0) + ofs \
-        - idx * sizeof(QByteArrayData)) \
-    )
-static const qt_meta_stringdata_MainWindow_t qt_meta_stringdata_MainWindow = {
-    {
-QT_MOC_LITERAL(0, 0, 10) // "MainWindow"
-
-    },
-    "MainWindow"
-};
-#undef QT_MOC_LITERAL
-
-static const uint qt_meta_data_MainWindow[] = {
-
- // content:
-       7,       // revision
-       0,       // classname
-       0,    0, // classinfo
-       0,    0, // methods
-       0,    0, // properties
-       0,    0, // enums/sets
-       0,    0, // constructors
-       0,       // flags
-       0,       // signalCount
-
-       0        // eod
-};
-
-void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
-{
-    Q_UNUSED(_o);
-    Q_UNUSED(_id);
-    Q_UNUSED(_c);
     Q_UNUSED(_a);
 }
 
@@ -727,6 +718,15 @@ int MainWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     _id = QMainWindow::qt_metacall(_c, _id, _a);
     if (_id < 0)
         return _id;
+    if (_c == QMetaObject::InvokeMetaMethod) {
+        if (_id < 5)
+            qt_static_metacall(this, _c, _id, _a);
+        _id -= 5;
+    } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
+        if (_id < 5)
+            *reinterpret_cast<int*>(_a[0]) = -1;
+        _id -= 5;
+    }
     return _id;
 }
 QT_END_MOC_NAMESPACE

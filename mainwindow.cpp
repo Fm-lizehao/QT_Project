@@ -191,7 +191,7 @@ StartPage::~StartPage()
 
 void StartPage::init()
 {
-    button.insert(std::make_pair("001:Start", new GameButton(this,pic(Startup_button_main_1),pic(Startup_button_main_2),"开始游戏",800,400,this,startGame)));
+    button.insert(std::make_pair("001:Start", new GameButton(this,pic(Startup_button_main_1),pic(Startup_button_main_2),"开始游戏",800,400,(MainWindow*)parent(),&MainWindow::startGame)));
     object.insert(std::make_pair("001:Cloud",new IllusoryObject(this, pic(Cloud_0_cute),0,100,1,0,0,0,this->width(),0,this->height(),true)));
 }
 
@@ -214,30 +214,6 @@ void StartPage::paintEvent(QPaintEvent *event)
     }
 }
 
-void StartPage::startGame()
-{
-    qDebug()<<"开始啦！";
-}
-
-void StartPage::mapEdit()
-{
-
-}
-
-void StartPage::readMe()
-{
-
-}
-
-void StartPage::setConfig()
-{
-
-}
-
-void StartPage::exit()
-{
-
-}
 
 //-------------------------------------------------------------------
 MainWindow::MainWindow(QWidget *parent) :
@@ -264,4 +240,29 @@ MainWindow::~MainWindow()
     delete page;
     delete music;
     delete playlist;
+}
+
+void MainWindow::startGame()
+{
+    qDebug()<<"开始啦！";
+}
+
+void MainWindow::mapEdit()
+{
+
+}
+
+void MainWindow::readMe()
+{
+
+}
+
+void MainWindow::setConfig()
+{
+
+}
+
+void MainWindow::exit()
+{
+
 }
