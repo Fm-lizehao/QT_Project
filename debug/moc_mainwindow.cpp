@@ -20,7 +20,7 @@
 QT_BEGIN_MOC_NAMESPACE
 struct qt_meta_stringdata_MainWindow_t {
     QByteArrayData data[7];
-    char stringdata0[52];
+    char stringdata0[49];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -34,12 +34,12 @@ QT_MOC_LITERAL(1, 11, 9), // "startGame"
 QT_MOC_LITERAL(2, 21, 0), // ""
 QT_MOC_LITERAL(3, 22, 7), // "mapEdit"
 QT_MOC_LITERAL(4, 30, 6), // "readMe"
-QT_MOC_LITERAL(5, 37, 9), // "setConfig"
-QT_MOC_LITERAL(6, 47, 4) // "exit"
+QT_MOC_LITERAL(5, 37, 6), // "config"
+QT_MOC_LITERAL(6, 44, 4) // "exit"
 
     },
     "MainWindow\0startGame\0\0mapEdit\0readMe\0"
-    "setConfig\0exit"
+    "config\0exit"
 };
 #undef QT_MOC_LITERAL
 
@@ -82,7 +82,7 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         case 0: _t->startGame(); break;
         case 1: _t->mapEdit(); break;
         case 2: _t->readMe(); break;
-        case 3: _t->setConfig(); break;
+        case 3: _t->config(); break;
         case 4: _t->exit(); break;
         default: ;
         }

@@ -17,6 +17,8 @@ class GameButton : public QWidget
 
 		QString text;
 
+        int changeMode;
+
 		GameButton() {}
 
 		GameButton(QWidget *parent, QString pic1, QString pic2, QString text, int x, int y, QObject* receiver, const char* method);

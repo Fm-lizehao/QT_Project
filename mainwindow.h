@@ -35,7 +35,7 @@ class MainWindow : public QMainWindow
 
 		void readMe();
 
-		void setConfig();
+        void config();
 
 		void exit();
 

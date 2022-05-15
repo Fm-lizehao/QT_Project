@@ -29,24 +29,25 @@ MainWindow::~MainWindow()
 void MainWindow::startGame()
 {
     page->deleteLater();
+    qDebug()<<"startGame()";
 }
 
 void MainWindow::mapEdit()
 {
-
+    qDebug()<<"mapEdit()";
 }
 
 void MainWindow::readMe()
 {
-
+    qDebug()<<"readMe()";
 }
 
-void MainWindow::setConfig()
+void MainWindow::config()
 {
-
+    qDebug()<<"config()";
 }
 
 void MainWindow::exit()
 {
-
+    qDebug()<<"exit()";
 }

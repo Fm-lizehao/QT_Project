@@ -442,6 +442,7 @@ debug/qrc_source.cpp: source.qrc \
 		image/BadFlower_1.png \
 		image/Missile_2.png \
 		image/Thumb_dpad_jump.png \
+		image/Startup_button_main_3.png \
 		image/Spark_3.png \
 		image/NPC_lady_fall_2.png \
 		image/RateUsMenu.png \
@@ -692,9 +693,31 @@ debug/moc_mainwindow.cpp: global.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtMultimedia/QMediaPlaylist \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtMultimedia/qmediaplaylist.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtMultimedia/qmediabindableinterface.h \
-		gamepage.h \
-		gamebutton.h \
-		gameobject.h \
+		ui_mainwindow.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/QAction \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/qaction.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/qactiongroup.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/QButtonGroup \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/qbuttongroup.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/QHeaderView \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/qheaderview.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/qabstractitemview.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/qabstractscrollarea.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/qframe.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qabstractitemmodel.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qitemselectionmodel.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/qabstractitemdelegate.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/qstyleoption.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/qabstractspinbox.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qvalidator.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qregularexpression.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/qslider.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/qabstractslider.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/qstyle.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/qtabbar.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/qrubberband.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/QStatusBar \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/qstatusbar.h \
 		mainwindow.h
 	C:\ProgramData\Qt\Qt5.6.1\5.6\mingw49_32\bin\moc.exe $(DEFINES) -D__GNUC__ -DWIN32 -IC:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/mkspecs/win32-g++ -IC:/Users/ciyou/Documents/dev/StrangeAdventure -IC:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include -IC:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtMultimedia -IC:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets -IC:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui -IC:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtANGLE -IC:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtNetwork -IC:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore mainwindow.h -o debug\moc_mainwindow.cpp
 
@@ -1136,8 +1159,6 @@ debug/moc_gamepage.cpp: global.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtMultimedia/QMediaPlaylist \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtMultimedia/qmediaplaylist.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtMultimedia/qmediabindableinterface.h \
-		gamebutton.h \
-		gameobject.h \
 		gamepage.h
 	C:\ProgramData\Qt\Qt5.6.1\5.6\mingw49_32\bin\moc.exe $(DEFINES) -D__GNUC__ -DWIN32 -IC:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/mkspecs/win32-g++ -IC:/Users/ciyou/Documents/dev/StrangeAdventure -IC:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include -IC:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtMultimedia -IC:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets -IC:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui -IC:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtANGLE -IC:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtNetwork -IC:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore gamepage.h -o debug\moc_gamepage.cpp
 
@@ -1161,7 +1182,8 @@ compiler_clean: compiler_rcc_clean compiler_moc_header_clean compiler_uic_clean
 
 ####### Compile
 
-debug/main.o: main.cpp global.h \
+debug/main.o: main.cpp mainwindow.h \
+		global.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/QApplication \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/qapplication.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qcoreapplication.h \
@@ -1305,10 +1327,31 @@ debug/main.o: main.cpp global.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtMultimedia/QMediaPlaylist \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtMultimedia/qmediaplaylist.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtMultimedia/qmediabindableinterface.h \
-		mainwindow.h \
-		gamepage.h \
-		gamebutton.h \
-		gameobject.h
+		ui_mainwindow.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/QAction \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/qaction.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/qactiongroup.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/QButtonGroup \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/qbuttongroup.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/QHeaderView \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/qheaderview.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/qabstractitemview.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/qabstractscrollarea.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/qframe.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qabstractitemmodel.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qitemselectionmodel.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/qabstractitemdelegate.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/qstyleoption.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/qabstractspinbox.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qvalidator.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qregularexpression.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/qslider.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/qabstractslider.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/qstyle.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/qtabbar.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/qrubberband.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/QStatusBar \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/qstatusbar.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug\main.o main.cpp
 
 debug/mainwindow.o: mainwindow.cpp mainwindow.h \
@@ -1456,9 +1499,6 @@ debug/mainwindow.o: mainwindow.cpp mainwindow.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtMultimedia/QMediaPlaylist \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtMultimedia/qmediaplaylist.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtMultimedia/qmediabindableinterface.h \
-		gamepage.h \
-		gamebutton.h \
-		gameobject.h \
 		ui_mainwindow.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/QAction \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/qaction.h \
@@ -1482,13 +1522,9 @@ debug/mainwindow.o: mainwindow.cpp mainwindow.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/qstyle.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/qtabbar.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/qrubberband.h \
-		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/QMenuBar \
-		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/qmenubar.h \
-		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/qmenu.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/QStatusBar \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/qstatusbar.h \
-		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/QToolBar \
-		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/qtoolbar.h
+		gamepage.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug\mainwindow.o mainwindow.cpp
 
 debug/gamebutton.o: gamebutton.cpp gamebutton.h \
@@ -1931,8 +1967,7 @@ debug/gamepage.o: gamepage.cpp gamepage.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtMultimedia/qmediaplaylist.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtMultimedia/qmediabindableinterface.h \
 		gamebutton.h \
-		gameobject.h \
-		mainwindow.h
+		gameobject.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug\gamepage.o gamepage.cpp
 
 debug/qrc_source.o: debug/qrc_source.cpp 
