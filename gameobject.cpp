@@ -1,5 +1,3 @@
-#include "global.h"
-
 #include "gameobject.h"
 
 GameObject::GameObject(QWidget *parent, QString str, int x, int y, int speedX, int speedY, int speedRad, int xLower, int xUpper, int yLower, int yUpper, bool stubborn):QWidget(parent),img(str), speedX(speedX), speedY(speedY), speedRad(speedRad), xLower(xLower), xUpper(xUpper), yLower(yLower), yUpper(yUpper), isStubborn(stubborn)

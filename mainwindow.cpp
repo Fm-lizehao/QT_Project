@@ -1,5 +1,3 @@
-#include "global.h"
-
 #include "mainwindow.h"
 
 #include "gamepage.h"

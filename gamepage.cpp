@@ -1,5 +1,3 @@
-#include "global.h"
-
 #include "gamepage.h"
 
 #include "gamebutton.h"

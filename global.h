@@ -11,6 +11,12 @@
 #include <QtMultimedia/QMediaPlayer>
 #include <QMediaPlaylist>
 
+#define INTIME(x) connect(&main_timer,&QTimer::timeout,this,x,Qt::DirectConnection)
+#define MIN -2147483648
+#define MAX 2147483647
+#define pic(x) ":/game_resources/image/"#x".png"
+#define snd(x)  "qrc:/game_resources/sound/"#x".mp3"
+
 class GameButton;
 class GameObject;
 class IluusoryObject;
@@ -22,25 +28,4 @@ class StartPage;
 class MainWindow;
 
 extern QTimer main_timer;
-
 extern QFont standard_font;
-
-#ifndef INTIME
-#define INTIME(x) connect(&main_timer,&QTimer::timeout,this,x,Qt::DirectConnection)
-#endif
-
-#ifndef MIN
-#define MIN -2147483648
-#endif
-
-#ifndef MAX
-#define MAX 2147483647
-#endif
-
-#ifndef pic
-#define pic(x) ":/game_resources/image/"#x".png"
-#endif
-
-#ifndef snd
-#define snd(x)  "qrc:/game_resources/sound/"#x".mp3"
-#endif

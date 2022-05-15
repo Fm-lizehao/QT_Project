@@ -1,5 +1,3 @@
-#include "global.h"
-
 #include "gamebutton.h"
 
 GameButton::GameButton(QWidget *parent, QString pic1, QString pic2, QString text, int x, int y, QObject* receiver, const char* method):QWidget(parent),img(pic1),img2(pic2),text(text)
