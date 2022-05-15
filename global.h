@@ -1,3 +1,6 @@
+#ifndef GLOBAL_H
+#define GLOBAL_H
+
 #include <cmath>
 #include <map>
 #include <utility>
@@ -29,3 +32,5 @@ class MainWindow;
 
 extern QTimer main_timer;
 extern QFont standard_font;
+
+#endif // GLOBAL_H
