@@ -5,94 +5,94 @@
 
 class GameObject : public QWidget
 {
-    Q_OBJECT
+		Q_OBJECT
 
-private:
+	private:
 
-    QPixmap img;
+		QPixmap img;
 
-public:
+	public:
 
-    QMatrix matrix;
+		QMatrix matrix;
 
-    int speedX,speedY,speedRad;
+		int speedX, speedY, speedRad;
 
-    int xLower,xUpper,yLower,yUpper;
+		int xLower, xUpper, yLower, yUpper;
 
-    bool isStubborn;   //能不能被撞得动
+		bool isStubborn;   //能不能被撞得动
 
-    GameObject(){}
+		GameObject() {}
 
-    GameObject(QWidget *parent, QString str, int x, int y, int speedX=0, int speedY=0, int speedRad=0, int xLower=MIN, int xUpper=MAX, int yLower=MIN, int yUpper=MAX, bool stubborn=true);
+		GameObject(QWidget *parent, QString str, int x, int y, int speedX = 0, int speedY = 0, int speedRad = 0, int xLower = MIN, int xUpper = MAX, int yLower = MIN, int yUpper = MAX, bool stubborn = true);
 
-    ~GameObject();
+		~GameObject();
 
-    int getX();
+		int getX();
 
-    int getY();
+		int getY();
 
-    int getWidth();
+		int getWidth();
 
-    int getHeight();
+		int getHeight();
 
-    QPixmap getImg();
+		QPixmap getImg();
 
-    void setSpeed(int speedx,int speedy,int speedRad);
+		void setSpeed(int speedx, int speedy, int speedRad);
 
-    void setReverseSpeed();
+		void setReverseSpeed();
 
-    void checkOutBorder();
+		void checkOutBorder();
 
-    bool isCollision(GameObject& other);
+		bool isCollision(GameObject& other);
 
-signals:
+	signals:
 
-public slots:
+	public slots:
 
-    void updateLocation();
+		void updateLocation();
 
 };
 
 
 class IllusoryObject : public GameObject
 {
-    Q_OBJECT
+		Q_OBJECT
 
-public:
+	public:
 
-    IllusoryObject(){}
+		IllusoryObject() {}
 
-    IllusoryObject(QWidget *parent, QString str, int x, int y, int speedX=0, int speedY=0, int speedRad=0, int xLower=MIN, int xUpper=MAX, int yLower=MIN, int yUpper=MAX, bool stubborn=true);
+		IllusoryObject(QWidget *parent, QString str, int x, int y, int speedX = 0, int speedY = 0, int speedRad = 0, int xLower = MIN, int xUpper = MAX, int yLower = MIN, int yUpper = MAX, bool stubborn = true);
 
-    ~IllusoryObject();
+		~IllusoryObject();
 
 };
 
 
 class RealObject : public GameObject
 {
-    Q_OBJECT
+		Q_OBJECT
 
-public:
+	public:
 
-    RealObject(){}
+		RealObject() {}
 
-    RealObject(QWidget *parent, QString str, int x, int y, int speedX=0, int speedY=0, int speedRad=0, int xLower=MIN, int xUpper=MAX, int yLower=MIN, int yUpper=MAX, bool stubborn=true);
+		RealObject(QWidget *parent, QString str, int x, int y, int speedX = 0, int speedY = 0, int speedRad = 0, int xLower = MIN, int xUpper = MAX, int yLower = MIN, int yUpper = MAX, bool stubborn = true);
 
-    ~RealObject();
+		~RealObject();
 
 };
 
 
 class LineBarrier : public RealObject
 {
-    Q_OBJECT
+		Q_OBJECT
 };
 
 
 class Role : public RealObject
 {
-    Q_OBJECT
+		Q_OBJECT
 };
 
 #endif // GAMEOBJECT_H
