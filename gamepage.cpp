@@ -11,8 +11,7 @@ GamePage::GamePage(QString bg, QWidget *parent, int wid, int heig) : QWidget(par
 
 GamePage::~GamePage()
 {
-	for (auto i : button)  delete i.second;
-	for (auto i : object)  delete i.second;
+
 }
 
 void GamePage::init()
@@ -47,8 +46,7 @@ StartPage::StartPage(QString bg, QWidget *parent, int wid, int heig): GamePage(b
 
 StartPage::~StartPage()
 {
-	for (auto i : button)  delete i.second;
-	for (auto i : object)  delete i.second;
+
 }
 
 void StartPage::init()

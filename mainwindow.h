@@ -21,7 +21,7 @@ class MainWindow : public QMainWindow
 
 		QMediaPlaylist * playlist = NULL;
 
-		explicit MainWindow(QWidget *parent = 0);
+        MainWindow(QWidget *parent = 0);
 
 		~MainWindow();
 

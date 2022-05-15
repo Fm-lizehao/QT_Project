@@ -10,7 +10,7 @@ MainWindow::MainWindow(QWidget *parent) :
 	setFixedSize(1280, 720);
 	setWindowIcon(QPixmap(pic(icon)));
 	setWindowTitle("Strange Adventure");
-	page = new StartPage(pic(Startup_leftCastle), this, this->width(), this->height());
+    page = new StartPage(pic(Startup_leftCastle), this, this->width(), this->height());
 	music = new QMediaPlayer;
 	music->setVolume(50);
 	playlist = new QMediaPlaylist(music);
@@ -22,15 +22,13 @@ MainWindow::MainWindow(QWidget *parent) :
 
 MainWindow::~MainWindow()
 {
-	delete ui;
-	delete page;
-	delete music;
-	delete playlist;
+    delete ui;
+    delete music;
 }
 
 void MainWindow::startGame()
 {
-	qDebug() << "开始啦！";
+    page->deleteLater();
 }
 
 void MainWindow::mapEdit()
