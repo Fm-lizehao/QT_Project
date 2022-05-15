@@ -14,10 +14,16 @@ TEMPLATE = app
 CONFIG += C++11
 
 SOURCES += main.cpp\
-        mainwindow.cpp
+        mainwindow.cpp \
+    gamebutton.cpp \
+    gameobject.cpp \
+    gamepage.cpp
 
 HEADERS  += mainwindow.h \
-    resources.h
+    gamebutton.h \
+    gameobject.h \
+    gamepage.h \
+    global.h
 
 FORMS    += mainwindow.ui
 

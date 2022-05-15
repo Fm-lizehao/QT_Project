@@ -44,16 +44,34 @@ OBJECTS_DIR   = debug
 ####### Files
 
 SOURCES       = main.cpp \
-		mainwindow.cpp debug\qrc_source.cpp \
-		debug\moc_mainwindow.cpp
+		mainwindow.cpp \
+		gamebutton.cpp \
+		gameobject.cpp \
+		gamepage.cpp debug\qrc_source.cpp \
+		debug\moc_mainwindow.cpp \
+		debug\moc_gamebutton.cpp \
+		debug\moc_gameobject.cpp \
+		debug\moc_gamepage.cpp
 OBJECTS       = debug/main.o \
 		debug/mainwindow.o \
+		debug/gamebutton.o \
+		debug/gameobject.o \
+		debug/gamepage.o \
 		debug/qrc_source.o \
-		debug/moc_mainwindow.o
+		debug/moc_mainwindow.o \
+		debug/moc_gamebutton.o \
+		debug/moc_gameobject.o \
+		debug/moc_gamepage.o
 
 DIST          =  mainwindow.h \
-		resources.h main.cpp \
-		mainwindow.cpp
+		gamebutton.h \
+		gameobject.h \
+		gamepage.h \
+		global.h main.cpp \
+		mainwindow.cpp \
+		gamebutton.cpp \
+		gameobject.cpp \
+		gamepage.cpp
 QMAKE_TARGET  = StrangeAdventure
 DESTDIR        = debug\ #avoid trailing-slash linebreak
 TARGET         = StrangeAdventure.exe
@@ -65,7 +83,7 @@ first: all
 all: Makefile.Debug  $(DESTDIR_TARGET)
 
 $(DESTDIR_TARGET): ui_mainwindow.h $(OBJECTS) 
-	$(LINKER) $(LFLAGS) -o $(DESTDIR_TARGET) $(OBJECTS)  $(LIBS)
+	$(LINKER) $(LFLAGS) -o $(DESTDIR_TARGET) object_script.StrangeAdventure.Debug  $(LIBS)
 
 qmake: FORCE
 	@$(QMAKE) -spec win32-g++ "CONFIG+=debug" "CONFIG+=qml_debug" -o Makefile.Debug StrangeAdventure.pro
@@ -76,7 +94,7 @@ dist:
 	$(ZIP) StrangeAdventure.zip $(SOURCES) $(DIST) StrangeAdventure.pro C:\ProgramData\Qt\Qt5.6.1\5.6\mingw49_32\mkspecs\features\spec_pre.prf C:\ProgramData\Qt\Qt5.6.1\5.6\mingw49_32\mkspecs\qdevice.pri C:\ProgramData\Qt\Qt5.6.1\5.6\mingw49_32\mkspecs\features\device_config.prf C:\ProgramData\Qt\Qt5.6.1\5.6\mingw49_32\mkspecs\common\angle.conf C:\ProgramData\Qt\Qt5.6.1\5.6\mingw49_32\mkspecs\qconfig.pri C:\ProgramData\Qt\Qt5.6.1\5.6\mingw49_32\mkspecs\modules\qt_lib_3dcore.pri C:\ProgramData\Qt\Qt5.6.1\5.6\mingw49_32\mkspecs\modules\qt_lib_3dcore_private.pri C:\ProgramData\Qt\Qt5.6.1\5.6\mingw49_32\mkspecs\modules\qt_lib_3dinput.pri C:\ProgramData\Qt\Qt5.6.1\5.6\mingw49_32\mkspecs\modules\qt_lib_3dinput_private.pri C:\ProgramData\Qt\Qt5.6.1\5.6\mingw49_32\mkspecs\modules\qt_lib_3dlogic.pri C:\ProgramData\Qt\Qt5.6.1\5.6\mingw49_32\mkspecs\modules\qt_lib_3dlogic_private.pri C:\ProgramData\Qt\Qt5.6.1\5.6\mingw49_32\mkspecs\modules\qt_lib_3dquick.pri C:\ProgramData\Qt\Qt5.6.1\5.6\mingw49_32\mkspecs\modules\qt_lib_3dquick_private.pri C:\ProgramData\Qt\Qt5.6.1\5.6\mingw49_32\mkspecs\modules\qt_lib_3dquickinput.pri C:\ProgramData\Qt\Qt5.6.1\5.6\mingw49_32\mkspecs\modules\qt_lib_3dquickinput_private.pri C:\ProgramData\Qt\Qt5.6.1\5.6\mingw49_32\mkspecs\modules\qt_lib_3dquickrender.pri C:\ProgramData\Qt\Qt5.6.1\5.6\mingw49_32\mkspecs\modules\qt_lib_3dquickrender_private.pri C:\ProgramData\Qt\Qt5.6.1\5.6\mingw49_32\mkspecs\modules\qt_lib_3drender.pri C:\ProgramData\Qt\Qt5.6.1\5.6\mingw49_32\mkspecs\modules\qt_lib_3drender_private.pri C:\ProgramData\Qt\Qt5.6.1\5.6\mingw49_32\mkspecs\modules\qt_lib_axbase.pri C:\ProgramData\Qt\Qt5.6.1\5.6\mingw49_32\mkspecs\modules\qt_lib_axbase_private.pri C:\ProgramData\Qt\Qt5.6.1\5.6\mingw49_32\mkspecs\modules\qt_lib_axcontainer.pri C:\ProgramData\Qt\Qt5.6.1\5.6\mingw49_32\mkspecs\modules\qt_lib_axcontainer_private.pri C:\ProgramData\Qt\Qt5.6.1\5.6\mingw49_32\mkspecs\modules\qt_lib_axserver.pri C:\ProgramData\Qt\Qt5.6.1\5.6\mingw49_32\mkspecs\modules\qt_lib_axserver_private.pri C:\ProgramData\Qt\Qt5.6.1\5.6\mingw49_32\mkspecs\modules\qt_lib_bluetooth.pri C:\ProgramData\Qt\Qt5.6.1\5.6\mingw49_32\mkspecs\modules\qt_lib_bluetooth_private.pri C:\ProgramData\Qt\Qt5.6.1\5.6\mingw49_32\mkspecs\modules\qt_lib_bootstrap_private.pri C:\ProgramData\Qt\Qt5.6.1\5.6\mingw49_32\mkspecs\modules\qt_lib_clucene_private.pri C:\ProgramData\Qt\Qt5.6.1\5.6\mingw49_32\mkspecs\modules\qt_lib_concurrent.pri C:\ProgramData\Qt\Qt5.6.1\5.6\mingw49_32\mkspecs\modules\qt_lib_concurrent_private.pri C:\ProgramData\Qt\Qt5.6.1\5.6\mingw49_32\mkspecs\modules\qt_lib_core.pri C:\ProgramData\Qt\Qt5.6.1\5.6\mingw49_32\mkspecs\modules\qt_lib_core_private.pri C:\ProgramData\Qt\Qt5.6.1\5.6\mingw49_32\mkspecs\modules\qt_lib_dbus.pri C:\ProgramData\Qt\Qt5.6.1\5.6\mingw49_32\mkspecs\modules\qt_lib_dbus_private.pri C:\ProgramData\Qt\Qt5.6.1\5.6\mingw49_32\mkspecs\modules\qt_lib_designer.pri C:\ProgramData\Qt\Qt5.6.1\5.6\mingw49_32\mkspecs\modules\qt_lib_designer_private.pri C:\ProgramData\Qt\Qt5.6.1\5.6\mingw49_32\mkspecs\modules\qt_lib_designercomponents_private.pri C:\ProgramData\Qt\Qt5.6.1\5.6\mingw49_32\mkspecs\modules\qt_lib_gui.pri C:\ProgramData\Qt\Qt5.6.1\5.6\mingw49_32\mkspecs\modules\qt_lib_gui_private.pri C:\ProgramData\Qt\Qt5.6.1\5.6\mingw49_32\mkspecs\modules\qt_lib_help.pri C:\ProgramData\Qt\Qt5.6.1\5.6\mingw49_32\mkspecs\modules\qt_lib_help_private.pri C:\ProgramData\Qt\Qt5.6.1\5.6\mingw49_32\mkspecs\modules\qt_lib_labscontrols_private.pri C:\ProgramData\Qt\Qt5.6.1\5.6\mingw49_32\mkspecs\modules\qt_lib_labstemplates_private.pri C:\ProgramData\Qt\Qt5.6.1\5.6\mingw49_32\mkspecs\modules\qt_lib_location.pri C:\ProgramData\Qt\Qt5.6.1\5.6\mingw49_32\mkspecs\modules\qt_lib_location_private.pri C:\ProgramData\Qt\Qt5.6.1\5.6\mingw49_32\mkspecs\modules\qt_lib_multimedia.pri C:\ProgramData\Qt\Qt5.6.1\5.6\mingw49_32\mkspecs\modules\qt_lib_multimedia_private.pri C:\ProgramData\Qt\Qt5.6.1\5.6\mingw49_32\mkspecs\modules\qt_lib_multimediawidgets.pri C:\ProgramData\Qt\Qt5.6.1\5.6\mingw49_32\mkspecs\modules\qt_lib_multimediawidgets_private.pri C:\ProgramData\Qt\Qt5.6.1\5.6\mingw49_32\mkspecs\modules\qt_lib_network.pri C:\ProgramData\Qt\Qt5.6.1\5.6\mingw49_32\mkspecs\modules\qt_lib_network_private.pri C:\ProgramData\Qt\Qt5.6.1\5.6\mingw49_32\mkspecs\modules\qt_lib_nfc.pri C:\ProgramData\Qt\Qt5.6.1\5.6\mingw49_32\mkspecs\modules\qt_lib_nfc_private.pri C:\ProgramData\Qt\Qt5.6.1\5.6\mingw49_32\mkspecs\modules\qt_lib_opengl.pri C:\ProgramData\Qt\Qt5.6.1\5.6\mingw49_32\mkspecs\modules\qt_lib_opengl_private.pri C:\ProgramData\Qt\Qt5.6.1\5.6\mingw49_32\mkspecs\modules\qt_lib_openglextensions.pri C:\ProgramData\Qt\Qt5.6.1\5.6\mingw49_32\mkspecs\modules\qt_lib_openglextensions_private.pri C:\ProgramData\Qt\Qt5.6.1\5.6\mingw49_32\mkspecs\modules\qt_lib_platformsupport_private.pri C:\ProgramData\Qt\Qt5.6.1\5.6\mingw49_32\mkspecs\modules\qt_lib_positioning.pri C:\ProgramData\Qt\Qt5.6.1\5.6\mingw49_32\mkspecs\modules\qt_lib_positioning_private.pri C:\ProgramData\Qt\Qt5.6.1\5.6\mingw49_32\mkspecs\modules\qt_lib_printsupport.pri C:\ProgramData\Qt\Qt5.6.1\5.6\mingw49_32\mkspecs\modules\qt_lib_printsupport_private.pri C:\ProgramData\Qt\Qt5.6.1\5.6\mingw49_32\mkspecs\modules\qt_lib_qml.pri C:\ProgramData\Qt\Qt5.6.1\5.6\mingw49_32\mkspecs\modules\qt_lib_qml_private.pri C:\ProgramData\Qt\Qt5.6.1\5.6\mingw49_32\mkspecs\modules\qt_lib_qmldevtools_private.pri C:\ProgramData\Qt\Qt5.6.1\5.6\mingw49_32\mkspecs\modules\qt_lib_qmltest.pri C:\ProgramData\Qt\Qt5.6.1\5.6\mingw49_32\mkspecs\modules\qt_lib_qmltest_private.pri C:\ProgramData\Qt\Qt5.6.1\5.6\mingw49_32\mkspecs\modules\qt_lib_qtmultimediaquicktools_private.pri C:\ProgramData\Qt\Qt5.6.1\5.6\mingw49_32\mkspecs\modules\qt_lib_quick.pri C:\ProgramData\Qt\Qt5.6.1\5.6\mingw49_32\mkspecs\modules\qt_lib_quick_private.pri C:\ProgramData\Qt\Qt5.6.1\5.6\mingw49_32\mkspecs\modules\qt_lib_quickparticles_private.pri C:\ProgramData\Qt\Qt5.6.1\5.6\mingw49_32\mkspecs\modules\qt_lib_quickwidgets.pri C:\ProgramData\Qt\Qt5.6.1\5.6\mingw49_32\mkspecs\modules\qt_lib_quickwidgets_private.pri C:\ProgramData\Qt\Qt5.6.1\5.6\mingw49_32\mkspecs\modules\qt_lib_script.pri C:\ProgramData\Qt\Qt5.6.1\5.6\mingw49_32\mkspecs\modules\qt_lib_script_private.pri C:\ProgramData\Qt\Qt5.6.1\5.6\mingw49_32\mkspecs\modules\qt_lib_scripttools.pri C:\ProgramData\Qt\Qt5.6.1\5.6\mingw49_32\mkspecs\modules\qt_lib_scripttools_private.pri C:\ProgramData\Qt\Qt5.6.1\5.6\mingw49_32\mkspecs\modules\qt_lib_sensors.pri C:\ProgramData\Qt\Qt5.6.1\5.6\mingw49_32\mkspecs\modules\qt_lib_sensors_private.pri C:\ProgramData\Qt\Qt5.6.1\5.6\mingw49_32\mkspecs\modules\qt_lib_serialbus.pri C:\ProgramData\Qt\Qt5.6.1\5.6\mingw49_32\mkspecs\modules\qt_lib_serialbus_private.pri C:\ProgramData\Qt\Qt5.6.1\5.6\mingw49_32\mkspecs\modules\qt_lib_serialport.pri C:\ProgramData\Qt\Qt5.6.1\5.6\mingw49_32\mkspecs\modules\qt_lib_serialport_private.pri C:\ProgramData\Qt\Qt5.6.1\5.6\mingw49_32\mkspecs\modules\qt_lib_sql.pri C:\ProgramData\Qt\Qt5.6.1\5.6\mingw49_32\mkspecs\modules\qt_lib_sql_private.pri C:\ProgramData\Qt\Qt5.6.1\5.6\mingw49_32\mkspecs\modules\qt_lib_svg.pri C:\ProgramData\Qt\Qt5.6.1\5.6\mingw49_32\mkspecs\modules\qt_lib_svg_private.pri C:\ProgramData\Qt\Qt5.6.1\5.6\mingw49_32\mkspecs\modules\qt_lib_testlib.pri C:\ProgramData\Qt\Qt5.6.1\5.6\mingw49_32\mkspecs\modules\qt_lib_testlib_private.pri C:\ProgramData\Qt\Qt5.6.1\5.6\mingw49_32\mkspecs\modules\qt_lib_uiplugin.pri C:\ProgramData\Qt\Qt5.6.1\5.6\mingw49_32\mkspecs\modules\qt_lib_uitools.pri C:\ProgramData\Qt\Qt5.6.1\5.6\mingw49_32\mkspecs\modules\qt_lib_uitools_private.pri C:\ProgramData\Qt\Qt5.6.1\5.6\mingw49_32\mkspecs\modules\qt_lib_webchannel.pri C:\ProgramData\Qt\Qt5.6.1\5.6\mingw49_32\mkspecs\modules\qt_lib_webchannel_private.pri C:\ProgramData\Qt\Qt5.6.1\5.6\mingw49_32\mkspecs\modules\qt_lib_websockets.pri C:\ProgramData\Qt\Qt5.6.1\5.6\mingw49_32\mkspecs\modules\qt_lib_websockets_private.pri C:\ProgramData\Qt\Qt5.6.1\5.6\mingw49_32\mkspecs\modules\qt_lib_widgets.pri C:\ProgramData\Qt\Qt5.6.1\5.6\mingw49_32\mkspecs\modules\qt_lib_widgets_private.pri C:\ProgramData\Qt\Qt5.6.1\5.6\mingw49_32\mkspecs\modules\qt_lib_winextras.pri C:\ProgramData\Qt\Qt5.6.1\5.6\mingw49_32\mkspecs\modules\qt_lib_winextras_private.pri C:\ProgramData\Qt\Qt5.6.1\5.6\mingw49_32\mkspecs\modules\qt_lib_xml.pri C:\ProgramData\Qt\Qt5.6.1\5.6\mingw49_32\mkspecs\modules\qt_lib_xml_private.pri C:\ProgramData\Qt\Qt5.6.1\5.6\mingw49_32\mkspecs\modules\qt_lib_xmlpatterns.pri C:\ProgramData\Qt\Qt5.6.1\5.6\mingw49_32\mkspecs\modules\qt_lib_xmlpatterns_private.pri C:\ProgramData\Qt\Qt5.6.1\5.6\mingw49_32\mkspecs\features\qt_functions.prf C:\ProgramData\Qt\Qt5.6.1\5.6\mingw49_32\mkspecs\features\qt_config.prf C:\ProgramData\Qt\Qt5.6.1\5.6\mingw49_32\mkspecs\features\win32\qt_config.prf C:\ProgramData\Qt\Qt5.6.1\5.6\mingw49_32\mkspecs\win32-g++\qmake.conf C:\ProgramData\Qt\Qt5.6.1\5.6\mingw49_32\mkspecs\features\spec_post.prf C:\ProgramData\Qt\Qt5.6.1\5.6\mingw49_32\mkspecs\features\exclusive_builds.prf C:\ProgramData\Qt\Qt5.6.1\5.6\mingw49_32\mkspecs\features\default_pre.prf C:\ProgramData\Qt\Qt5.6.1\5.6\mingw49_32\mkspecs\features\win32\default_pre.prf C:\ProgramData\Qt\Qt5.6.1\5.6\mingw49_32\mkspecs\features\resolve_config.prf C:\ProgramData\Qt\Qt5.6.1\5.6\mingw49_32\mkspecs\features\exclusive_builds_post.prf C:\ProgramData\Qt\Qt5.6.1\5.6\mingw49_32\mkspecs\features\default_post.prf C:\ProgramData\Qt\Qt5.6.1\5.6\mingw49_32\mkspecs\features\build_pass.prf C:\ProgramData\Qt\Qt5.6.1\5.6\mingw49_32\mkspecs\features\qml_debug.prf C:\ProgramData\Qt\Qt5.6.1\5.6\mingw49_32\mkspecs\features\win32\rtti.prf C:\ProgramData\Qt\Qt5.6.1\5.6\mingw49_32\mkspecs\features\precompile_header.prf C:\ProgramData\Qt\Qt5.6.1\5.6\mingw49_32\mkspecs\features\warn_on.prf C:\ProgramData\Qt\Qt5.6.1\5.6\mingw49_32\mkspecs\features\qt.prf C:\ProgramData\Qt\Qt5.6.1\5.6\mingw49_32\mkspecs\features\resources.prf C:\ProgramData\Qt\Qt5.6.1\5.6\mingw49_32\mkspecs\features\moc.prf C:\ProgramData\Qt\Qt5.6.1\5.6\mingw49_32\mkspecs\features\win32\opengl.prf C:\ProgramData\Qt\Qt5.6.1\5.6\mingw49_32\mkspecs\features\uic.prf C:\ProgramData\Qt\Qt5.6.1\5.6\mingw49_32\mkspecs\features\file_copies.prf C:\ProgramData\Qt\Qt5.6.1\5.6\mingw49_32\mkspecs\features\win32\windows.prf C:\ProgramData\Qt\Qt5.6.1\5.6\mingw49_32\mkspecs\features\testcase_targets.prf C:\ProgramData\Qt\Qt5.6.1\5.6\mingw49_32\mkspecs\features\exceptions.prf C:\ProgramData\Qt\Qt5.6.1\5.6\mingw49_32\mkspecs\features\yacc.prf C:\ProgramData\Qt\Qt5.6.1\5.6\mingw49_32\mkspecs\features\lex.prf StrangeAdventure.pro source.qrc C:\ProgramData\Qt\Qt5.6.1\5.6\mingw49_32\lib\qtmaind.prl C:\ProgramData\Qt\Qt5.6.1\5.6\mingw49_32\lib\Qt5Multimediad.prl C:\ProgramData\Qt\Qt5.6.1\5.6\mingw49_32\lib\Qt5Widgetsd.prl C:\ProgramData\Qt\Qt5.6.1\5.6\mingw49_32\lib\Qt5Guid.prl C:\ProgramData\Qt\Qt5.6.1\5.6\mingw49_32\lib\Qt5Networkd.prl C:\ProgramData\Qt\Qt5.6.1\5.6\mingw49_32\lib\Qt5Cored.prl  NO_PCH_SOURCES RESOURCES HEADERS SOURCES OBJECTIVE_SOURCES FORMS YACCSOURCES YACCSOURCES LEXSOURCES 
 
 clean: compiler_clean 
-	-$(DEL_FILE) debug\main.o debug\mainwindow.o debug\qrc_source.o debug\moc_mainwindow.o
+	-$(DEL_FILE) debug\main.o debug\mainwindow.o debug\gamebutton.o debug\gameobject.o debug\gamepage.o debug\qrc_source.o debug\moc_mainwindow.o debug\moc_gamebutton.o debug\moc_gameobject.o debug\moc_gamepage.o
 
 distclean: clean 
 	-$(DEL_FILE) $(DESTDIR_TARGET)
@@ -527,13 +545,13 @@ debug/qrc_source.cpp: source.qrc \
 		sound/Audio_yell.mp3
 	C:\ProgramData\Qt\Qt5.6.1\5.6\mingw49_32\bin\rcc.exe -name source source.qrc -o debug\qrc_source.cpp
 
-compiler_moc_header_make_all: debug/moc_mainwindow.cpp
+compiler_moc_header_make_all: debug/moc_mainwindow.cpp debug/moc_gamebutton.cpp debug/moc_gameobject.cpp debug/moc_gamepage.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) debug\moc_mainwindow.cpp
-debug/moc_mainwindow.cpp: C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/QMainWindow \
-		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/qmainwindow.h \
-		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/qwidget.h \
-		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qwindowdefs.h \
+	-$(DEL_FILE) debug\moc_mainwindow.cpp debug\moc_gamebutton.cpp debug\moc_gameobject.cpp debug\moc_gamepage.cpp
+debug/moc_mainwindow.cpp: global.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/QApplication \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/qapplication.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qcoreapplication.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qglobal.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qconfig.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qfeatures.h \
@@ -563,17 +581,16 @@ debug/moc_mainwindow.cpp: C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWid
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qmutex.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qnumeric.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qversiontagging.h \
-		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qobjectdefs.h \
-		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qnamespace.h \
-		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qobjectdefs_impl.h \
-		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qwindowdefs_win.h \
-		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qobject.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qstring.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qchar.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qbytearray.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qrefcount.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qnamespace.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qarraydata.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qstringbuilder.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qobject.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qobjectdefs.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qobjectdefs_impl.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qlist.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qalgorithms.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qiterator.h \
@@ -589,11 +606,17 @@ debug/moc_mainwindow.cpp: C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWid
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qvarlengtharray.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qcontainerfwd.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qobject_impl.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qeventloop.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qwindowdefs.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qwindowdefs_win.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qpoint.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qsize.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qcursor.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/qdesktopwidget.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/qwidget.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qmargins.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qpaintdevice.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qrect.h \
-		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qsize.h \
-		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qpoint.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qpalette.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qcolor.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qrgb.h \
@@ -619,7 +642,6 @@ debug/moc_mainwindow.cpp: C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWid
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qfontmetrics.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qfontinfo.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/qsizepolicy.h \
-		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qcursor.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qkeysequence.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qevent.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qvariant.h \
@@ -635,15 +657,22 @@ debug/moc_mainwindow.cpp: C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWid
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qfiledevice.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qvector2d.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qtouchdevice.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qguiapplication.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qinputmethod.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/QMainWindow \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/qmainwindow.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/qtabwidget.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qicon.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/QWidget \
-		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/QPushButton \
-		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/qpushbutton.h \
-		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/qabstractbutton.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/QTimer \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qtimer.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qbasictimer.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/QFont \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/QPaintEvent \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/QPainter \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qpainter.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qtextoption.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qpen.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtMultimedia/QMediaPlayer \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtMultimedia/qmediaplayer.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtMultimedia/qmediaobject.h \
@@ -663,8 +692,454 @@ debug/moc_mainwindow.cpp: C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWid
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtMultimedia/QMediaPlaylist \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtMultimedia/qmediaplaylist.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtMultimedia/qmediabindableinterface.h \
+		gamepage.h \
+		gamebutton.h \
+		gameobject.h \
 		mainwindow.h
 	C:\ProgramData\Qt\Qt5.6.1\5.6\mingw49_32\bin\moc.exe $(DEFINES) -D__GNUC__ -DWIN32 -IC:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/mkspecs/win32-g++ -IC:/Users/ciyou/Documents/dev/StrangeAdventure -IC:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include -IC:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtMultimedia -IC:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets -IC:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui -IC:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtANGLE -IC:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtNetwork -IC:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore mainwindow.h -o debug\moc_mainwindow.cpp
+
+debug/moc_gamebutton.cpp: global.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/QApplication \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/qapplication.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qcoreapplication.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qglobal.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qconfig.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qfeatures.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qsystemdetection.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qprocessordetection.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qcompilerdetection.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qtypeinfo.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qtypetraits.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qisenum.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qsysinfo.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qlogging.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qflags.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qatomic.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qbasicatomic.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qatomic_bootstrap.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qgenericatomic.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qatomic_cxx11.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qatomic_gcc.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qatomic_msvc.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qatomic_armv7.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qatomic_armv6.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qatomic_armv5.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qatomic_ia64.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qatomic_x86.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qatomic_unix.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qglobalstatic.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qmutex.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qnumeric.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qversiontagging.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qstring.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qchar.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qbytearray.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qrefcount.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qnamespace.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qarraydata.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qstringbuilder.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qobject.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qobjectdefs.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qobjectdefs_impl.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qlist.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qalgorithms.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qiterator.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qhashfunctions.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qpair.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qbytearraylist.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qstringlist.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qregexp.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qstringmatcher.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qcoreevent.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qscopedpointer.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qmetatype.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qvarlengtharray.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qcontainerfwd.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qobject_impl.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qeventloop.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qwindowdefs.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qwindowdefs_win.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qpoint.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qsize.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qcursor.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/qdesktopwidget.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/qwidget.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qmargins.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qpaintdevice.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qrect.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qpalette.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qcolor.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qrgb.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qrgba64.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qbrush.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qvector.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qmatrix.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qpolygon.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qregion.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qdatastream.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qiodevice.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qline.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qtransform.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qpainterpath.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qimage.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qpixelformat.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qpixmap.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qsharedpointer.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qshareddata.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qhash.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qsharedpointer_impl.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qfont.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qfontmetrics.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qfontinfo.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/qsizepolicy.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qkeysequence.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qevent.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qvariant.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qmap.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qdebug.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qtextstream.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qlocale.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qset.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qcontiguouscache.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qurl.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qurlquery.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qfile.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qfiledevice.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qvector2d.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qtouchdevice.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qguiapplication.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qinputmethod.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/QMainWindow \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/qmainwindow.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/qtabwidget.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qicon.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/QWidget \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/QTimer \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qtimer.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qbasictimer.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/QFont \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/QPaintEvent \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/QPainter \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qpainter.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qtextoption.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qpen.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtMultimedia/QMediaPlayer \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtMultimedia/qmediaplayer.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtMultimedia/qmediaobject.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtMultimedia/qtmultimediadefs.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtMultimedia/qmultimedia.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtMultimedia/qmediacontent.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtMultimedia/qmediaresource.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtNetwork/qnetworkrequest.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/QSharedDataPointer \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/QString \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/QUrl \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/QVariant \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtMultimedia/qmediaenumdebug.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qmetaobject.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtMultimedia/qaudio.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtNetwork/qnetworkconfiguration.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtMultimedia/QMediaPlaylist \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtMultimedia/qmediaplaylist.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtMultimedia/qmediabindableinterface.h \
+		gamebutton.h
+	C:\ProgramData\Qt\Qt5.6.1\5.6\mingw49_32\bin\moc.exe $(DEFINES) -D__GNUC__ -DWIN32 -IC:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/mkspecs/win32-g++ -IC:/Users/ciyou/Documents/dev/StrangeAdventure -IC:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include -IC:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtMultimedia -IC:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets -IC:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui -IC:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtANGLE -IC:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtNetwork -IC:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore gamebutton.h -o debug\moc_gamebutton.cpp
+
+debug/moc_gameobject.cpp: global.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/QApplication \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/qapplication.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qcoreapplication.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qglobal.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qconfig.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qfeatures.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qsystemdetection.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qprocessordetection.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qcompilerdetection.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qtypeinfo.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qtypetraits.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qisenum.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qsysinfo.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qlogging.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qflags.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qatomic.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qbasicatomic.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qatomic_bootstrap.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qgenericatomic.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qatomic_cxx11.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qatomic_gcc.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qatomic_msvc.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qatomic_armv7.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qatomic_armv6.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qatomic_armv5.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qatomic_ia64.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qatomic_x86.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qatomic_unix.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qglobalstatic.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qmutex.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qnumeric.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qversiontagging.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qstring.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qchar.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qbytearray.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qrefcount.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qnamespace.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qarraydata.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qstringbuilder.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qobject.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qobjectdefs.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qobjectdefs_impl.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qlist.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qalgorithms.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qiterator.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qhashfunctions.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qpair.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qbytearraylist.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qstringlist.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qregexp.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qstringmatcher.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qcoreevent.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qscopedpointer.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qmetatype.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qvarlengtharray.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qcontainerfwd.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qobject_impl.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qeventloop.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qwindowdefs.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qwindowdefs_win.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qpoint.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qsize.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qcursor.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/qdesktopwidget.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/qwidget.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qmargins.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qpaintdevice.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qrect.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qpalette.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qcolor.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qrgb.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qrgba64.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qbrush.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qvector.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qmatrix.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qpolygon.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qregion.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qdatastream.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qiodevice.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qline.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qtransform.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qpainterpath.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qimage.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qpixelformat.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qpixmap.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qsharedpointer.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qshareddata.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qhash.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qsharedpointer_impl.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qfont.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qfontmetrics.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qfontinfo.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/qsizepolicy.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qkeysequence.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qevent.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qvariant.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qmap.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qdebug.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qtextstream.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qlocale.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qset.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qcontiguouscache.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qurl.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qurlquery.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qfile.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qfiledevice.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qvector2d.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qtouchdevice.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qguiapplication.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qinputmethod.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/QMainWindow \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/qmainwindow.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/qtabwidget.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qicon.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/QWidget \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/QTimer \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qtimer.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qbasictimer.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/QFont \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/QPaintEvent \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/QPainter \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qpainter.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qtextoption.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qpen.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtMultimedia/QMediaPlayer \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtMultimedia/qmediaplayer.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtMultimedia/qmediaobject.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtMultimedia/qtmultimediadefs.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtMultimedia/qmultimedia.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtMultimedia/qmediacontent.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtMultimedia/qmediaresource.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtNetwork/qnetworkrequest.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/QSharedDataPointer \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/QString \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/QUrl \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/QVariant \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtMultimedia/qmediaenumdebug.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qmetaobject.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtMultimedia/qaudio.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtNetwork/qnetworkconfiguration.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtMultimedia/QMediaPlaylist \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtMultimedia/qmediaplaylist.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtMultimedia/qmediabindableinterface.h \
+		gameobject.h
+	C:\ProgramData\Qt\Qt5.6.1\5.6\mingw49_32\bin\moc.exe $(DEFINES) -D__GNUC__ -DWIN32 -IC:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/mkspecs/win32-g++ -IC:/Users/ciyou/Documents/dev/StrangeAdventure -IC:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include -IC:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtMultimedia -IC:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets -IC:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui -IC:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtANGLE -IC:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtNetwork -IC:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore gameobject.h -o debug\moc_gameobject.cpp
+
+debug/moc_gamepage.cpp: global.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/QApplication \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/qapplication.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qcoreapplication.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qglobal.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qconfig.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qfeatures.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qsystemdetection.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qprocessordetection.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qcompilerdetection.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qtypeinfo.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qtypetraits.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qisenum.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qsysinfo.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qlogging.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qflags.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qatomic.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qbasicatomic.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qatomic_bootstrap.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qgenericatomic.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qatomic_cxx11.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qatomic_gcc.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qatomic_msvc.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qatomic_armv7.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qatomic_armv6.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qatomic_armv5.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qatomic_ia64.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qatomic_x86.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qatomic_unix.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qglobalstatic.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qmutex.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qnumeric.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qversiontagging.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qstring.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qchar.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qbytearray.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qrefcount.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qnamespace.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qarraydata.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qstringbuilder.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qobject.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qobjectdefs.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qobjectdefs_impl.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qlist.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qalgorithms.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qiterator.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qhashfunctions.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qpair.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qbytearraylist.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qstringlist.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qregexp.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qstringmatcher.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qcoreevent.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qscopedpointer.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qmetatype.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qvarlengtharray.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qcontainerfwd.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qobject_impl.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qeventloop.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qwindowdefs.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qwindowdefs_win.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qpoint.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qsize.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qcursor.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/qdesktopwidget.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/qwidget.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qmargins.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qpaintdevice.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qrect.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qpalette.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qcolor.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qrgb.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qrgba64.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qbrush.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qvector.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qmatrix.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qpolygon.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qregion.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qdatastream.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qiodevice.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qline.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qtransform.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qpainterpath.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qimage.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qpixelformat.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qpixmap.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qsharedpointer.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qshareddata.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qhash.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qsharedpointer_impl.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qfont.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qfontmetrics.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qfontinfo.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/qsizepolicy.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qkeysequence.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qevent.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qvariant.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qmap.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qdebug.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qtextstream.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qlocale.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qset.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qcontiguouscache.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qurl.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qurlquery.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qfile.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qfiledevice.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qvector2d.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qtouchdevice.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qguiapplication.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qinputmethod.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/QMainWindow \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/qmainwindow.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/qtabwidget.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qicon.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/QWidget \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/QTimer \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qtimer.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qbasictimer.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/QFont \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/QPaintEvent \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/QPainter \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qpainter.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qtextoption.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qpen.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtMultimedia/QMediaPlayer \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtMultimedia/qmediaplayer.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtMultimedia/qmediaobject.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtMultimedia/qtmultimediadefs.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtMultimedia/qmultimedia.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtMultimedia/qmediacontent.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtMultimedia/qmediaresource.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtNetwork/qnetworkrequest.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/QSharedDataPointer \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/QString \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/QUrl \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/QVariant \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtMultimedia/qmediaenumdebug.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qmetaobject.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtMultimedia/qaudio.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtNetwork/qnetworkconfiguration.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtMultimedia/QMediaPlaylist \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtMultimedia/qmediaplaylist.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtMultimedia/qmediabindableinterface.h \
+		gamebutton.h \
+		gameobject.h \
+		gamepage.h
+	C:\ProgramData\Qt\Qt5.6.1\5.6\mingw49_32\bin\moc.exe $(DEFINES) -D__GNUC__ -DWIN32 -IC:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/mkspecs/win32-g++ -IC:/Users/ciyou/Documents/dev/StrangeAdventure -IC:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include -IC:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtMultimedia -IC:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets -IC:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui -IC:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtANGLE -IC:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtNetwork -IC:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore gamepage.h -o debug\moc_gamepage.cpp
 
 compiler_moc_source_make_all:
 compiler_moc_source_clean:
@@ -686,154 +1161,10 @@ compiler_clean: compiler_rcc_clean compiler_moc_header_clean compiler_uic_clean
 
 ####### Compile
 
-debug/main.o: main.cpp mainwindow.h \
-		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/QMainWindow \
-		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/qmainwindow.h \
-		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/qwidget.h \
-		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qwindowdefs.h \
-		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qglobal.h \
-		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qconfig.h \
-		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qfeatures.h \
-		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qsystemdetection.h \
-		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qprocessordetection.h \
-		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qcompilerdetection.h \
-		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qtypeinfo.h \
-		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qtypetraits.h \
-		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qisenum.h \
-		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qsysinfo.h \
-		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qlogging.h \
-		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qflags.h \
-		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qatomic.h \
-		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qbasicatomic.h \
-		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qatomic_bootstrap.h \
-		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qgenericatomic.h \
-		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qatomic_cxx11.h \
-		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qatomic_gcc.h \
-		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qatomic_msvc.h \
-		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qatomic_armv7.h \
-		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qatomic_armv6.h \
-		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qatomic_armv5.h \
-		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qatomic_ia64.h \
-		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qatomic_x86.h \
-		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qatomic_unix.h \
-		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qglobalstatic.h \
-		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qmutex.h \
-		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qnumeric.h \
-		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qversiontagging.h \
-		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qobjectdefs.h \
-		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qnamespace.h \
-		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qobjectdefs_impl.h \
-		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qwindowdefs_win.h \
-		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qobject.h \
-		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qstring.h \
-		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qchar.h \
-		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qbytearray.h \
-		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qrefcount.h \
-		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qarraydata.h \
-		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qstringbuilder.h \
-		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qlist.h \
-		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qalgorithms.h \
-		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qiterator.h \
-		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qhashfunctions.h \
-		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qpair.h \
-		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qbytearraylist.h \
-		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qstringlist.h \
-		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qregexp.h \
-		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qstringmatcher.h \
-		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qcoreevent.h \
-		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qscopedpointer.h \
-		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qmetatype.h \
-		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qvarlengtharray.h \
-		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qcontainerfwd.h \
-		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qobject_impl.h \
-		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qmargins.h \
-		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qpaintdevice.h \
-		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qrect.h \
-		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qsize.h \
-		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qpoint.h \
-		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qpalette.h \
-		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qcolor.h \
-		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qrgb.h \
-		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qrgba64.h \
-		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qbrush.h \
-		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qvector.h \
-		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qmatrix.h \
-		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qpolygon.h \
-		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qregion.h \
-		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qdatastream.h \
-		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qiodevice.h \
-		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qline.h \
-		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qtransform.h \
-		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qpainterpath.h \
-		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qimage.h \
-		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qpixelformat.h \
-		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qpixmap.h \
-		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qsharedpointer.h \
-		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qshareddata.h \
-		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qhash.h \
-		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qsharedpointer_impl.h \
-		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qfont.h \
-		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qfontmetrics.h \
-		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qfontinfo.h \
-		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/qsizepolicy.h \
-		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qcursor.h \
-		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qkeysequence.h \
-		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qevent.h \
-		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qvariant.h \
-		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qmap.h \
-		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qdebug.h \
-		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qtextstream.h \
-		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qlocale.h \
-		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qset.h \
-		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qcontiguouscache.h \
-		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qurl.h \
-		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qurlquery.h \
-		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qfile.h \
-		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qfiledevice.h \
-		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qvector2d.h \
-		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qtouchdevice.h \
-		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/qtabwidget.h \
-		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qicon.h \
-		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/QWidget \
-		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/QPushButton \
-		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/qpushbutton.h \
-		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/qabstractbutton.h \
-		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/QTimer \
-		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qtimer.h \
-		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qbasictimer.h \
-		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtMultimedia/QMediaPlayer \
-		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtMultimedia/qmediaplayer.h \
-		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtMultimedia/qmediaobject.h \
-		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtMultimedia/qtmultimediadefs.h \
-		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtMultimedia/qmultimedia.h \
-		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtMultimedia/qmediacontent.h \
-		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtMultimedia/qmediaresource.h \
-		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtNetwork/qnetworkrequest.h \
-		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/QSharedDataPointer \
-		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/QString \
-		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/QUrl \
-		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/QVariant \
-		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtMultimedia/qmediaenumdebug.h \
-		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qmetaobject.h \
-		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtMultimedia/qaudio.h \
-		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtNetwork/qnetworkconfiguration.h \
-		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtMultimedia/QMediaPlaylist \
-		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtMultimedia/qmediaplaylist.h \
-		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtMultimedia/qmediabindableinterface.h \
+debug/main.o: main.cpp global.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/QApplication \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/qapplication.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qcoreapplication.h \
-		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qeventloop.h \
-		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/qdesktopwidget.h \
-		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qguiapplication.h \
-		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qinputmethod.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug\main.o main.cpp
-
-debug/mainwindow.o: mainwindow.cpp mainwindow.h \
-		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/QMainWindow \
-		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/qmainwindow.h \
-		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/qwidget.h \
-		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qwindowdefs.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qglobal.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qconfig.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qfeatures.h \
@@ -863,17 +1194,16 @@ debug/mainwindow.o: mainwindow.cpp mainwindow.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qmutex.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qnumeric.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qversiontagging.h \
-		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qobjectdefs.h \
-		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qnamespace.h \
-		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qobjectdefs_impl.h \
-		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qwindowdefs_win.h \
-		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qobject.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qstring.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qchar.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qbytearray.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qrefcount.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qnamespace.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qarraydata.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qstringbuilder.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qobject.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qobjectdefs.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qobjectdefs_impl.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qlist.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qalgorithms.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qiterator.h \
@@ -889,11 +1219,17 @@ debug/mainwindow.o: mainwindow.cpp mainwindow.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qvarlengtharray.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qcontainerfwd.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qobject_impl.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qeventloop.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qwindowdefs.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qwindowdefs_win.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qpoint.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qsize.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qcursor.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/qdesktopwidget.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/qwidget.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qmargins.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qpaintdevice.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qrect.h \
-		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qsize.h \
-		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qpoint.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qpalette.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qcolor.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qrgb.h \
@@ -919,7 +1255,6 @@ debug/mainwindow.o: mainwindow.cpp mainwindow.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qfontmetrics.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qfontinfo.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/qsizepolicy.h \
-		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qcursor.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qkeysequence.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qevent.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qvariant.h \
@@ -935,15 +1270,22 @@ debug/mainwindow.o: mainwindow.cpp mainwindow.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qfiledevice.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qvector2d.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qtouchdevice.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qguiapplication.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qinputmethod.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/QMainWindow \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/qmainwindow.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/qtabwidget.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qicon.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/QWidget \
-		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/QPushButton \
-		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/qpushbutton.h \
-		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/qabstractbutton.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/QTimer \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qtimer.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qbasictimer.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/QFont \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/QPaintEvent \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/QPainter \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qpainter.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qtextoption.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qpen.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtMultimedia/QMediaPlayer \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtMultimedia/qmediaplayer.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtMultimedia/qmediaobject.h \
@@ -963,17 +1305,164 @@ debug/mainwindow.o: mainwindow.cpp mainwindow.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtMultimedia/QMediaPlaylist \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtMultimedia/qmediaplaylist.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtMultimedia/qmediabindableinterface.h \
+		mainwindow.h \
+		gamepage.h \
+		gamebutton.h \
+		gameobject.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug\main.o main.cpp
+
+debug/mainwindow.o: mainwindow.cpp mainwindow.h \
+		global.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/QApplication \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/qapplication.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qcoreapplication.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qglobal.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qconfig.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qfeatures.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qsystemdetection.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qprocessordetection.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qcompilerdetection.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qtypeinfo.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qtypetraits.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qisenum.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qsysinfo.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qlogging.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qflags.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qatomic.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qbasicatomic.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qatomic_bootstrap.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qgenericatomic.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qatomic_cxx11.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qatomic_gcc.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qatomic_msvc.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qatomic_armv7.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qatomic_armv6.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qatomic_armv5.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qatomic_ia64.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qatomic_x86.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qatomic_unix.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qglobalstatic.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qmutex.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qnumeric.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qversiontagging.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qstring.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qchar.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qbytearray.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qrefcount.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qnamespace.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qarraydata.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qstringbuilder.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qobject.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qobjectdefs.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qobjectdefs_impl.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qlist.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qalgorithms.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qiterator.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qhashfunctions.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qpair.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qbytearraylist.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qstringlist.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qregexp.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qstringmatcher.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qcoreevent.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qscopedpointer.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qmetatype.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qvarlengtharray.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qcontainerfwd.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qobject_impl.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qeventloop.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qwindowdefs.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qwindowdefs_win.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qpoint.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qsize.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qcursor.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/qdesktopwidget.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/qwidget.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qmargins.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qpaintdevice.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qrect.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qpalette.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qcolor.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qrgb.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qrgba64.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qbrush.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qvector.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qmatrix.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qpolygon.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qregion.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qdatastream.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qiodevice.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qline.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qtransform.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qpainterpath.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qimage.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qpixelformat.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qpixmap.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qsharedpointer.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qshareddata.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qhash.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qsharedpointer_impl.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qfont.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qfontmetrics.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qfontinfo.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/qsizepolicy.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qkeysequence.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qevent.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qvariant.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qmap.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qdebug.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qtextstream.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qlocale.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qset.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qcontiguouscache.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qurl.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qurlquery.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qfile.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qfiledevice.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qvector2d.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qtouchdevice.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qguiapplication.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qinputmethod.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/QMainWindow \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/qmainwindow.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/qtabwidget.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qicon.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/QWidget \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/QTimer \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qtimer.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qbasictimer.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/QFont \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/QPaintEvent \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/QPainter \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qpainter.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qtextoption.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qpen.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtMultimedia/QMediaPlayer \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtMultimedia/qmediaplayer.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtMultimedia/qmediaobject.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtMultimedia/qtmultimediadefs.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtMultimedia/qmultimedia.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtMultimedia/qmediacontent.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtMultimedia/qmediaresource.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtNetwork/qnetworkrequest.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/QSharedDataPointer \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/QString \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/QUrl \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/QVariant \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtMultimedia/qmediaenumdebug.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qmetaobject.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtMultimedia/qaudio.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtNetwork/qnetworkconfiguration.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtMultimedia/QMediaPlaylist \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtMultimedia/qmediaplaylist.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtMultimedia/qmediabindableinterface.h \
+		gamepage.h \
+		gamebutton.h \
+		gameobject.h \
 		ui_mainwindow.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/QAction \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/qaction.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/qactiongroup.h \
-		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/QApplication \
-		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/qapplication.h \
-		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qcoreapplication.h \
-		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qeventloop.h \
-		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/qdesktopwidget.h \
-		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qguiapplication.h \
-		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qinputmethod.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/QButtonGroup \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/qbuttongroup.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/QHeaderView \
@@ -999,24 +1488,467 @@ debug/mainwindow.o: mainwindow.cpp mainwindow.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/QStatusBar \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/qstatusbar.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/QToolBar \
-		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/qtoolbar.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/qtoolbar.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug\mainwindow.o mainwindow.cpp
+
+debug/gamebutton.o: gamebutton.cpp gamebutton.h \
+		global.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/QApplication \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/qapplication.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qcoreapplication.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qglobal.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qconfig.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qfeatures.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qsystemdetection.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qprocessordetection.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qcompilerdetection.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qtypeinfo.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qtypetraits.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qisenum.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qsysinfo.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qlogging.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qflags.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qatomic.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qbasicatomic.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qatomic_bootstrap.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qgenericatomic.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qatomic_cxx11.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qatomic_gcc.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qatomic_msvc.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qatomic_armv7.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qatomic_armv6.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qatomic_armv5.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qatomic_ia64.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qatomic_x86.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qatomic_unix.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qglobalstatic.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qmutex.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qnumeric.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qversiontagging.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qstring.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qchar.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qbytearray.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qrefcount.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qnamespace.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qarraydata.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qstringbuilder.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qobject.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qobjectdefs.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qobjectdefs_impl.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qlist.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qalgorithms.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qiterator.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qhashfunctions.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qpair.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qbytearraylist.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qstringlist.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qregexp.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qstringmatcher.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qcoreevent.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qscopedpointer.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qmetatype.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qvarlengtharray.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qcontainerfwd.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qobject_impl.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qeventloop.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qwindowdefs.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qwindowdefs_win.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qpoint.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qsize.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qcursor.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/qdesktopwidget.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/qwidget.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qmargins.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qpaintdevice.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qrect.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qpalette.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qcolor.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qrgb.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qrgba64.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qbrush.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qvector.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qmatrix.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qpolygon.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qregion.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qdatastream.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qiodevice.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qline.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qtransform.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qpainterpath.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qimage.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qpixelformat.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qpixmap.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qsharedpointer.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qshareddata.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qhash.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qsharedpointer_impl.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qfont.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qfontmetrics.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qfontinfo.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/qsizepolicy.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qkeysequence.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qevent.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qvariant.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qmap.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qdebug.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qtextstream.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qlocale.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qset.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qcontiguouscache.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qurl.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qurlquery.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qfile.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qfiledevice.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qvector2d.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qtouchdevice.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qguiapplication.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qinputmethod.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/QMainWindow \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/qmainwindow.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/qtabwidget.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qicon.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/QWidget \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/QTimer \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qtimer.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qbasictimer.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/QFont \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/QPaintEvent \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/QPainter \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qpainter.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qtextoption.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qpen.h \
-		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/QMessageBox \
-		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/qmessagebox.h \
-		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/qdialog.h \
-		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/QMenu \
-		resources.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug\mainwindow.o mainwindow.cpp
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtMultimedia/QMediaPlayer \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtMultimedia/qmediaplayer.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtMultimedia/qmediaobject.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtMultimedia/qtmultimediadefs.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtMultimedia/qmultimedia.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtMultimedia/qmediacontent.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtMultimedia/qmediaresource.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtNetwork/qnetworkrequest.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/QSharedDataPointer \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/QString \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/QUrl \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/QVariant \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtMultimedia/qmediaenumdebug.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qmetaobject.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtMultimedia/qaudio.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtNetwork/qnetworkconfiguration.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtMultimedia/QMediaPlaylist \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtMultimedia/qmediaplaylist.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtMultimedia/qmediabindableinterface.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug\gamebutton.o gamebutton.cpp
+
+debug/gameobject.o: gameobject.cpp gameobject.h \
+		global.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/QApplication \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/qapplication.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qcoreapplication.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qglobal.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qconfig.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qfeatures.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qsystemdetection.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qprocessordetection.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qcompilerdetection.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qtypeinfo.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qtypetraits.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qisenum.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qsysinfo.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qlogging.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qflags.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qatomic.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qbasicatomic.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qatomic_bootstrap.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qgenericatomic.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qatomic_cxx11.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qatomic_gcc.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qatomic_msvc.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qatomic_armv7.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qatomic_armv6.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qatomic_armv5.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qatomic_ia64.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qatomic_x86.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qatomic_unix.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qglobalstatic.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qmutex.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qnumeric.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qversiontagging.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qstring.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qchar.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qbytearray.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qrefcount.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qnamespace.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qarraydata.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qstringbuilder.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qobject.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qobjectdefs.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qobjectdefs_impl.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qlist.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qalgorithms.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qiterator.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qhashfunctions.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qpair.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qbytearraylist.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qstringlist.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qregexp.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qstringmatcher.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qcoreevent.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qscopedpointer.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qmetatype.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qvarlengtharray.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qcontainerfwd.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qobject_impl.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qeventloop.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qwindowdefs.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qwindowdefs_win.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qpoint.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qsize.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qcursor.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/qdesktopwidget.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/qwidget.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qmargins.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qpaintdevice.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qrect.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qpalette.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qcolor.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qrgb.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qrgba64.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qbrush.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qvector.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qmatrix.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qpolygon.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qregion.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qdatastream.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qiodevice.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qline.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qtransform.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qpainterpath.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qimage.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qpixelformat.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qpixmap.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qsharedpointer.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qshareddata.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qhash.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qsharedpointer_impl.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qfont.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qfontmetrics.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qfontinfo.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/qsizepolicy.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qkeysequence.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qevent.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qvariant.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qmap.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qdebug.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qtextstream.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qlocale.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qset.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qcontiguouscache.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qurl.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qurlquery.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qfile.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qfiledevice.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qvector2d.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qtouchdevice.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qguiapplication.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qinputmethod.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/QMainWindow \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/qmainwindow.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/qtabwidget.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qicon.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/QWidget \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/QTimer \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qtimer.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qbasictimer.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/QFont \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/QPaintEvent \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/QPainter \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qpainter.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qtextoption.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qpen.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtMultimedia/QMediaPlayer \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtMultimedia/qmediaplayer.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtMultimedia/qmediaobject.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtMultimedia/qtmultimediadefs.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtMultimedia/qmultimedia.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtMultimedia/qmediacontent.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtMultimedia/qmediaresource.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtNetwork/qnetworkrequest.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/QSharedDataPointer \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/QString \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/QUrl \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/QVariant \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtMultimedia/qmediaenumdebug.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qmetaobject.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtMultimedia/qaudio.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtNetwork/qnetworkconfiguration.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtMultimedia/QMediaPlaylist \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtMultimedia/qmediaplaylist.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtMultimedia/qmediabindableinterface.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug\gameobject.o gameobject.cpp
+
+debug/gamepage.o: gamepage.cpp gamepage.h \
+		global.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/QApplication \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/qapplication.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qcoreapplication.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qglobal.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qconfig.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qfeatures.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qsystemdetection.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qprocessordetection.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qcompilerdetection.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qtypeinfo.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qtypetraits.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qisenum.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qsysinfo.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qlogging.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qflags.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qatomic.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qbasicatomic.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qatomic_bootstrap.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qgenericatomic.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qatomic_cxx11.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qatomic_gcc.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qatomic_msvc.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qatomic_armv7.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qatomic_armv6.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qatomic_armv5.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qatomic_ia64.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qatomic_x86.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qatomic_unix.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qglobalstatic.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qmutex.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qnumeric.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qversiontagging.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qstring.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qchar.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qbytearray.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qrefcount.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qnamespace.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qarraydata.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qstringbuilder.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qobject.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qobjectdefs.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qobjectdefs_impl.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qlist.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qalgorithms.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qiterator.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qhashfunctions.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qpair.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qbytearraylist.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qstringlist.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qregexp.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qstringmatcher.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qcoreevent.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qscopedpointer.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qmetatype.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qvarlengtharray.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qcontainerfwd.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qobject_impl.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qeventloop.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qwindowdefs.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qwindowdefs_win.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qpoint.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qsize.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qcursor.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/qdesktopwidget.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/qwidget.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qmargins.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qpaintdevice.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qrect.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qpalette.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qcolor.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qrgb.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qrgba64.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qbrush.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qvector.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qmatrix.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qpolygon.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qregion.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qdatastream.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qiodevice.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qline.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qtransform.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qpainterpath.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qimage.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qpixelformat.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qpixmap.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qsharedpointer.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qshareddata.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qhash.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qsharedpointer_impl.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qfont.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qfontmetrics.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qfontinfo.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/qsizepolicy.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qkeysequence.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qevent.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qvariant.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qmap.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qdebug.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qtextstream.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qlocale.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qset.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qcontiguouscache.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qurl.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qurlquery.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qfile.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qfiledevice.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qvector2d.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qtouchdevice.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qguiapplication.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qinputmethod.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/QMainWindow \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/qmainwindow.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/qtabwidget.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qicon.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/QWidget \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/QTimer \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qtimer.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qbasictimer.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/QFont \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/QPaintEvent \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/QPainter \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qpainter.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qtextoption.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qpen.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtMultimedia/QMediaPlayer \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtMultimedia/qmediaplayer.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtMultimedia/qmediaobject.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtMultimedia/qtmultimediadefs.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtMultimedia/qmultimedia.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtMultimedia/qmediacontent.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtMultimedia/qmediaresource.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtNetwork/qnetworkrequest.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/QSharedDataPointer \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/QString \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/QUrl \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/QVariant \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtMultimedia/qmediaenumdebug.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qmetaobject.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtMultimedia/qaudio.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtNetwork/qnetworkconfiguration.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtMultimedia/QMediaPlaylist \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtMultimedia/qmediaplaylist.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtMultimedia/qmediabindableinterface.h \
+		gamebutton.h \
+		gameobject.h \
+		mainwindow.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug\gamepage.o gamepage.cpp
 
 debug/qrc_source.o: debug/qrc_source.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug\qrc_source.o debug\qrc_source.cpp
 
 debug/moc_mainwindow.o: debug/moc_mainwindow.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug\moc_mainwindow.o debug\moc_mainwindow.cpp
+
+debug/moc_gamebutton.o: debug/moc_gamebutton.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug\moc_gamebutton.o debug\moc_gamebutton.cpp
+
+debug/moc_gameobject.o: debug/moc_gameobject.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug\moc_gameobject.o debug\moc_gameobject.cpp
+
+debug/moc_gamepage.o: debug/moc_gamepage.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug\moc_gamepage.o debug\moc_gamepage.cpp
 
 ####### Install
 
