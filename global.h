@@ -14,7 +14,7 @@
 #include <QtMultimedia/QMediaPlayer>
 #include <QMediaPlaylist>
 
-#define INTIME(x) connect(&main_timer,&QTimer::timeout,this,x,Qt::DirectConnection)
+#define INTIME(x) connect(&main_timer,SIGNAL(timeout()),this,SLOT(x()),Qt::DirectConnection)
 #define MIN -2147483648
 #define MAX 2147483647
 #define pic(x) ":/game_resources/image/"#x".png"
