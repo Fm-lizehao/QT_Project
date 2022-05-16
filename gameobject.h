@@ -19,11 +19,13 @@ class GameObject : public QWidget
 
 		int xLower, xUpper, yLower, yUpper;
 
+        bool inCollision;   //是否参与碰撞
+
 		bool isStubborn;   //能不能被撞得动
 
 		GameObject() {}
 
-		GameObject(QWidget *parent, QString str, int x, int y, int speedX = 0, int speedY = 0, int speedRad = 0, int xLower = MIN, int xUpper = MAX, int yLower = MIN, int yUpper = MAX, bool stubborn = true);
+        GameObject(QWidget *parent, QString str, int x, int y, int speedX = 0, int speedY = 0, int speedRad = 0, int xLower = MIN, int xUpper = MAX, int yLower = MIN, int yUpper = MAX, bool inCollision=true, bool stubborn = true);
 
 		~GameObject();
 
@@ -54,43 +56,13 @@ class GameObject : public QWidget
 };
 
 
-class IllusoryObject : public GameObject
-{
-		Q_OBJECT
-
-	public:
-
-		IllusoryObject() {}
-
-		IllusoryObject(QWidget *parent, QString str, int x, int y, int speedX = 0, int speedY = 0, int speedRad = 0, int xLower = MIN, int xUpper = MAX, int yLower = MIN, int yUpper = MAX, bool stubborn = true);
-
-		~IllusoryObject();
-
-};
-
-
-class RealObject : public GameObject
-{
-		Q_OBJECT
-
-	public:
-
-		RealObject() {}
-
-		RealObject(QWidget *parent, QString str, int x, int y, int speedX = 0, int speedY = 0, int speedRad = 0, int xLower = MIN, int xUpper = MAX, int yLower = MIN, int yUpper = MAX, bool stubborn = true);
-
-		~RealObject();
-
-};
-
-
-class LineBarrier : public RealObject
+class LineBarrier : public GameObject
 {
 		Q_OBJECT
 };
 
 
-class Role : public RealObject
+class Role : public GameObject
 {
 		Q_OBJECT
 };

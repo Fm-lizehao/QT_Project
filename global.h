@@ -22,8 +22,6 @@
 
 class GameButton;
 class GameObject;
-class IluusoryObject;
-class RealObject;
 class LineBarrier;
 class Role;
 class GamePage;

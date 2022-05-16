@@ -108,142 +108,6 @@ int GameObject::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     }
     return _id;
 }
-struct qt_meta_stringdata_IllusoryObject_t {
-    QByteArrayData data[1];
-    char stringdata0[15];
-};
-#define QT_MOC_LITERAL(idx, ofs, len) \
-    Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
-    qptrdiff(offsetof(qt_meta_stringdata_IllusoryObject_t, stringdata0) + ofs \
-        - idx * sizeof(QByteArrayData)) \
-    )
-static const qt_meta_stringdata_IllusoryObject_t qt_meta_stringdata_IllusoryObject = {
-    {
-QT_MOC_LITERAL(0, 0, 14) // "IllusoryObject"
-
-    },
-    "IllusoryObject"
-};
-#undef QT_MOC_LITERAL
-
-static const uint qt_meta_data_IllusoryObject[] = {
-
- // content:
-       7,       // revision
-       0,       // classname
-       0,    0, // classinfo
-       0,    0, // methods
-       0,    0, // properties
-       0,    0, // enums/sets
-       0,    0, // constructors
-       0,       // flags
-       0,       // signalCount
-
-       0        // eod
-};
-
-void IllusoryObject::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
-{
-    Q_UNUSED(_o);
-    Q_UNUSED(_id);
-    Q_UNUSED(_c);
-    Q_UNUSED(_a);
-}
-
-const QMetaObject IllusoryObject::staticMetaObject = {
-    { &GameObject::staticMetaObject, qt_meta_stringdata_IllusoryObject.data,
-      qt_meta_data_IllusoryObject,  qt_static_metacall, Q_NULLPTR, Q_NULLPTR}
-};
-
-
-const QMetaObject *IllusoryObject::metaObject() const
-{
-    return QObject::d_ptr->metaObject ? QObject::d_ptr->dynamicMetaObject() : &staticMetaObject;
-}
-
-void *IllusoryObject::qt_metacast(const char *_clname)
-{
-    if (!_clname) return Q_NULLPTR;
-    if (!strcmp(_clname, qt_meta_stringdata_IllusoryObject.stringdata0))
-        return static_cast<void*>(const_cast< IllusoryObject*>(this));
-    return GameObject::qt_metacast(_clname);
-}
-
-int IllusoryObject::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
-{
-    _id = GameObject::qt_metacall(_c, _id, _a);
-    if (_id < 0)
-        return _id;
-    return _id;
-}
-struct qt_meta_stringdata_RealObject_t {
-    QByteArrayData data[1];
-    char stringdata0[11];
-};
-#define QT_MOC_LITERAL(idx, ofs, len) \
-    Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
-    qptrdiff(offsetof(qt_meta_stringdata_RealObject_t, stringdata0) + ofs \
-        - idx * sizeof(QByteArrayData)) \
-    )
-static const qt_meta_stringdata_RealObject_t qt_meta_stringdata_RealObject = {
-    {
-QT_MOC_LITERAL(0, 0, 10) // "RealObject"
-
-    },
-    "RealObject"
-};
-#undef QT_MOC_LITERAL
-
-static const uint qt_meta_data_RealObject[] = {
-
- // content:
-       7,       // revision
-       0,       // classname
-       0,    0, // classinfo
-       0,    0, // methods
-       0,    0, // properties
-       0,    0, // enums/sets
-       0,    0, // constructors
-       0,       // flags
-       0,       // signalCount
-
-       0        // eod
-};
-
-void RealObject::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
-{
-    Q_UNUSED(_o);
-    Q_UNUSED(_id);
-    Q_UNUSED(_c);
-    Q_UNUSED(_a);
-}
-
-const QMetaObject RealObject::staticMetaObject = {
-    { &GameObject::staticMetaObject, qt_meta_stringdata_RealObject.data,
-      qt_meta_data_RealObject,  qt_static_metacall, Q_NULLPTR, Q_NULLPTR}
-};
-
-
-const QMetaObject *RealObject::metaObject() const
-{
-    return QObject::d_ptr->metaObject ? QObject::d_ptr->dynamicMetaObject() : &staticMetaObject;
-}
-
-void *RealObject::qt_metacast(const char *_clname)
-{
-    if (!_clname) return Q_NULLPTR;
-    if (!strcmp(_clname, qt_meta_stringdata_RealObject.stringdata0))
-        return static_cast<void*>(const_cast< RealObject*>(this));
-    return GameObject::qt_metacast(_clname);
-}
-
-int RealObject::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
-{
-    _id = GameObject::qt_metacall(_c, _id, _a);
-    if (_id < 0)
-        return _id;
-    return _id;
-}
 struct qt_meta_stringdata_LineBarrier_t {
     QByteArrayData data[1];
     char stringdata0[12];
@@ -287,7 +151,7 @@ void LineBarrier::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id,
 }
 
 const QMetaObject LineBarrier::staticMetaObject = {
-    { &RealObject::staticMetaObject, qt_meta_stringdata_LineBarrier.data,
+    { &GameObject::staticMetaObject, qt_meta_stringdata_LineBarrier.data,
       qt_meta_data_LineBarrier,  qt_static_metacall, Q_NULLPTR, Q_NULLPTR}
 };
 
@@ -302,12 +166,12 @@ void *LineBarrier::qt_metacast(const char *_clname)
     if (!_clname) return Q_NULLPTR;
     if (!strcmp(_clname, qt_meta_stringdata_LineBarrier.stringdata0))
         return static_cast<void*>(const_cast< LineBarrier*>(this));
-    return RealObject::qt_metacast(_clname);
+    return GameObject::qt_metacast(_clname);
 }
 
 int LineBarrier::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
 {
-    _id = RealObject::qt_metacall(_c, _id, _a);
+    _id = GameObject::qt_metacall(_c, _id, _a);
     if (_id < 0)
         return _id;
     return _id;
@@ -355,7 +219,7 @@ void Role::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void *
 }
 
 const QMetaObject Role::staticMetaObject = {
-    { &RealObject::staticMetaObject, qt_meta_stringdata_Role.data,
+    { &GameObject::staticMetaObject, qt_meta_stringdata_Role.data,
       qt_meta_data_Role,  qt_static_metacall, Q_NULLPTR, Q_NULLPTR}
 };
 
@@ -370,12 +234,12 @@ void *Role::qt_metacast(const char *_clname)
     if (!_clname) return Q_NULLPTR;
     if (!strcmp(_clname, qt_meta_stringdata_Role.stringdata0))
         return static_cast<void*>(const_cast< Role*>(this));
-    return RealObject::qt_metacast(_clname);
+    return GameObject::qt_metacast(_clname);
 }
 
 int Role::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
 {
-    _id = RealObject::qt_metacall(_c, _id, _a);
+    _id = GameObject::qt_metacall(_c, _id, _a);
     if (_id < 0)
         return _id;
     return _id;
