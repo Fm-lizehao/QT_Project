@@ -34,7 +34,10 @@ int GameObject::getHeight()
 
 QPixmap GameObject::getImg()
 {
-	return img.transformed(matrix, Qt::FastTransformation);
+    QRect rect(0,0,img.width(),img.height());
+    auto retImg=img.transformed(matrix, Qt::SmoothTransformation);
+    rect.moveCenter(retImg.rect().center());
+    return retImg.copy(rect);
 }
 
 void GameObject::setSpeed(int speedx, int speedy, int speedrad)
@@ -68,7 +71,9 @@ bool GameObject::isCollision(GameObject& other)
 void GameObject::updateLocation()
 {
 	checkOutBorder();
+    matrix.translate(img.width()/2.0, img.height()/2.0);
 	matrix.rotate(speedRad);
+    matrix.translate(-img.width()/2.0, -img.height()/2.0);
 	move(x() + speedX, y() + speedY);
 	update();
 }
