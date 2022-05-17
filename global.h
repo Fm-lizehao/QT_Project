@@ -22,6 +22,9 @@
 
 class GameButton;
 class GameObject;
+class VirtualObject;
+class HeavyBody;
+class Pushable;
 class LineBarrier;
 class Role;
 class GamePage;

@@ -1,10 +1,10 @@
 #include "gameobject.h"
 
-GameObject::GameObject(QWidget *parent, QString str, int x, int y, int speedX, int speedY, int speedRad, int xLower, int xUpper, int yLower, int yUpper, bool collision, bool stubborn): QWidget(parent), img(str), speedX(speedX), speedY(speedY), speedRad(speedRad), xLower(xLower), xUpper(xUpper), yLower(yLower), yUpper(yUpper), inCollision(collision), isStubborn(stubborn)
+GameObject::GameObject(QWidget *parent, QString str, int x, int y, int speedX, int speedY, int speedRad, int xLower, int xUpper, int yLower, int yUpper, bool collision, bool stubborn, bool grativity): QWidget(parent), img(str), speedX(speedX), speedY(speedY), speedRad(speedRad), xLower(xLower), xUpper(xUpper), yLower(yLower), yUpper(yUpper), inCollision(collision), isStubborn(stubborn), grativity(grativity)
 {
 	setFixedSize(QSize(img.width(), img.height()));
 	move(x, y);
-	INTIME(updateLocation);
+    INTIME(updateLocation);
 }
 
 GameObject::~GameObject()
@@ -55,6 +55,18 @@ void GameObject::setReverseSpeed()
 	update();
 }
 
+void GameObject::setXReverseSpeed()
+{
+    speedX = -speedX;
+    update();
+}
+
+void GameObject::setYReverseSpeed()
+{
+    speedY = -speedY;
+    update();
+}
+
 void GameObject::checkOutBorder()
 {
 	if (x() < xLower)speedX = abs(speedX);
@@ -78,3 +90,32 @@ void GameObject::updateLocation()
 	update();
 }
 
+VirtualObject::VirtualObject(QWidget *parent, QString str, int x, int y, int speedX, int speedY, int speedRad, int xLower, int xUpper, int yLower, int yUpper, bool grativity) : GameObject(parent, str, x, y, speedX, speedY, speedRad, xLower, xUpper, yLower, yUpper, false, true, grativity)
+{
+
+}
+
+VirtualObject::~VirtualObject()
+{
+
+}
+
+HeavyBody::HeavyBody(QWidget *parent, QString str, int x, int y, int speedX, int speedY, int speedRad, int xLower, int xUpper, int yLower, int yUpper, bool grativity) : GameObject(parent, str, x, y, speedX, speedY, speedRad, xLower, xUpper, yLower, yUpper, true, true, grativity)
+{
+
+}
+
+HeavyBody::~HeavyBody()
+{
+
+}
+
+Pushable::Pushable(QWidget *parent, QString str, int x, int y, int speedX, int speedY, int speedRad, int xLower, int xUpper, int yLower, int yUpper, bool grativity) : GameObject(parent, str, x, y, speedX, speedY, speedRad, xLower, xUpper, yLower, yUpper, true, false, grativity)
+{
+
+}
+
+Pushable::~Pushable()
+{
+
+}
