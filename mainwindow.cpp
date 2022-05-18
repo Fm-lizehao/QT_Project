@@ -30,30 +30,30 @@ MainWindow::~MainWindow()
 void MainWindow::startGame()
 {
     page->deleteLater();
-    qDebug()<<"startGame()";
+
 }
 
 void MainWindow::mapEdit()
 {
     page->deleteLater();
-    qDebug()<<"mapEdit()";
+
 }
 
 void MainWindow::readMe()
 {
     page->deleteLater();
-    qDebug()<<"readMe()";
+
 }
 
 void MainWindow::config()
 {
     page->deleteLater();
-    qDebug()<<"config()";
+
 }
 
 void MainWindow::exit()
 {
-    if(!(QMessageBox::question(this,tr("退出游戏"),tr("     你真的要退出吗?    (盯) "),tr(" 啊~可耻地润了~T__T "),tr(" 人家点错惹>﹏< "))))
+    if(!(QMessageBox::question(this,tr("退出游戏"),tr("     你真的要退出吗?    (盯) "),tr(" 啊~可耻地润了T__T "),tr(" 人家点错惹>﹏< "))))
     {
         quitSignal();
     }
