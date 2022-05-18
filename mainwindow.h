@@ -27,6 +27,8 @@ class MainWindow : public QMainWindow
 
 	signals:
 
+        void quitSignal();
+
 	public slots:
 
 		void startGame();

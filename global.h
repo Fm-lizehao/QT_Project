@@ -7,6 +7,7 @@
 #include <QApplication>
 #include <QMainWindow>
 #include <QWidget>
+#include <QMessageBox>
 #include <QTimer>
 #include <QFont>
 #include <QPaintEvent>
