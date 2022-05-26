@@ -157,6 +157,24 @@
         <file>image/PipeBad_cute.png</file>
         <file>image/PipeBad_smile.png</file>
         <file>image/Player.png</file>
+        <file>image/Player_cry1_left.png</file>
+        <file>image/Player_cry1_right.png</file>
+        <file>image/Player_cry2_left.png</file>
+        <file>image/Player_cry2_right.png</file>
+        <file>image/Player_cry3_left.png</file>
+        <file>image/Player_cry3_right.png</file>
+        <file>image/Player_fly1_left.png</file>
+        <file>image/Player_fly1_right.png</file>
+        <file>image/Player_fly2_left.png</file>
+        <file>image/Player_fly2_right.png</file>
+        <file>image/Player_jump_left.png</file>
+        <file>image/Player_jump_right.png</file>
+        <file>image/Player_stand_left.png</file>
+        <file>image/Player_stand_right.png</file>
+        <file>image/Player_walk1_left.png</file>
+        <file>image/Player_walk1_right.png</file>
+        <file>image/Player_walk2_left.png</file>
+        <file>image/Player_walk2_right.png</file>
         <file>image/Prompt_arrow_up.png</file>
         <file>image/Prompt_btn_frame.png</file>
         <file>image/Prompt_cuff.png</file>
@@ -262,6 +280,9 @@
         <file>image/Startup_btn_back.png</file>
         <file>image/Startup_btn_back_branch.png</file>
         <file>image/Startup_button_achievement.png</file>
+        <file>image/Startup_button_main_1.png</file>
+        <file>image/Startup_button_main_2.png</file>
+        <file>image/Startup_button_main_3.png</file>
         <file>image/Startup_button_setting.png</file>
         <file>image/Startup_button_setting_disabled.png</file>
         <file>image/Startup_cloud_1.png</file>
@@ -427,8 +448,5 @@
         <file>sound/Audio_unlock.mp3</file>
         <file>sound/Audio_yell.mp3</file>
         <file>sound/Audio_yell_2.mp3</file>
-        <file>image/Startup_button_main_1.png</file>
-        <file>image/Startup_button_main_2.png</file>
-        <file>image/Startup_button_main_3.png</file>
     </qresource>
 </RCC>

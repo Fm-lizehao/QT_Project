@@ -125,12 +125,14 @@ debug/qrc_source.cpp: source.qrc \
 		image/StageSimple_right.png \
 		image/MyDialog_btn.png \
 		image/Stage4_screen_lock_3.png \
+		image/Player_fly2_right.png \
 		image/Shield.png \
 		image/HelloBoard_emoji_lady_smile.png \
 		image/Base.png \
 		image/HelloBoard_emoji_smile.png \
 		image/Cloud_0.png \
 		image/StageSimple_block_bottom.png \
+		image/Player_cry1_left.png \
 		image/BoxFrame.png \
 		image/StageEnd_screen_frame.png \
 		image/Toggle_bk.png \
@@ -167,11 +169,13 @@ debug/qrc_source.cpp: source.qrc \
 		image/Fish_1.png \
 		image/Hero_muffler_2.png \
 		image/Emoji_king_5.png \
+		image/Player_fly1_left.png \
 		image/Startup_screen_5_2.png \
 		image/Arch_hor_1.png \
 		image/TreeTiny_2.png \
 		image/Stage4_screen_bomb.png \
 		image/Door_broken.png \
+		image/Player_walk1_right.png \
 		image/Stage4_script_cute.png \
 		image/Common_btn.png \
 		image/Hero_attack_1.png \
@@ -197,6 +201,7 @@ debug/qrc_source.cpp: source.qrc \
 		image/Cloud_2.png \
 		image/Stage4_book_crevice_6.png \
 		image/ShareWeixinImage.png \
+		image/Player_walk2_right.png \
 		image/StagePlant_pig.png \
 		image/Startup_screen_7_1.png \
 		image/Corner_lrb.png \
@@ -250,6 +255,7 @@ debug/qrc_source.cpp: source.qrc \
 		image/TalkBox_no_emoji_left2.png \
 		image/MoreCoin_tier_1.png \
 		image/Notice_1.png \
+		image/Player_walk2_left.png \
 		image/ZZZ_0.png \
 		image/BrickChip.png \
 		image/StagePlant_btn_flower.png \
@@ -274,6 +280,7 @@ debug/qrc_source.cpp: source.qrc \
 		image/StagePlant_shadow_pure.png \
 		image/TalkBox_left_2.png \
 		image/Saw.png \
+		image/Player_cry1_right.png \
 		image/Cloud_2_bad.png \
 		image/King.png \
 		image/Stage4_book_anim_2.png \
@@ -323,6 +330,7 @@ debug/qrc_source.cpp: source.qrc \
 		image/Stage4_book_middle_3.png \
 		image/Startup_screen_4_1.png \
 		image/ZZZ_2.png \
+		image/Player_cry3_left.png \
 		image/Castle_1.png \
 		image/Transition_emoji_2.png \
 		image/startBtn2.png \
@@ -335,11 +343,13 @@ debug/qrc_source.cpp: source.qrc \
 		image/Prompt_arrow_up.png \
 		image/StagePlant_slime_shovelable.png \
 		image/Cloud_2_cute.png \
+		image/Player_jump_right.png \
 		image/HelloBoard2.png \
 		image/Startup_screen_3_1.png \
 		image/StagePlant_pig_hurt.png \
 		image/Crown.png \
 		image/Pipe.png \
+		image/Player_walk1_left.png \
 		image/Thumb_book_opened.png \
 		image/Bridge_middle.png \
 		image/RoundBullet.png \
@@ -371,14 +381,17 @@ debug/qrc_source.cpp: source.qrc \
 		image/FailFrame.png \
 		image/Thumb_speaker_on.png \
 		image/HillMonster_walk_2.png \
+		image/Player_stand_right.png \
 		image/TalkBox_no_hook_left.png \
 		image/Fish_2.png \
 		image/MyDialog_raw.png \
+		image/Player_fly1_right.png \
 		image/Hero_muffler_3.png \
 		image/HillMonster_emoji.png \
 		image/Startup_screen_5_3.png \
 		image/Arch_hor_2.png \
 		image/Startup_button_main_1.png \
+		image/Player_jump_left.png \
 		image/Spark_1.png \
 		image/Hero_attack_2.png \
 		image/Stage4_book2_frame_3.png \
@@ -391,6 +404,7 @@ debug/qrc_source.cpp: source.qrc \
 		image/BrickFrame.png \
 		image/PromptGoOn_2.png \
 		image/ZZZ_4.png \
+		image/Player_cry2_right.png \
 		image/Thumb_about.png \
 		image/Castle_3.png \
 		image/UnknownBrickOver_broken.png \
@@ -400,9 +414,11 @@ debug/qrc_source.cpp: source.qrc \
 		image/Win_emoji_2.png \
 		image/Hero_hurt_2.png \
 		image/Transition_right.png \
+		image/Player_stand_left.png \
 		image/Emoji_dc_2.png \
 		image/Box_1.png \
 		image/Pipe_door.png \
+		image/Player_cry2_left.png \
 		image/Player.png \
 		image/Cloud_3.png \
 		image/Stage4_book_crevice_7.png \
@@ -417,6 +433,7 @@ debug/qrc_source.cpp: source.qrc \
 		image/StageSimple_block_top.png \
 		image/Stage4_book_scrip_crevice.png \
 		image/Check.png \
+		image/Player_cry3_right.png \
 		image/BrickUnknown_inner.png \
 		image/Civilian_knee_3.png \
 		image/Startup_title_line_both.png \
@@ -432,6 +449,7 @@ debug/qrc_source.cpp: source.qrc \
 		image/Stage7_3_prompt.png \
 		image/Monster_shit_smoke_1.png \
 		image/BrickCon.png \
+		image/Player_fly2_left.png \
 		image/Emoji_hero_2.png \
 		image/Float.png \
 		image/BrickGround_broken.png \
@@ -665,6 +683,9 @@ debug/moc_mainwindow.cpp: global.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/qtabwidget.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qicon.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/QWidget \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/QMessageBox \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/qmessagebox.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/qdialog.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/QTimer \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qtimer.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qbasictimer.h \
@@ -837,6 +858,9 @@ debug/moc_gamebutton.cpp: global.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/qtabwidget.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qicon.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/QWidget \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/QMessageBox \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/qmessagebox.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/qdialog.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/QTimer \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qtimer.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qbasictimer.h \
@@ -984,6 +1008,9 @@ debug/moc_gameobject.cpp: global.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/qtabwidget.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qicon.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/QWidget \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/QMessageBox \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/qmessagebox.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/qdialog.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/QTimer \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qtimer.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qbasictimer.h \
@@ -1131,6 +1158,9 @@ debug/moc_gamepage.cpp: global.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/qtabwidget.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qicon.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/QWidget \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/QMessageBox \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/qmessagebox.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/qdialog.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/QTimer \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qtimer.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qbasictimer.h \
@@ -1299,6 +1329,9 @@ debug/main.o: main.cpp mainwindow.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/qtabwidget.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qicon.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/QWidget \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/QMessageBox \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/qmessagebox.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/qdialog.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/QTimer \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qtimer.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qbasictimer.h \
@@ -1471,6 +1504,9 @@ debug/mainwindow.o: mainwindow.cpp mainwindow.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/qtabwidget.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qicon.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/QWidget \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/QMessageBox \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/qmessagebox.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/qdialog.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/QTimer \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qtimer.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qbasictimer.h \
@@ -1644,6 +1680,9 @@ debug/gamebutton.o: gamebutton.cpp gamebutton.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/qtabwidget.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qicon.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/QWidget \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/QMessageBox \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/qmessagebox.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/qdialog.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/QTimer \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qtimer.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qbasictimer.h \
@@ -1791,6 +1830,9 @@ debug/gameobject.o: gameobject.cpp gameobject.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/qtabwidget.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qicon.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/QWidget \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/QMessageBox \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/qmessagebox.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/qdialog.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/QTimer \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qtimer.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qbasictimer.h \
@@ -1938,6 +1980,9 @@ debug/gamepage.o: gamepage.cpp gamepage.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/qtabwidget.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qicon.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/QWidget \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/QMessageBox \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/qmessagebox.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtWidgets/qdialog.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/QTimer \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qtimer.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qbasictimer.h \
