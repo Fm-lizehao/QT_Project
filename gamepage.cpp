@@ -26,9 +26,7 @@ void GamePage::paintEvent(QPaintEvent *event)
 	painter.drawPixmap(0, 0, width(), height(), QPixmap(background));
 	for (auto i : button)
 	{
-		if (i.second->flipped)
-			painter.drawPixmap(i.second->x(), i.second->y(), i.second->width(), i.second->height(), i.second->img2);
-		else painter.drawPixmap(i.second->x(), i.second->y(), i.second->width(), i.second->height(), i.second->img);
+        painter.drawPixmap(i.second->x(), i.second->y(), i.second->width(), i.second->height(), i.second->getImg());
 		painter.drawText(i.second->x(), i.second->y(), i.second->width(), i.second->height(), Qt::AlignTop | Qt::AlignLeft, i.second->text);
 	}
 	for (auto i : object)
@@ -70,10 +68,7 @@ void StartPage::paintEvent(QPaintEvent *event)
     painter.drawPixmap(80, 120, 1100, 600, QPixmap(background));
 	for (auto i : button)
 	{
-		if (i.second->flipped)
-			painter.drawPixmap(i.second->x(), i.second->y(), i.second->width(), i.second->height(), i.second->img2);
-		else
-			painter.drawPixmap(i.second->x(), i.second->y(), i.second->width(), i.second->height(), i.second->img);
+        painter.drawPixmap(i.second->x(), i.second->y(), i.second->width(), i.second->height(), i.second->getImg());
 		painter.drawText(i.second->x(), i.second->y(), i.second->width(), i.second->height(), Qt::AlignCenter, i.second->text);
 	}
 	for (auto i : object)

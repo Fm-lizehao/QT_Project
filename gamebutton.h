@@ -27,6 +27,10 @@ class GameButton : public QWidget
 
 		~GameButton();
 
+        QPixmap getImg();
+
+        void paintEvent() = delete;
+
 		void enterEvent(QEvent *event); //鼠标移入函数
 
 		void leaveEvent(QEvent *event);  //鼠标移出函数

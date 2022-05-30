@@ -17,19 +17,21 @@ class GameObject : public QWidget
 
 		int speedX, speedY, speedRad;
 
-		int xLower, xUpper, yLower, yUpper;
+        int xLower, xUpper, yLower, yUpper; //boundary
 
-        bool inCollision;   //是否参与碰撞
+        bool collision;   //是否参与碰撞
 
-		bool isStubborn;   //能不能被撞得动
+        bool stubborn;   //能不能被撞得动
 
         bool grativity;   //是否受重力下落
 
 		GameObject() {}
 
-        GameObject(QWidget *parent, QString str, int x, int y, int speedX = 0, int speedY = 0, int speedRad = 0, int xLower = MIN, int xUpper = MAX, int yLower = MIN, int yUpper = MAX, bool inCollision=true, bool stubborn = true, bool grativity = false);
+        GameObject(QWidget *parent, QString str, int x, int y, int speedX = 0, int speedY = 0, int speedRad = 0, int xLower = MIN, int xUpper = MAX, int yLower = MIN, int yUpper = MAX, bool collision=true, bool stubborn = true, bool grativity = false);
 
         virtual ~GameObject();
+
+        void paintEvent() = delete;
 
 		int getX();
 
@@ -51,7 +53,7 @@ class GameObject : public QWidget
 
 		void checkOutBorder();
 
-		bool isCollision(GameObject& other);
+        bool collisionWith(GameObject& other);
 
 	signals:
 

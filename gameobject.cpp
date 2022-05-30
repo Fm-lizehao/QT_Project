@@ -1,6 +1,6 @@
 #include "gameobject.h"
 
-GameObject::GameObject(QWidget *parent, QString str, int x, int y, int speedX, int speedY, int speedRad, int xLower, int xUpper, int yLower, int yUpper, bool collision, bool stubborn, bool grativity): QWidget(parent), img(str), speedX(speedX), speedY(speedY), speedRad(speedRad), xLower(xLower), xUpper(xUpper), yLower(yLower), yUpper(yUpper), inCollision(collision), isStubborn(stubborn), grativity(grativity)
+GameObject::GameObject(QWidget *parent, QString str, int x, int y, int speedX, int speedY, int speedRad, int xLower, int xUpper, int yLower, int yUpper, bool collision, bool stubborn, bool grativity): QWidget(parent), img(str), speedX(speedX), speedY(speedY), speedRad(speedRad), xLower(xLower), xUpper(xUpper), yLower(yLower), yUpper(yUpper), collision(collision), stubborn(stubborn), grativity(grativity)
 {
 	setFixedSize(QSize(img.width(), img.height()));
 	move(x, y);
@@ -45,26 +45,22 @@ void GameObject::setSpeed(int speedx, int speedy, int speedrad)
 	speedX = speedx;
 	speedY = speedy;
 	speedRad = speedrad;
-	update();
 }
 
 void GameObject::setReverseSpeed()
 {
 	speedX = -speedX;
 	speedY = -speedY;
-	update();
 }
 
 void GameObject::setXReverseSpeed()
 {
     speedX = -speedX;
-    update();
 }
 
 void GameObject::setYReverseSpeed()
 {
     speedY = -speedY;
-    update();
 }
 
 void GameObject::checkOutBorder()
@@ -75,19 +71,17 @@ void GameObject::checkOutBorder()
 	if (y() + height() > yUpper)speedY = -abs(speedY);
 }
 
-bool GameObject::isCollision(GameObject& other)
+bool GameObject::collisionWith(GameObject& other)
 {
 	return rect().intersects(other.rect());
 }
 
 void GameObject::updateLocation()
 {
-	checkOutBorder();
     matrix.translate(img.width()/2.0, img.height()/2.0);
 	matrix.rotate(speedRad);
     matrix.translate(-img.width()/2.0, -img.height()/2.0);
 	move(x() + speedX, y() + speedY);
-	update();
 }
 
 VirtualObject::VirtualObject(QWidget *parent, QString str, int x, int y, int speedX, int speedY, int speedRad, int xLower, int xUpper, int yLower, int yUpper, bool grativity) : GameObject(parent, str, x, y, speedX, speedY, speedRad, xLower, xUpper, yLower, yUpper, false, true, grativity)
