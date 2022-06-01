@@ -5,47 +5,43 @@
 
 class GamePage : public QWidget
 {
-		Q_OBJECT
+    Q_OBJECT
 
-	public:
+public:
 
-		QPixmap background;
+    QPixmap background;
 
-		std::map<QString, GameButton*> button;
+    QRect backgroundArea;
 
-		std::map<QString, GameObject*> object;
+    std::map<QString, GameButton*> buttons;
 
-		explicit GamePage(QString bg, QWidget *parent = nullptr, int wid = 1280, int heig = 720);
+    std::map<QString, GameObject*> objects;
 
-		virtual ~GamePage();
+    explicit GamePage(QString bg, QRect bgArea, QWidget *parent = nullptr, int wid = 1280, int heig = 720);
 
-		virtual void init();
+    virtual ~GamePage(){}
 
-		virtual void paintEvent(QPaintEvent *event);
+    void paintEvent(QPaintEvent *event);
 
-	signals:
+signals:
 
-	public slots:
+public slots:
 
 };
 
 class StartPage : public GamePage
 {
-		Q_OBJECT
+    Q_OBJECT
 
-	public:
+public:
 
-		explicit StartPage(QString bg, QWidget *parent = nullptr, int wid = 1280, int heig = 720);
+    explicit StartPage(QWidget *parent = nullptr, int wid = 1280, int heig = 720);
 
-		~StartPage();
+    ~StartPage(){}
 
-		void init();
+signals:
 
-		void paintEvent(QPaintEvent *event);
-
-	signals:
-
-	public slots:
+public slots:
 
 };
 

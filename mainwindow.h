@@ -7,39 +7,39 @@
 
 class MainWindow : public QMainWindow
 {
-		Q_OBJECT
+    Q_OBJECT
 
-	private:
+private:
 
-		Ui::MainWindow *ui;
+    Ui::MainWindow *ui;
 
-	public:
+public:
 
-		GamePage *page = NULL;
+    GamePage *page = NULL;
 
-		QMediaPlayer * music = NULL;
+    QMediaPlayer * music = NULL;
 
-		QMediaPlaylist * playlist = NULL;
+    QMediaPlaylist * playlist = NULL;
 
-		MainWindow(QWidget *parent = 0);
+    MainWindow(QWidget *parent = 0);
 
-		~MainWindow();
+    ~MainWindow();
 
-	signals:
+signals:
 
-		void quitSignal();
+    void quitSignal();
 
-	public slots:
+public slots:
 
-		void startGame();
+    void startGame();
 
-		void mapEdit();
+    void mapEdit();
 
-		void readMe();
+    void readMe();
 
-		void config();
+    void config();
 
-		void exit();
+    void exit();
 
 };
 

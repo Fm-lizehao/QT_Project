@@ -5,43 +5,43 @@
 
 class GameButton : public QWidget
 {
-		Q_OBJECT
+    Q_OBJECT
 
-	public:
+public:
 
-		QPixmap img;
+    QPixmap img;
 
-		QPixmap img2;//change
+    QPixmap img2;//change
 
-		bool flipped = false;
+    bool flipped = false;
 
-		QString text;
+    QString text;
 
-		int changeMode;
+    int changeMode;
 
-		GameButton() {}
+    GameButton() {}
 
-		GameButton(QWidget *parent, QString pic1, QString pic2, QString text, int x, int y, QObject* receiver, const char* method);
+    GameButton(QWidget *parent, QString pic1, QString pic2, QString text, int x, int y, QObject* receiver, const char* method);
 
-		GameButton(QWidget *parent, QString pic, QString text, int x, int y, QObject* receiver, const char* method);
+    GameButton(QWidget *parent, QString pic, QString text, int x, int y, QObject* receiver, const char* method);
 
-		~GameButton();
+    ~GameButton() {}
 
-		QPixmap getImg();
+    QPixmap getImg();
 
-		void paintEvent() = delete;
+    void paintEvent() = delete;
 
-		void enterEvent(QEvent *event); //鼠标移入函数
+    void enterEvent(QEvent *event); //鼠标移入函数
 
-		void leaveEvent(QEvent *event);  //鼠标移出函数
+    void leaveEvent(QEvent *event);  //鼠标移出函数
 
-		void mouseReleaseEvent(QMouseEvent *e);  //鼠标点击
+    void mouseReleaseEvent(QMouseEvent *e);  //鼠标点击
 
-	signals:
+signals:
 
-		void clicked();
+    void clicked();
 
-	public slots:
+public slots:
 
 };
 
