@@ -17,7 +17,7 @@ class GameButton : public QWidget
 
 		QString text;
 
-        int changeMode;
+		int changeMode;
 
 		GameButton() {}
 
@@ -27,9 +27,9 @@ class GameButton : public QWidget
 
 		~GameButton();
 
-        QPixmap getImg();
+		QPixmap getImg();
 
-        void paintEvent() = delete;
+		void paintEvent() = delete;
 
 		void enterEvent(QEvent *event); //鼠标移入函数
 

@@ -21,13 +21,13 @@ class MainWindow : public QMainWindow
 
 		QMediaPlaylist * playlist = NULL;
 
-        MainWindow(QWidget *parent = 0);
+		MainWindow(QWidget *parent = 0);
 
 		~MainWindow();
 
 	signals:
 
-        void quitSignal();
+		void quitSignal();
 
 	public slots:
 
@@ -37,7 +37,7 @@ class MainWindow : public QMainWindow
 
 		void readMe();
 
-        void config();
+		void config();
 
 		void exit();
 
