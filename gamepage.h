@@ -9,13 +9,13 @@ class GamePage : public QWidget
 
 public:
 
-    QPixmap background;
+    QPixmap background; //背景图
 
-    QRect backgroundArea;
+    QRect backgroundArea; //背景图区域
 
-    std::map<QString, GameButton*> buttons;
+    std::map<QString, GameButton*> buttons; //页面按钮
 
-    std::map<QString, GameObject*> objects;
+    std::map<QString, GameObject*> objects; //页面物体
 
     explicit GamePage(QString bg, QRect bgArea, QWidget *parent = nullptr, int wid = 1280, int heig = 720);
 
@@ -26,6 +26,8 @@ public:
 signals:
 
 public slots:
+
+    void updateAll(); //更新所有物体的速度和位置并刷新页面
 
 };
 
@@ -43,6 +45,6 @@ signals:
 
 public slots:
 
-};
+}; //开始页面
 
 #endif // GAMEPAGE_H

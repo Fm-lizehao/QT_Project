@@ -8,6 +8,16 @@ GamePage::GamePage(QString bg, QRect bgArea, QWidget *parent, int wid, int heig)
     : QWidget(parent), background(bg), backgroundArea(bgArea)
 {
     resize(wid, heig);
+    INTIME(updateAll);
+}
+
+void GamePage::updateAll()
+{
+    for(auto i : objects)
+    {
+        i.second->updateLocation();
+    }
+    update();
 }
 
 void GamePage::paintEvent(QPaintEvent *event)

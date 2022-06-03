@@ -9,37 +9,32 @@ GameObject::GameObject(QWidget *parent, QString str, int x, int y, int speedX, i
     if (collisionHeight == -1)collisionHeight = img.height();
 }
 
-int GameObject::getX()
-{
-    return x();
-}
-
-int GameObject::getY()
-{
-    return y();
-}
-
-int GameObject::getWidth()
-{
-    return width();
-}
-
-int GameObject::getHeight()
-{
-    return height();
-}
-
-QRect GameObject::collisionRect()
-{
-    return QRect(x() + collisionX, y() + collisionY, collisionWidth, collisionHeight);
-}
-
 QPixmap GameObject::getImg()
 {
     QRect rect(0, 0, img.width(), img.height());
     auto retImg = img.transformed(matrix, Qt::SmoothTransformation);
     rect.moveCenter(retImg.rect().center());
     return retImg.copy(rect);
+}
+
+QRect GameObject::getCollisionRect()
+{
+    return QRect(x() + collisionX, y() + collisionY, collisionWidth, collisionHeight);
+}
+
+void GameObject::setLocation(int x, int y)
+{
+    move(x,y);
+}
+
+void GameObject::setX(int x)
+{
+    move(x,y());
+}
+
+void GameObject::setY(int y)
+{
+    move(x(),y);
 }
 
 void GameObject::setSpeed(int speedx, int speedy, int speedrad)
@@ -65,17 +60,37 @@ void GameObject::setYReverseSpeed()
     speedY = -speedY;
 }
 
-void GameObject::checkOutBorder()
+void GameObject::setLeftSpeed()
 {
-    if (x() < xLower)speedX = abs(speedX);
-    if (x() + width() > xUpper)speedX = -abs(speedX);
-    if (y() < yLower)speedY = abs(speedY);
-    if (y() + height() > yUpper)speedY = -abs(speedY);
+    speedX = -abs(speedX);
+}
+
+void GameObject::setRightSpeed()
+{
+    speedX = abs(speedX);
+}
+
+void GameObject::setUpSpeed()
+{
+    speedY = -abs(speedY);
+}
+
+void GameObject::setDownSpeed()
+{
+    speedY = abs(speedY);
 }
 
 bool GameObject::collisionWith(GameObject& other)
 {
-    return collisionRect().intersects(other.collisionRect());
+    return getCollisionRect().intersects(other.getCollisionRect());
+}
+
+void GameObject::checkOutBorder()
+{
+    if (x() < xLower){speedX = abs(speedX);}
+    if (x() + width() > xUpper){speedX = -abs(speedX);}
+    if (y() < yLower){speedY = abs(speedY);}
+    if (y() + height() > yUpper){speedY = -abs(speedY);}
 }
 
 void GameObject::updateLocation()

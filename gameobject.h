@@ -9,25 +9,25 @@ class GameObject : public QWidget
 
 private:
 
-    QPixmap img;
+    QPixmap img; //物体图片
 
 public:
 
-    QMatrix matrix;
+    QMatrix matrix; //物体旋转矩阵
 
-    int speedX, speedY, speedRad;
+    int speedX = 0, speedY = 0, speedRad = 0; //物体三种速度
 
-    int xLower, xUpper, yLower, yUpper; //boundary
+    int xLower = MIN, xUpper = MAX, yLower = MIN, yUpper = MAX; //物体反弹边界
 
-    int collisionX, collisionY, collisionWidth, collisionHeight;//碰撞矩形在图片中的相对位置
+    bool collision = true;   //是否参与碰撞
 
-    bool collision;   //是否参与碰撞
+    bool stubborn = true;   //是否撞不动
 
-    bool stubborn;   //能不能被撞得动
+    bool grativity = false;   //是否受重力下落
 
-    bool grativity;   //是否受重力下落
+    int collisionX = 0, collisionY = 0, collisionWidth = -1, collisionHeight = -1; //碰撞矩形在图片中的相对位置
 
-    GameObject() {}
+    //基本函数：
 
     GameObject(QWidget *parent, QString str, int x, int y, int speedX = 0, int speedY = 0, int speedRad = 0, int xLower = MIN, int xUpper = MAX, int yLower = MIN, int yUpper = MAX, bool collision = true, bool stubborn = true, bool grativity = false, int collisionX = 0, int collisionY = 0, int collisionWidth = -1, int collisionHeight = -1); //-1代表未指定
 
@@ -35,17 +35,19 @@ public:
 
     void paintEvent() = delete;
 
-    int getX();
+    //get函数：
 
-    int getY();
+    QPixmap getImg(); //返回应该显示的旋转后图片
 
-    int getWidth();
+    QRect getCollisionRect(); //返回碰撞矩形的绝对坐标
 
-    int getHeight();
+    //set函数：
 
-    QRect collisionRect();//返回碰撞矩形的绝对坐标
+    void setLocation(int x, int y);
 
-    QPixmap getImg();
+    void setX(int x);
+
+    void setY(int y);
 
     void setSpeed(int speedx, int speedy, int speedRad);
 
@@ -55,15 +57,25 @@ public:
 
     void setYReverseSpeed();
 
-    void checkOutBorder();
+    void setLeftSpeed();
 
-    bool collisionWith(GameObject& other);
+    void setRightSpeed();
+
+    void setUpSpeed();
+
+    void setDownSpeed();
+
+    //主功能函数：
+
+    bool collisionWith(GameObject& other); //判断是否和另一物体碰撞
+
+    void checkOutBorder(); //边界反弹
+
+    void updateLocation(); //根据速度刷新位置
 
 signals:
 
 public slots:
-
-    void updateLocation();
 
 };
 

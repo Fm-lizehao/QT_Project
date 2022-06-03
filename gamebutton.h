@@ -9,15 +9,15 @@ class GameButton : public QWidget
 
 public:
 
-    QPixmap img;
+    QPixmap img; //按钮图片
 
-    QPixmap img2;//change
+    QPixmap img2; //如果鼠标移入会改变图片，这就是变化之后的图片
 
-    bool flipped = false;
+    bool flipped = false; //为真时加载变化后的图片
 
-    QString text;
+    QString text; //按钮文本
 
-    int changeMode;
+    int changeMode; //模式1：两张图片；模式2：移动图片
 
     GameButton() {}
 
