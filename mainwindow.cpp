@@ -1,5 +1,4 @@
 #include "mainwindow.h"
-
 #include "gamepage.h"
 
 MainWindow::MainWindow(QWidget *parent)

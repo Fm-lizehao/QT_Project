@@ -1,6 +1,6 @@
 #include "gameobject.h"
 
-GameObject::GameObject(QWidget *parent, QString str, int x, int y, int speedX, int speedY, int speedRad, int xLower, int xUpper, int yLower, int yUpper, bool collision, bool stubborn, bool grativity, int collisionX, int collisionY, int collisionWidth, int collisionHeight)
+GameObject::GameObject(QWidget *parent, QString str, int x, int y, int speedX, int speedY, int speedRad, int xLower, int xUpper, int yLower, int yUpper, nature collision, nature stubborn, nature grativity, int collisionX, int collisionY, int collisionWidth, int collisionHeight)
     : QWidget(parent), img(str), speedX(speedX), speedY(speedY), speedRad(speedRad), xLower(xLower), xUpper(xUpper), yLower(yLower), yUpper(yUpper), collision(collision), stubborn(stubborn), grativity(grativity), collisionX(collisionX), collisionY(collisionY), collisionWidth(collisionWidth), collisionHeight(collisionHeight)
 {
     setFixedSize(QSize(img.width(), img.height()));
@@ -80,7 +80,7 @@ void GameObject::setDownSpeed()
     speedY = abs(speedY);
 }
 
-bool GameObject::collisionWith(GameObject& other)
+state GameObject::collisionWith(GameObject& other)
 {
     return getCollisionRect().intersects(other.getCollisionRect());
 }
@@ -101,18 +101,18 @@ void GameObject::updateLocation()
     move(x() + speedX, y() + speedY);
 }
 
-VirtualObject::VirtualObject(QWidget *parent, QString str, int x, int y, int speedX, int speedY, int speedRad, int xLower, int xUpper, int yLower, int yUpper, bool grativity, int collisionX, int collisionY, int collisionWidth, int collisionHeight)
+VirtualObject::VirtualObject(QWidget *parent, QString str, int x, int y, int speedX, int speedY, int speedRad, int xLower, int xUpper, int yLower, int yUpper, nature grativity, int collisionX, int collisionY, int collisionWidth, int collisionHeight)
     : GameObject(parent, str, x, y, speedX, speedY, speedRad, xLower, xUpper, yLower, yUpper, false, true, grativity, collisionX, collisionY, collisionWidth, collisionHeight)
 {
 
 }
 
-HeavyBody::HeavyBody(QWidget *parent, QString str, int x, int y, int speedX, int speedY, int speedRad, int xLower, int xUpper, int yLower, int yUpper, bool grativity, int collisionX, int collisionY, int collisionWidth, int collisionHeight)
+HeavyBody::HeavyBody(QWidget *parent, QString str, int x, int y, int speedX, int speedY, int speedRad, int xLower, int xUpper, int yLower, int yUpper, nature grativity, int collisionX, int collisionY, int collisionWidth, int collisionHeight)
     : GameObject(parent, str, x, y, speedX, speedY, speedRad, xLower, xUpper, yLower, yUpper, true, true, grativity, collisionX, collisionY, collisionWidth, collisionHeight)
 {
 
 }
-Pushable::Pushable(QWidget *parent, QString str, int x, int y, int speedX, int speedY, int speedRad, int xLower, int xUpper, int yLower, int yUpper, bool grativity, int collisionX, int collisionY, int collisionWidth, int collisionHeight)
+Pushable::Pushable(QWidget *parent, QString str, int x, int y, int speedX, int speedY, int speedRad, int xLower, int xUpper, int yLower, int yUpper, nature grativity, int collisionX, int collisionY, int collisionWidth, int collisionHeight)
     : GameObject(parent, str, x, y, speedX, speedY, speedRad, xLower, xUpper, yLower, yUpper, true, false, grativity, collisionX, collisionY, collisionWidth, collisionHeight)
 {
 

@@ -3,6 +3,7 @@
 
 #include <cmath>
 #include <map>
+#include <vector>
 #include <utility>
 #include <QApplication>
 #include <QMainWindow>
@@ -21,13 +22,17 @@
 #define pic(x) ":/game_resources/image/"#x".png" //图片位置宏
 #define snd(x)  "qrc:/game_resources/sound/"#x".mp3" //声音位置宏
 
+typedef bool state;
+typedef bool nature;
+typedef int mode;
+
 class GameButton;
 class GameObject;
 class VirtualObject;
 class HeavyBody;
 class Pushable;
-class LineBarrier;
 class Role;
+class Player;
 class GamePage;
 class StartPage;
 class MainWindow;

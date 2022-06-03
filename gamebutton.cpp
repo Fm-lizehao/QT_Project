@@ -52,7 +52,7 @@ void GameButton::leaveEvent(QEvent *event)
     }
 }
 
-void GameButton::mouseReleaseEvent(QMouseEvent *e)
+void GameButton::mouseReleaseEvent(QMouseEvent *event)
 {
     emit clicked();
 }

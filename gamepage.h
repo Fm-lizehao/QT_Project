@@ -17,6 +17,8 @@ public:
 
     std::map<QString, GameObject*> objects; //页面物体
 
+    std::vector<Role*> roles; //页面角色，第一个是主角
+
     explicit GamePage(QString bg, QRect bgArea, QWidget *parent = nullptr, int wid = 1280, int heig = 720);
 
     virtual ~GamePage(){}

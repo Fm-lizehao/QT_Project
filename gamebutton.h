@@ -13,11 +13,11 @@ public:
 
     QPixmap img2; //如果鼠标移入会改变图片，这就是变化之后的图片
 
-    bool flipped = false; //为真时加载变化后的图片
+    state flipped = false; //为真时加载变化后的图片
 
     QString text; //按钮文本
 
-    int changeMode; //模式1：两张图片；模式2：移动图片
+    mode changeMode; //模式1：两张图片；模式2：移动图片
 
     GameButton() {}
 

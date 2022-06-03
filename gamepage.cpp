@@ -1,7 +1,5 @@
 #include "gamepage.h"
-
 #include "gamebutton.h"
-
 #include "gameobject.h"
 
 GamePage::GamePage(QString bg, QRect bgArea, QWidget *parent, int wid, int heig)

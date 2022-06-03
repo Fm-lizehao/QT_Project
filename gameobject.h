@@ -19,17 +19,37 @@ public:
 
     int xLower = MIN, xUpper = MAX, yLower = MIN, yUpper = MAX; //物体反弹边界
 
-    bool collision = true;   //是否参与碰撞
+    nature collision = true;   //是否参与碰撞
 
-    bool stubborn = true;   //是否撞不动
+    nature stubborn = true;   //是否撞不动
 
-    bool grativity = false;   //是否受重力下落
+    nature grativity = false;   //是否受重力下落
 
     int collisionX = 0, collisionY = 0, collisionWidth = -1, collisionHeight = -1; //碰撞矩形在图片中的相对位置
 
+    state falling = false;
+
+    state cameraMoving = false;
+
+    state propUp = false;
+
+    state bounceUp = false;
+
+    state weighDown = false;
+
+    state propLeft = false;
+
+    state propRight = false;
+
+    state pushLeft = false;
+
+    state pushRight = false;
+
+    state breakIn = false;
+
     //基本函数：
 
-    GameObject(QWidget *parent, QString str, int x, int y, int speedX = 0, int speedY = 0, int speedRad = 0, int xLower = MIN, int xUpper = MAX, int yLower = MIN, int yUpper = MAX, bool collision = true, bool stubborn = true, bool grativity = false, int collisionX = 0, int collisionY = 0, int collisionWidth = -1, int collisionHeight = -1); //-1代表未指定
+    GameObject(QWidget *parent, QString str, int x, int y, int speedX = 0, int speedY = 0, int speedRad = 0, int xLower = MIN, int xUpper = MAX, int yLower = MIN, int yUpper = MAX, nature collision = true, nature stubborn = true, nature grativity = false, int collisionX = 0, int collisionY = 0, int collisionWidth = -1, int collisionHeight = -1); //-1代表未指定
 
     virtual ~GameObject(){}
 
@@ -67,7 +87,7 @@ public:
 
     //主功能函数：
 
-    bool collisionWith(GameObject& other); //判断是否和另一物体碰撞
+    state collisionWith(GameObject& other); //判断是否和另一物体碰撞
 
     void checkOutBorder(); //边界反弹
 
@@ -85,7 +105,7 @@ class VirtualObject : public GameObject
 
 public:
 
-    VirtualObject(QWidget *parent, QString str, int x, int y, int speedX = 0, int speedY = 0, int speedRad = 0, int xLower = MIN, int xUpper = MAX, int yLower = MIN, int yUpper = MAX, bool grativity = false, int collisionX = 0, int collisionY = 0, int collisionWidth = -1, int collisionHeight = -1);
+    VirtualObject(QWidget *parent, QString str, int x, int y, int speedX = 0, int speedY = 0, int speedRad = 0, int xLower = MIN, int xUpper = MAX, int yLower = MIN, int yUpper = MAX, nature grativity = false, int collisionX = 0, int collisionY = 0, int collisionWidth = -1, int collisionHeight = -1);
 
     ~VirtualObject(){}
 
@@ -97,7 +117,7 @@ class HeavyBody : public GameObject
 
 public:
 
-    HeavyBody(QWidget *parent, QString str, int x, int y, int speedX = 0, int speedY = 0, int speedRad = 0, int xLower = MIN, int xUpper = MAX, int yLower = MIN, int yUpper = MAX, bool grativity = false, int collisionX = 0, int collisionY = 0, int collisionWidth = -1, int collisionHeight = -1);
+    HeavyBody(QWidget *parent, QString str, int x, int y, int speedX = 0, int speedY = 0, int speedRad = 0, int xLower = MIN, int xUpper = MAX, int yLower = MIN, int yUpper = MAX, nature grativity = false, int collisionX = 0, int collisionY = 0, int collisionWidth = -1, int collisionHeight = -1);
 
     ~HeavyBody(){}
 
@@ -109,7 +129,7 @@ class Pushable : public GameObject
 
 public:
 
-    Pushable(QWidget *parent, QString str, int x, int y, int speedX = 0, int speedY = 0, int speedRad = 0, int xLower = MIN, int xUpper = MAX, int yLower = MIN, int yUpper = MAX, bool grativity = false, int collisionX = 0, int collisionY = 0, int collisionWidth = -1, int collisionHeight = -1);
+    Pushable(QWidget *parent, QString str, int x, int y, int speedX = 0, int speedY = 0, int speedRad = 0, int xLower = MIN, int xUpper = MAX, int yLower = MIN, int yUpper = MAX, nature grativity = false, int collisionX = 0, int collisionY = 0, int collisionWidth = -1, int collisionHeight = -1);
 
     ~Pushable(){}
 
@@ -118,11 +138,21 @@ public:
 class Role : public GameObject
 {
     Q_OBJECT
-};
 
-class LineBarrier : public GameObject
+    state killed = false;
+
+};//所有角色，包括npc
+
+class Player : public Role
 {
     Q_OBJECT
-};
+
+    state leftKey = false;
+
+    state rightKey = false;
+
+    state upKey = false;
+
+};//主角
 
 #endif // GAMEOBJECT_H
