@@ -23,7 +23,7 @@
 #define snd(x)  "qrc:/game_resources/sound/"#x".mp3" //声音位置宏
 
 typedef bool state;
-typedef bool nature;
+typedef bool attribute;
 typedef int mode;
 
 class GameButton;

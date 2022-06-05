@@ -15,41 +15,33 @@ public:
 
     QMatrix matrix; //物体旋转矩阵
 
+    state propup = false; //是否被向上支撑
+
+    state propleft = false; //是否被向左支撑
+
+    state propright = false; //是否被向右支撑
+
+    state pushleft = false; //是否被向左推
+
+    state pushright = false; //是否被向右推
+
+    int aX = 0, aY = 0; //物体横纵加速度
+
     int speedX = 0, speedY = 0, speedRad = 0; //物体三种速度
 
     int xLower = MIN, xUpper = MAX, yLower = MIN, yUpper = MAX; //物体反弹边界
 
-    nature collision = true;   //是否参与碰撞
+    attribute collision = true;   //是否参与碰撞
 
-    nature stubborn = true;   //是否撞不动
+    attribute stubborn = true;   //是否撞不动
 
-    nature grativity = false;   //是否受重力下落
+    attribute grativity = false;   //是否受重力下落
 
-    int collisionX = 0, collisionY = 0, collisionWidth = -1, collisionHeight = -1; //碰撞矩形在图片中的相对位置
-
-    state falling = false;
-
-    state cameraMoving = false;
-
-    state propUp = false;
-
-    state bounceUp = false;
-
-    state weighDown = false;
-
-    state propLeft = false;
-
-    state propRight = false;
-
-    state pushLeft = false;
-
-    state pushRight = false;
-
-    state breakIn = false;
+    int collisionX = 0, collisionY = 0, collisionWidth = -1, collisionHeight = -1; //碰撞矩形在图片中的相对位置，-1代表图片的宽和高
 
     //基本函数：
 
-    GameObject(QWidget *parent, QString str, int x, int y, int speedX = 0, int speedY = 0, int speedRad = 0, int xLower = MIN, int xUpper = MAX, int yLower = MIN, int yUpper = MAX, nature collision = true, nature stubborn = true, nature grativity = false, int collisionX = 0, int collisionY = 0, int collisionWidth = -1, int collisionHeight = -1); //-1代表未指定
+    GameObject(QWidget *parent, QString str, int x, int y, int speedX = 0, int speedY = 0, int speedRad = 0, int xLower = MIN, int xUpper = MAX, int yLower = MIN, int yUpper = MAX, attribute collision = true, attribute stubborn = true, attribute grativity = false, int collisionX = 0, int collisionY = 0, int collisionWidth = -1, int collisionHeight = -1); //-1代表未指定，默认为图片的宽和高
 
     virtual ~GameObject(){}
 
@@ -97,6 +89,8 @@ signals:
 
 public slots:
 
+    //槽函数：
+
 };
 
 class VirtualObject : public GameObject
@@ -105,7 +99,9 @@ class VirtualObject : public GameObject
 
 public:
 
-    VirtualObject(QWidget *parent, QString str, int x, int y, int speedX = 0, int speedY = 0, int speedRad = 0, int xLower = MIN, int xUpper = MAX, int yLower = MIN, int yUpper = MAX, nature grativity = false, int collisionX = 0, int collisionY = 0, int collisionWidth = -1, int collisionHeight = -1);
+    state breakin = false;    //是否被主角穿过
+
+    VirtualObject(QWidget *parent, QString str, int x, int y, int speedX = 0, int speedY = 0, int speedRad = 0, int xLower = MIN, int xUpper = MAX, int yLower = MIN, int yUpper = MAX, attribute grativity = false, int collisionX = 0, int collisionY = 0, int collisionWidth = -1, int collisionHeight = -1);
 
     ~VirtualObject(){}
 
@@ -117,7 +113,9 @@ class HeavyBody : public GameObject
 
 public:
 
-    HeavyBody(QWidget *parent, QString str, int x, int y, int speedX = 0, int speedY = 0, int speedRad = 0, int xLower = MIN, int xUpper = MAX, int yLower = MIN, int yUpper = MAX, nature grativity = false, int collisionX = 0, int collisionY = 0, int collisionWidth = -1, int collisionHeight = -1);
+    state weighdown = false;    //是否被压下去
+
+    HeavyBody(QWidget *parent, QString str, int x, int y, int speedX = 0, int speedY = 0, int speedRad = 0, int xLower = MIN, int xUpper = MAX, int yLower = MIN, int yUpper = MAX, attribute grativity = false, int collisionX = 0, int collisionY = 0, int collisionWidth = -1, int collisionHeight = -1);
 
     ~HeavyBody(){}
 
@@ -129,7 +127,9 @@ class Pushable : public GameObject
 
 public:
 
-    Pushable(QWidget *parent, QString str, int x, int y, int speedX = 0, int speedY = 0, int speedRad = 0, int xLower = MIN, int xUpper = MAX, int yLower = MIN, int yUpper = MAX, nature grativity = false, int collisionX = 0, int collisionY = 0, int collisionWidth = -1, int collisionHeight = -1);
+    state weighdown = false;    //是否被压下去
+
+    Pushable(QWidget *parent, QString str, int x, int y, int speedX = 0, int speedY = 0, int speedRad = 0, int xLower = MIN, int xUpper = MAX, int yLower = MIN, int yUpper = MAX, attribute grativity = false, int collisionX = 0, int collisionY = 0, int collisionWidth = -1, int collisionHeight = -1);
 
     ~Pushable(){}
 
@@ -139,7 +139,9 @@ class Role : public GameObject
 {
     Q_OBJECT
 
-    state killed = false;
+public:
+
+    state killed = false;   //是否死亡
 
 };//所有角色，包括npc
 
@@ -147,11 +149,7 @@ class Player : public Role
 {
     Q_OBJECT
 
-    state leftKey = false;
-
-    state rightKey = false;
-
-    state upKey = false;
+public:
 
 };//主角
 
