@@ -25,9 +25,25 @@ public:
 
     state pushright = false; //是否被向右推
 
+    state bounceup = false; //是否应当向上弹（调用函数后立即恢复）
+
+    state bouncedown = false; //是否应当向下弹（调用函数后立即恢复）
+
+    state bounceleft = false; //是否应当向左弹（调用函数后立即恢复）
+
+    state bounceright = false; //是否应当向右弹（调用函数后立即恢复）
+
+    GameObject* downObject = nullptr; //脚下的物体
+
+    GameObject* leftObject = nullptr; //左边紧靠的物体
+
+    GameObject* rightObject = nullptr; //右边紧靠的物体
+
     int aX = 0, aY = 0; //物体横纵加速度
 
-    int speedX = 0, speedY = 0, speedRad = 0; //物体三种速度
+    int speedX = 0, speedY = 0, speedRad = 0; //物体三种速度（地面参考系下）
+
+    int& cameraSpeedX, cameraSpeedY; //由于视角移动造成的物体相对于屏幕的额外速度，引用GamePage中的cameraSpeed
 
     int xLower = MIN, xUpper = MAX, yLower = MIN, yUpper = MAX; //物体反弹边界
 
@@ -41,7 +57,7 @@ public:
 
     //基本函数：
 
-    GameObject(QWidget *parent, QString str, int x, int y, int speedX = 0, int speedY = 0, int speedRad = 0, int xLower = MIN, int xUpper = MAX, int yLower = MIN, int yUpper = MAX, attribute collision = true, attribute stubborn = true, attribute grativity = false, int collisionX = 0, int collisionY = 0, int collisionWidth = -1, int collisionHeight = -1); //-1代表未指定，默认为图片的宽和高
+    GameObject(GamePage *parent, QString str, int x, int y, int speedX = 0, int speedY = 0, int speedRad = 0, int xLower = MIN, int xUpper = MAX, int yLower = MIN, int yUpper = MAX, attribute collision = true, attribute stubborn = true, attribute grativity = false, int collisionx = 0, int collisiony = 0, int collisionwidth = -1, int collisionheight = -1); //-1代表未指定，默认为图片的宽和高
 
     virtual ~GameObject(){}
 
@@ -55,35 +71,49 @@ public:
 
     //set函数：
 
-    void setLocation(int x, int y);
+    void setLocation(int x, int y); //更改位置
 
-    void setX(int x);
+    void setX(int x); //更改水平坐标
 
-    void setY(int y);
+    void setY(int y); //更改垂直坐标
 
-    void setSpeed(int speedx, int speedy, int speedRad);
+    void setSpeed(int x, int y, int rad); //设置速度
 
-    void setReverseSpeed();
+    void setXSpeed(int x); //设置水平速度
 
-    void setXReverseSpeed();
+    void setYSpeed(int y); //设置垂直速度
 
-    void setYReverseSpeed();
+    void setRadSpeed(int rad); //设置角速度
 
-    void setLeftSpeed();
+    void setReverseSpeed(); //设为反向速度
 
-    void setRightSpeed();
+    void setXReverseSpeed(); //设为水平反向速度
 
-    void setUpSpeed();
+    void setYReverseSpeed(); //设为垂直反向速度
 
-    void setDownSpeed();
+    void setLeftSpeed(); //设置水平速度向左
+
+    void setRightSpeed(); //设置水平速度向右
+
+    void setUpSpeed(); //设置垂直速度向上
+
+    void setDownSpeed(); //设置垂直速度向下
 
     //主功能函数：
 
     state collisionWith(GameObject& other); //判断是否和另一物体碰撞
 
-    void checkOutBorder(); //边界反弹
+    void checkBorder(); //边界反弹
+
+    void checkState(); //检查当前状态，避免矛盾
+
+    void useState(); //使用当前状态设置加速度、速度、位置
+
+    void updateSpeed(); //根据加速度刷新速度
 
     void updateLocation(); //根据速度刷新位置
+
+    void selfUpdate(); //实际接口，依次调用checkBorder,checkState,useState,updateSpeed,updateLocation
 
 signals:
 
@@ -101,9 +131,10 @@ public:
 
     state breakin = false;    //是否被主角穿过
 
-    VirtualObject(QWidget *parent, QString str, int x, int y, int speedX = 0, int speedY = 0, int speedRad = 0, int xLower = MIN, int xUpper = MAX, int yLower = MIN, int yUpper = MAX, attribute grativity = false, int collisionX = 0, int collisionY = 0, int collisionWidth = -1, int collisionHeight = -1);
+    VirtualObject(GamePage *parent, QString str, int x, int y, int speedX = 0, int speedY = 0, int speedRad = 0, int xLower = MIN, int xUpper = MAX, int yLower = MIN, int yUpper = MAX, attribute grativity = false, int collisionx = 0, int collisiony = 0, int collisionwidth = -1, int collisionheight = -1)
+        : GameObject(parent, str, x, y, speedX, speedY, speedRad, xLower, xUpper, yLower, yUpper, false, true, grativity, collisionx, collisiony, collisionwidth, collisionheight) { }
 
-    ~VirtualObject(){}
+    ~VirtualObject() { }
 
 };//不参与碰撞的物体
 
@@ -115,9 +146,10 @@ public:
 
     state weighdown = false;    //是否被压下去
 
-    HeavyBody(QWidget *parent, QString str, int x, int y, int speedX = 0, int speedY = 0, int speedRad = 0, int xLower = MIN, int xUpper = MAX, int yLower = MIN, int yUpper = MAX, attribute grativity = false, int collisionX = 0, int collisionY = 0, int collisionWidth = -1, int collisionHeight = -1);
+    HeavyBody(GamePage *parent, QString str, int x, int y, int speedX = 0, int speedY = 0, int speedRad = 0, int xLower = MIN, int xUpper = MAX, int yLower = MIN, int yUpper = MAX, attribute grativity = false, int collisionx = 0, int collisiony = 0, int collisionwidth = -1, int collisionheight = -1)
+        : GameObject(parent, str, x, y, speedX, speedY, speedRad, xLower, xUpper, yLower, yUpper, true, true, grativity, collisionx, collisiony, collisionwidth, collisionheight) { }
 
-    ~HeavyBody(){}
+    ~HeavyBody() { }
 
 };//参与碰撞，且碰撞不改变运动状态的物体
 
@@ -129,9 +161,10 @@ public:
 
     state weighdown = false;    //是否被压下去
 
-    Pushable(QWidget *parent, QString str, int x, int y, int speedX = 0, int speedY = 0, int speedRad = 0, int xLower = MIN, int xUpper = MAX, int yLower = MIN, int yUpper = MAX, attribute grativity = false, int collisionX = 0, int collisionY = 0, int collisionWidth = -1, int collisionHeight = -1);
+    Pushable(GamePage *parent, QString str, int x, int y, int speedX = 0, int speedY = 0, int speedRad = 0, int xLower = MIN, int xUpper = MAX, int yLower = MIN, int yUpper = MAX, attribute grativity = false, int collisionx = 0, int collisiony = 0, int collisionwidth = -1, int collisionheight = -1)
+        : GameObject(parent, str, x, y, speedX, speedY, speedRad, xLower, xUpper, yLower, yUpper, true, false, grativity, collisionx, collisiony, collisionwidth, collisionheight) { }
 
-    ~Pushable(){}
+    ~Pushable() { }
 
 };//可以通过碰撞改变运动状态的物体
 

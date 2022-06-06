@@ -21,13 +21,13 @@ public:
 
     GameButton() {}
 
-    GameButton(QWidget *parent, QString pic1, QString pic2, QString text, int x, int y, QObject* receiver, const char* method);
+    GameButton(GamePage *parent, QString pic1, QString pic2, QString text, int x, int y, QObject* receiver, const char* method);
 
-    GameButton(QWidget *parent, QString pic, QString text, int x, int y, QObject* receiver, const char* method);
+    GameButton(GamePage *parent, QString pic, QString text, int x, int y, QObject* receiver, const char* method);
 
     ~GameButton() {}
 
-    QPixmap getImg();
+    QPixmap getImg(); //取得应显示的按钮图片
 
     void paintEvent() = delete;
 

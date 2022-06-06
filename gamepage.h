@@ -13,15 +13,23 @@ public:
 
     QRect backgroundArea; //背景图区域
 
-    std::map<QString, GameButton*> buttons; //页面按钮
+    std::map<QString, GameButton*> buttons; //页面中的按钮
 
-    std::map<QString, GameObject*> objects; //页面物体
+    std::map<QString, VirtualObject*> virtualObjects; //页面中不碰撞的物体
 
-    std::vector<Role*> roles; //页面角色，第一个是主角
+    std::map<QString, HeavyBody*> heavyBodies; //页面中碰撞不改变运动状态的物体
 
-    explicit GamePage(QString bg, QRect bgArea, QWidget *parent = nullptr, int wid = 1280, int heig = 720);
+    std::map<QString, Pushable*> pushables; //页面中碰撞会改变运动状态的物体
 
-    virtual ~GamePage(){}
+    std::vector<Role*> roles; //页面中的npc角色
+
+    Player* player = nullptr; //主角
+
+    int cameraSpeedX = 0, cameraSpeedY = 0; //由于视角移动造成的物体相对于屏幕的额外速度
+
+    explicit GamePage(QString bg, QRect bgArea, MainWindow *parent = nullptr, int wid = 1280, int heig = 720);
+
+    virtual ~GamePage();
 
     void paintEvent(QPaintEvent *event);
 
@@ -39,7 +47,7 @@ class StartPage : public GamePage
 
 public:
 
-    explicit StartPage(QWidget *parent = nullptr, int wid = 1280, int heig = 720);
+    explicit StartPage(MainWindow *parent = nullptr, int wid = 1280, int heig = 720);
 
     ~StartPage(){}
 

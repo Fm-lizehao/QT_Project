@@ -19,8 +19,10 @@
 #define INTIME(x) connect(&main_timer,SIGNAL(timeout()),this,SLOT(x()),Qt::DirectConnection) //每秒将一个函数触发60次
 #define MIN -2147483648
 #define MAX 2147483647
-#define pic(x) ":/game_resources/image/"#x".png" //图片位置宏
+#define pic(x) ":/game_resources/image/"#x".png"     //图片位置宏
 #define snd(x)  "qrc:/game_resources/sound/"#x".mp3" //声音位置宏
+#define pushSpeed 3                                  //推动标准速度
+#define g 1                                          //重力加速度
 
 typedef bool state;
 typedef bool attribute;
