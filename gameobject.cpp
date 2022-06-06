@@ -53,12 +53,12 @@ void GameObject::checkBorder()
         if(realSpeedX == 0.0) realSpeedX = -pushSpeed;
         else bounceleft = true;
     }
-    if (realSpeedY + collisionY < yLower && !propup && !bounceup)
+    if (realY + collisionY < yLower && !propup && !bounceup)
     {
         if(realSpeedY == 0.0) realSpeedY = pushSpeed;
         else bouncedown = true;
     }
-    if (realSpeedY + collisionY + collisionHeight > yUpper && !bouncedown)
+    if (realY + collisionY + collisionHeight > yUpper && !bouncedown)
     {
         if(realSpeedY == 0.0) realSpeedY = -pushSpeed;
         else bounceup = true; //bounceup: 对脚下物体相对速度为零则跳跃，对脚下物体有正相对速度时则反弹
@@ -70,7 +70,7 @@ void GameObject::checkState()
     if(downObject==nullptr)                          { propup = false; }
     if(leftObject==nullptr)                          { propright = false; }
     if(rightObject==nullptr)                         { propleft = false; }
-    if(!propup||bouncedown)                          { bounceup = false; }
+    if(bouncedown)                                   { bounceup = false; }
     if(bounceup)                                     { propup = false;downObject = nullptr; }
     if(propup)                                       { bouncedown = false; }
     if(bounceleft&&bounceright)                      { bounceleft = bounceright = false; }

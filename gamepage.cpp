@@ -47,9 +47,15 @@ StartPage::StartPage(MainWindow *parent, int wid, int heig)
     buttons.insert(std::make_pair("003:Info", new GameButton(this, pic(Startup_button_main_1), pic(Startup_button_main_2), "操作说明", 780, 488, parent, SLOT(readMe()))));
     buttons.insert(std::make_pair("004:Config", new GameButton(this, pic(Startup_button_main_3), "设置", 170, 0, parent, SLOT(config()))));
     buttons.insert(std::make_pair("005:Exit", new GameButton(this, pic(Startup_button_main_3), "退出", 20, 0, parent, SLOT(exit()))));
-    virtualObjects.insert(std::make_pair("001:Cloud", new VirtualObject(this, pic(Cloud_0_cute), 200, 40, -0.2, 0, 0, 0, this->width(), 0, this->height(), false)));
+    virtualObjects.insert(std::make_pair("001:Cloud", new VirtualObject(this, pic(Cloud_0_cute), 200, 40, -0.2, 0, 0, 0, this->width(), 0, this->height(), true)));
     virtualObjects.insert(std::make_pair("002:Title", new VirtualObject(this, pic(Startup_title_zh), 744, 168, 0, 0, 0, 0, this->width(), 0, this->height(), false)));
     virtualObjects.insert(std::make_pair("003:Bottomline", new VirtualObject(this, pic(Startup_title_line_both), 767, 238, 0, 0, 0, 0, this->width(), 0, this->height(), false)));
     virtualObjects.insert(std::make_pair("004:Topline", new VirtualObject(this, pic(Startup_topsep), 640, 78, 0, 0, 0, 0, this->width(), 0, this->height(), false)));
     virtualObjects.insert(std::make_pair("005:Jp-of", new VirtualObject(this, pic(Startup_title_jpof), 856, 164, 0, 0, 0.2, 0, this->width(), 0, this->height(), false)));
+}
+
+APage::APage(MainWindow *parent, int wid, int heig)
+    : GamePage(pic(Startup_leftCastle), QRect(80, 120, 1100, 600), 0, 0, parent, wid, heig)
+{
+    virtualObjects.insert(std::make_pair("001:Cloud",new VirtualObject(this, pic(Cloud_0_cute), 200, 40, -0.3, 0, 0, 0, this->width(), 0,this->height(),false)));
 }
