@@ -28,7 +28,7 @@ MainWindow::~MainWindow()
 void MainWindow::startGame()
 {
     page->deleteLater();
-    page = new APage(this, this->width(), this->height());
+
 }
 
 void MainWindow::mapEdit()

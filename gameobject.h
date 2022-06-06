@@ -119,8 +119,6 @@ public:
 
     //主功能函数：
 
-    //state collisionWith(GameObject& other); //判断是否和另一物体碰撞
-
     void checkBorder(); //边界反弹
 
     void checkState(); //检查当前状态，避免矛盾

@@ -37,7 +37,6 @@ void GameObject::setLeftSpeed()                      { realSpeedX = -std::abs(re
 void GameObject::setRightSpeed()                     { realSpeedX = std::abs(realSpeedX); }
 void GameObject::setUpSpeed()                        { realSpeedY = -std::abs(realSpeedY); }
 void GameObject::setDownSpeed()                      { realSpeedY = std::abs(realSpeedY); }
-//state GameObject::collisionWith(GameObject& other) { return getCollisionRect().intersects(other.getCollisionRect()); }
 
 void GameObject::checkBorder()
 {

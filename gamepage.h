@@ -59,20 +59,4 @@ public slots:
 
 }; //开始页面
 
-class APage : public GamePage
-{
-    Q_OBJECT
-
-public:
-
-    explicit APage(MainWindow *parent = nullptr, int wid = 1280, int heig = 720);
-
-    ~APage(){}
-
-signals:
-
-public slots:
-
-};
-
 #endif // GAMEPAGE_H
