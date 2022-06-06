@@ -3,6 +3,20 @@
 
 #include "global.h"
 
+class FloatRect //float版本的Rect类
+{
+
+public:
+
+    float x = 0, y = 0, width = 0, height = 0;
+
+    FloatRect(float x = 0, float y = 0, float width = 0, float height = 0)
+        :x(x), y(y), width(width), height(height) { }
+
+    ~FloatRect() { }
+
+};
+
 class GameObject : public QWidget
 {
     Q_OBJECT
@@ -39,11 +53,15 @@ public:
 
     GameObject* rightObject = nullptr; //右边紧靠的物体
 
-    int aX = 0, aY = 0; //物体横纵加速度
+    float aX = 0, aY = 0; //物体横纵加速度
 
-    int speedX = 0, speedY = 0, speedRad = 0; //物体三种速度（地面参考系下）
+    float realSpeedX = 0, realSpeedY = 0, realSpeedRad = 0; //物体实际的三种速度（地面参考系下）
 
-    int& cameraSpeedX, cameraSpeedY; //由于视角移动造成的物体相对于屏幕的额外速度，引用GamePage中的cameraSpeed
+    float& cameraSpeedX, cameraSpeedY; //相机速度，引用GamePage中的cameraSpeedX和cameraSpeedY
+
+    float realX = 0, realY = 0, realRad = 0; //物体实际的位置（地面参考系下）
+
+    float& cameraX, cameraY; //相机左上角位置，引用GamePage中的cameraX和cameraY
 
     int xLower = MIN, xUpper = MAX, yLower = MIN, yUpper = MAX; //物体反弹边界
 
@@ -57,7 +75,7 @@ public:
 
     //基本函数：
 
-    GameObject(GamePage *parent, QString str, int x, int y, int speedX = 0, int speedY = 0, int speedRad = 0, int xLower = MIN, int xUpper = MAX, int yLower = MIN, int yUpper = MAX, attribute collision = true, attribute stubborn = true, attribute grativity = false, int collisionx = 0, int collisiony = 0, int collisionwidth = -1, int collisionheight = -1); //-1代表未指定，默认为图片的宽和高
+    GameObject(GamePage *parent, QString str, float realX, float realY, float realSpeedX = 0, float realSpeedY = 0, float realSpeedRad = 0, int xLower = MIN, int xUpper = MAX, int yLower = MIN, int yUpper = MAX, attribute collision = true, attribute stubborn = true, attribute grativity = false, int collisionx = 0, int collisiony = 0, int collisionwidth = -1, int collisionheight = -1); //-1代表未指定，默认为图片的宽和高
 
     virtual ~GameObject(){}
 
@@ -67,23 +85,23 @@ public:
 
     QPixmap getImg(); //返回应该显示的旋转后图片
 
-    QRect getCollisionRect(); //返回碰撞矩形的绝对坐标
+    FloatRect getCollisionRect(); //返回碰撞矩形的绝对坐标
 
     //set函数：
 
-    void setLocation(int x, int y); //更改位置
+    void setLocation(float x, float y); //更改位置
 
-    void setX(int x); //更改水平坐标
+    void setX(float x); //更改水平坐标
 
-    void setY(int y); //更改垂直坐标
+    void setY(float y); //更改垂直坐标
 
-    void setSpeed(int x, int y, int rad); //设置速度
+    void setSpeed(float x, float y, float rad); //设置速度
 
-    void setXSpeed(int x); //设置水平速度
+    void setXSpeed(float x); //设置水平速度
 
-    void setYSpeed(int y); //设置垂直速度
+    void setYSpeed(float y); //设置垂直速度
 
-    void setRadSpeed(int rad); //设置角速度
+    void setRadSpeed(float rad); //设置角速度
 
     void setReverseSpeed(); //设为反向速度
 
@@ -101,7 +119,7 @@ public:
 
     //主功能函数：
 
-    state collisionWith(GameObject& other); //判断是否和另一物体碰撞
+    //state collisionWith(GameObject& other); //判断是否和另一物体碰撞
 
     void checkBorder(); //边界反弹
 
@@ -131,8 +149,8 @@ public:
 
     state breakin = false;    //是否被主角穿过
 
-    VirtualObject(GamePage *parent, QString str, int x, int y, int speedX = 0, int speedY = 0, int speedRad = 0, int xLower = MIN, int xUpper = MAX, int yLower = MIN, int yUpper = MAX, attribute grativity = false, int collisionx = 0, int collisiony = 0, int collisionwidth = -1, int collisionheight = -1)
-        : GameObject(parent, str, x, y, speedX, speedY, speedRad, xLower, xUpper, yLower, yUpper, false, true, grativity, collisionx, collisiony, collisionwidth, collisionheight) { }
+    VirtualObject(GamePage *parent, QString str, float realX, float realY, float realSpeedX = 0, float realSpeedY = 0, float realSpeedRad = 0, int xLower = MIN, int xUpper = MAX, int yLower = MIN, int yUpper = MAX, attribute grativity = false, int collisionx = 0, int collisiony = 0, int collisionwidth = -1, int collisionheight = -1)
+        : GameObject(parent, str, realX, realY, realSpeedX, realSpeedY, realSpeedRad, xLower, xUpper, yLower, yUpper, false, true, grativity, collisionx, collisiony, collisionwidth, collisionheight) { }
 
     ~VirtualObject() { }
 
@@ -146,8 +164,8 @@ public:
 
     state weighdown = false;    //是否被压下去
 
-    HeavyBody(GamePage *parent, QString str, int x, int y, int speedX = 0, int speedY = 0, int speedRad = 0, int xLower = MIN, int xUpper = MAX, int yLower = MIN, int yUpper = MAX, attribute grativity = false, int collisionx = 0, int collisiony = 0, int collisionwidth = -1, int collisionheight = -1)
-        : GameObject(parent, str, x, y, speedX, speedY, speedRad, xLower, xUpper, yLower, yUpper, true, true, grativity, collisionx, collisiony, collisionwidth, collisionheight) { }
+    HeavyBody(GamePage *parent, QString str, float realX, float realY, float realSpeedX = 0, float realSpeedY = 0, float realSpeedRad = 0, int xLower = MIN, int xUpper = MAX, int yLower = MIN, int yUpper = MAX, attribute grativity = false, int collisionx = 0, int collisiony = 0, int collisionwidth = -1, int collisionheight = -1)
+        : GameObject(parent, str, realX, realY, realSpeedX, realSpeedY, realSpeedRad, xLower, xUpper, yLower, yUpper, true, true, grativity, collisionx, collisiony, collisionwidth, collisionheight) { }
 
     ~HeavyBody() { }
 
@@ -161,8 +179,8 @@ public:
 
     state weighdown = false;    //是否被压下去
 
-    Pushable(GamePage *parent, QString str, int x, int y, int speedX = 0, int speedY = 0, int speedRad = 0, int xLower = MIN, int xUpper = MAX, int yLower = MIN, int yUpper = MAX, attribute grativity = false, int collisionx = 0, int collisiony = 0, int collisionwidth = -1, int collisionheight = -1)
-        : GameObject(parent, str, x, y, speedX, speedY, speedRad, xLower, xUpper, yLower, yUpper, true, false, grativity, collisionx, collisiony, collisionwidth, collisionheight) { }
+    Pushable(GamePage *parent, QString str, float realX, float realY, float realSpeedX = 0, float realSpeedY = 0, float realSpeedRad = 0, int xLower = MIN, int xUpper = MAX, int yLower = MIN, int yUpper = MAX, attribute grativity = false, int collisionx = 0, int collisiony = 0, int collisionwidth = -1, int collisionheight = -1)
+        : GameObject(parent, str, realX, realY, realSpeedX, realSpeedY, realSpeedRad, xLower, xUpper, yLower, yUpper, true, false, grativity, collisionx, collisiony, collisionwidth, collisionheight) { }
 
     ~Pushable() { }
 
