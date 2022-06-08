@@ -21,7 +21,7 @@
 #define pic(x) ":/game_resources/image/"#x".png"     //图片位置宏
 #define snd(x)  "qrc:/game_resources/sound/"#x".mp3" //声音位置宏
 #define pushSpeed 0.5                                //推动标准速度
-#define g 0.009                                      //重力加速度
+#define g 0.008                                      //重力加速度
 
 typedef bool state;
 typedef bool attribute;

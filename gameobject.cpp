@@ -70,7 +70,7 @@ void GameObject::checkState()
     if(leftObject==nullptr)                          { propright = false; }
     if(rightObject==nullptr)                         { propleft = false; }
     if(bouncedown)                                   { bounceup = false; }
-    if(bounceup)                                     { propup = false;downObject = nullptr; }
+    if(bounceup)                                     { propup = false; }
     if(propup)                                       { bouncedown = false; }
     if(bounceleft&&bounceright)                      { bounceleft = bounceright = false; }
     if(pushleft&&pushright)                          { pushleft = pushright = false; }
@@ -84,10 +84,10 @@ void GameObject::useState()
 {
     aX = aY = 0;
     if(grativity&&!propup)                           { aY = g; }
-    if(bounceup)                                     { if(downObject!=nullptr&&realSpeedY==downObject->realSpeedY)setYSpeed(-1);else setUpSpeed();bounceup = false; }
-    if(bouncedown)                                   { setDownSpeed(); bouncedown = false; }
-    if(bounceleft)                                   { setLeftSpeed(); bounceleft = false; }
-    if(bounceright)                                  { setRightSpeed(); bounceright = false; }
+    if(bounceup)                                     { if(downObject!=nullptr&&realSpeedY==downObject->realSpeedY)setYSpeed(-1);else setUpSpeed();downObject=nullptr; }
+    if(bouncedown)                                   { setDownSpeed(); }
+    if(bounceleft)                                   { setLeftSpeed(); }
+    if(bounceright)                                  { setRightSpeed(); }
     if(pushleft)                                     { setXSpeed(-pushSpeed); }
     if(pushright)                                    { setXSpeed(pushSpeed); }
     if(propup)                                       { setYSpeed(downObject->realSpeedY); }
@@ -95,7 +95,12 @@ void GameObject::useState()
     if(propright&&leftObject->realSpeedX>realSpeedX) { setXSpeed(leftObject->realSpeedX); }
 }
 
-void GameObject::updateSpeed() { realSpeedX += aX; realSpeedY += aY; }
+void GameObject::updateSpeed()
+{
+    if(!bounceleft&&!bounceright)realSpeedX += aX;
+    if(!bounceup&&!bouncedown)realSpeedY += aY;
+    bounceup = bouncedown = bounceleft = bounceright = false;
+}
 
 void GameObject::updateLocation()
 {
