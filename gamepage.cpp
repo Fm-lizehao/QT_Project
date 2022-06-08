@@ -3,8 +3,8 @@
 #include "gamepage.h"
 #include "mainwindow.h"
 
-GamePage::GamePage(QString bg, QRect bgArea, float cameraX, float cameraY, MainWindow *parent, int wid, int heig)
-    : QWidget(parent), background(bg), backgroundArea(bgArea), cameraX(cameraX), cameraY(cameraY)
+GamePage::GamePage(QString bg, QRect bgarea, float camerax, float cameray, MainWindow *parent, int wid, int heig)
+    : QWidget(parent), background(bg), backgroundArea(bgarea), cameraX(camerax), cameraY(cameray)
 {
     resize(wid, heig);
     INTIME(updateAll);

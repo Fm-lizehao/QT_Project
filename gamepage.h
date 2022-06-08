@@ -29,7 +29,7 @@ public:
 
     float cameraX = 0, cameraY = 0; //相机左上角位置
 
-    explicit GamePage(QString bg, QRect bgArea, float cameraX = 0, float cameraY = 0, MainWindow *parent = nullptr, int wid = 1280, int heig = 720);
+    explicit GamePage(QString bg, QRect bgarea, float camerax = 0, float cameray = 0, MainWindow *parent = nullptr, int wid = 1280, int heig = 720);
 
     virtual ~GamePage();
 

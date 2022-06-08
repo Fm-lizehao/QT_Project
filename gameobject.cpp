@@ -1,8 +1,8 @@
 #include "gameobject.h"
 #include "gamepage.h"
 
-GameObject::GameObject(GamePage *parent, QString str, float realX, float realY, float realSpeedX, float realSpeedY, float realSpeedRad, int xLower, int xUpper, int yLower, int yUpper, attribute collision, attribute stubborn, attribute grativity, int collisionx, int collisiony, int collisionwidth, int collisionheight)
-    : QWidget(parent), img(str), realSpeedX(realSpeedX), realSpeedY(realSpeedY), realSpeedRad(realSpeedRad), cameraSpeedX(parent->cameraSpeedX), cameraSpeedY(parent->cameraSpeedY), realX(realX), realY(realY), cameraX(parent->cameraX), cameraY(parent->cameraY), xLower(xLower), xUpper(xUpper), yLower(yLower), yUpper(yUpper), collision(collision), stubborn(stubborn), grativity(grativity), collisionX(collisionx), collisionY(collisiony), collisionWidth(collisionwidth), collisionHeight(collisionheight)
+GameObject::GameObject(GamePage *parent, QString str, float realx, float realy, float realspeedx, float realspeedy, float realspeedrad, int xlower, int xupper, int ylower, int yupper, attribute collision, attribute stubborn, attribute grativity, int collisionx, int collisiony, int collisionwidth, int collisionheight)
+    : QWidget(parent), img(str), realSpeedX(realspeedx), realSpeedY(realspeedy), realSpeedRad(realspeedrad), cameraSpeedX(parent->cameraSpeedX), cameraSpeedY(parent->cameraSpeedY), realX(realx), realY(realy), cameraX(parent->cameraX), cameraY(parent->cameraY), xLower(xlower), xUpper(xupper), yLower(ylower), yUpper(yupper), collision(collision), stubborn(stubborn), grativity(grativity), collisionX(collisionx), collisionY(collisiony), collisionWidth(collisionwidth), collisionHeight(collisionheight)
 {
     setFixedSize(QSize(img.width(), img.height()));
     move(realX - cameraX, realY - cameraY);

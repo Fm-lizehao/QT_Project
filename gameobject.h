@@ -75,7 +75,7 @@ public:
 
     //基本函数：
 
-    GameObject(GamePage *parent, QString str, float realX, float realY, float realSpeedX = 0, float realSpeedY = 0, float realSpeedRad = 0, int xLower = MIN, int xUpper = MAX, int yLower = MIN, int yUpper = MAX, attribute collision = true, attribute stubborn = true, attribute grativity = false, int collisionx = 0, int collisiony = 0, int collisionwidth = -1, int collisionheight = -1); //-1代表未指定，默认为图片的宽和高
+    GameObject(GamePage *parent, QString str, float realx, float realy, float realspeedx = 0, float realspeedy = 0, float realspeedrad = 0, int xlower = MIN, int xupper = MAX, int ylower = MIN, int yupper = MAX, attribute collision = true, attribute stubborn = true, attribute grativity = false, int collisionx = 0, int collisiony = 0, int collisionwidth = -1, int collisionheight = -1); //-1代表未指定，默认为图片的宽和高
 
     virtual ~GameObject(){}
 
@@ -147,8 +147,8 @@ public:
 
     state breakin = false;    //是否被主角穿过
 
-    VirtualObject(GamePage *parent, QString str, float realX, float realY, float realSpeedX = 0, float realSpeedY = 0, float realSpeedRad = 0, int xLower = MIN, int xUpper = MAX, int yLower = MIN, int yUpper = MAX, attribute grativity = false, int collisionx = 0, int collisiony = 0, int collisionwidth = -1, int collisionheight = -1)
-        : GameObject(parent, str, realX, realY, realSpeedX, realSpeedY, realSpeedRad, xLower, xUpper, yLower, yUpper, false, true, grativity, collisionx, collisiony, collisionwidth, collisionheight) { }
+    VirtualObject(GamePage *parent, QString str, float realx, float realy, float realspeedx = 0, float realspeedy = 0, float realspeedrad = 0, int xlower = MIN, int xupper = MAX, int ylower = MIN, int yupper = MAX, attribute grativity = false, int collisionx = 0, int collisiony = 0, int collisionwidth = -1, int collisionheight = -1)
+        : GameObject(parent, str, realx, realy, realspeedx, realspeedy, realspeedrad, xlower, xupper, ylower, yupper, false, true, grativity, collisionx, collisiony, collisionwidth, collisionheight) { }
 
     ~VirtualObject() { }
 
@@ -162,8 +162,8 @@ public:
 
     state weighdown = false;    //是否被压下去
 
-    HeavyBody(GamePage *parent, QString str, float realX, float realY, float realSpeedX = 0, float realSpeedY = 0, float realSpeedRad = 0, int xLower = MIN, int xUpper = MAX, int yLower = MIN, int yUpper = MAX, attribute grativity = false, int collisionx = 0, int collisiony = 0, int collisionwidth = -1, int collisionheight = -1)
-        : GameObject(parent, str, realX, realY, realSpeedX, realSpeedY, realSpeedRad, xLower, xUpper, yLower, yUpper, true, true, grativity, collisionx, collisiony, collisionwidth, collisionheight) { }
+    HeavyBody(GamePage *parent, QString str, float realx, float realy, float realspeedx = 0, float realspeedy = 0, float realspeedrad = 0, int xlower = MIN, int xupper = MAX, int ylower = MIN, int yupper = MAX, attribute grativity = false, int collisionx = 0, int collisiony = 0, int collisionwidth = -1, int collisionheight = -1)
+        : GameObject(parent, str, realx, realy, realspeedx, realspeedy, realspeedrad, xlower, xupper, ylower, yupper, true, true, grativity, collisionx, collisiony, collisionwidth, collisionheight) { }
 
     ~HeavyBody() { }
 
@@ -177,8 +177,8 @@ public:
 
     state weighdown = false;    //是否被压下去
 
-    Pushable(GamePage *parent, QString str, float realX, float realY, float realSpeedX = 0, float realSpeedY = 0, float realSpeedRad = 0, int xLower = MIN, int xUpper = MAX, int yLower = MIN, int yUpper = MAX, attribute grativity = false, int collisionx = 0, int collisiony = 0, int collisionwidth = -1, int collisionheight = -1)
-        : GameObject(parent, str, realX, realY, realSpeedX, realSpeedY, realSpeedRad, xLower, xUpper, yLower, yUpper, true, false, grativity, collisionx, collisiony, collisionwidth, collisionheight) { }
+    Pushable(GamePage *parent, QString str, float realx, float realy, float realspeedx = 0, float realspeedy = 0, float realspeedrad = 0, int xlower = MIN, int xupper = MAX, int ylower = MIN, int yupper = MAX, attribute grativity = false, int collisionx = 0, int collisiony = 0, int collisionwidth = -1, int collisionheight = -1)
+        : GameObject(parent, str, realx, realy, realspeedx, realspeedy, realspeedrad, xlower, xupper, ylower, yupper, true, false, grativity, collisionx, collisiony, collisionwidth, collisionheight) { }
 
     ~Pushable() { }
 
