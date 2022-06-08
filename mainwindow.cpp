@@ -28,7 +28,7 @@ MainWindow::~MainWindow()
 void MainWindow::startGame()
 {
     page->deleteLater();
-    //page =
+
     page->show();
 }
 
