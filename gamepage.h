@@ -59,4 +59,20 @@ public slots:
 
 }; //开始页面
 
+class PlayPage : public GamePage
+{
+    Q_OBJECT
+
+public:
+
+    explicit PlayPage(MainWindow *parent = nullptr, int wid = 1280, int heig = 720);
+
+    ~PlayPage() {}
+
+signals:
+
+public slots:
+
+}; //游戏页面
+
 #endif // GAMEPAGE_H
