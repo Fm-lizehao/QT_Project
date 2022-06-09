@@ -197,6 +197,11 @@ class Player : public Role
 
 public:
 
+    Player(GamePage *parent, std::initializer_list<QString> img_str, QPointF p, QPointF v = {0,0}, qreal omega = 0, QRect border = {QPoint(MIN,MIN),QPoint(MAX,MAX)}, attribute grativity = true)
+        : Role(parent, img_str, p, v, omega, border, grativity) { }
+
+    ~Role() { }
+
 };//主角
 
 #endif // GAMEOBJECT_H
