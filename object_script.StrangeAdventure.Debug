@@ -4,6 +4,7 @@ INPUT(
 ./debug\gamebutton.o
 ./debug\gameobject.o
 ./debug\gamepage.o
+./debug\global.o
 ./debug\qrc_source.o
 ./debug\moc_mainwindow.o
 ./debug\moc_gamebutton.o

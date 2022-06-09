@@ -28,7 +28,6 @@ typedef bool attribute;
 typedef int mode;
 
 class GameButton;
-class FloatRect;
 class GameObject;
 class VirtualObject;
 class HeavyBody;
@@ -41,5 +40,6 @@ class MainWindow;
 
 extern QTimer main_timer;
 extern QFont standard_font;
+extern std::map<QString, QRect> collisionRectMap;
 
 #endif // GLOBAL_H

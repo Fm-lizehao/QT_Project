@@ -36,18 +36,21 @@ void MainWindow::mapEdit()
 {
     page->deleteLater();
 
+    page->show();
 }
 
 void MainWindow::readMe()
 {
     page->deleteLater();
 
+    page->show();
 }
 
 void MainWindow::config()
 {
     page->deleteLater();
 
+    page->show();
 }
 
 void MainWindow::exit()

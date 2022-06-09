@@ -25,11 +25,11 @@ public:
 
     Player* player = nullptr; //主角
 
-    float cameraSpeedX = 0, cameraSpeedY = 0; //相机速度
+    QPointF cameraP = {0,0}; //相机左上角位置
 
-    float cameraX = 0, cameraY = 0; //相机左上角位置
+    QPointF cameraV = {0,0}; //相机速度
 
-    explicit GamePage(QString bg, QRect bgarea, float camerax = 0, float cameray = 0, MainWindow *parent = nullptr, int wid = 1280, int heig = 720);
+    explicit GamePage(QString bg, QRect bgarea, QPointF cameraP = {0,0}, MainWindow *parent = nullptr, int wid = 1280, int heig = 720);
 
     virtual ~GamePage();
 

@@ -3,31 +3,21 @@
 
 #include "global.h"
 
-class FloatRect //float版本的Rect类
-{
-
-public:
-
-    float x = 0, y = 0, width = 0, height = 0;
-
-    FloatRect(float x = 0, float y = 0, float width = 0, float height = 0)
-        : x(x), y(y), width(width), height(height) { }
-
-    ~FloatRect() { }
-
-};
-
 class GameObject : public QWidget
 {
     Q_OBJECT
 
 private:
 
-    QPixmap img; //物体图片
+    std::vector<QPixmap> img; //物体图片
 
-public:
+    std::vector<QRect> collisionRect; //各个图片的碰撞区域
+
+    int imgNow = 0; //当前图片序号
 
     QMatrix matrix; //物体旋转矩阵
+
+public:
 
     state propup = false; //是否被向上支撑
 
@@ -53,17 +43,19 @@ public:
 
     GameObject* rightObject = nullptr; //右边紧靠的物体
 
-    float aX = 0, aY = 0; //物体横纵加速度
+    QPointF p = {0,0}; //物体实际位置
 
-    float realSpeedX = 0, realSpeedY = 0, realSpeedRad = 0; //物体实际的三种速度（地面参考系下）
+    QPointF v = {0,0}; //物体实际速度
 
-    float& cameraSpeedX, cameraSpeedY; //相机速度，引用GamePage中的cameraSpeedX和cameraSpeedY
+    qreal omega = 0; //物体实际角速度
 
-    float realX = 0, realY = 0, realRad = 0; //物体实际的位置（地面参考系下）
+    QPointF a = {0,0}; //物体实际加速度
 
-    float& cameraX, cameraY; //相机左上角位置，引用GamePage中的cameraX和cameraY
+    QPointF& cameraP; //相机左上角位置，引用GamePage中的cameraP
 
-    int xLower = MIN, xUpper = MAX, yLower = MIN, yUpper = MAX; //物体反弹边界
+    QPointF& cameraV; //相机速度，引用GamePage中的cameraV
+
+    QRect border = {QPoint(MIN,MIN),QPoint(MAX,MAX)}; //物体反弹边界
 
     attribute collision = true;   //是否参与碰撞
 
@@ -71,11 +63,9 @@ public:
 
     attribute grativity = false;   //是否受重力下落
 
-    int collisionX = 0, collisionY = 0, collisionWidth = -1, collisionHeight = -1; //碰撞矩形在图片中的相对位置，-1代表图片的宽和高
-
     //基本函数：
 
-    GameObject(GamePage *parent, QString str, float realx, float realy, float realspeedx = 0, float realspeedy = 0, float realspeedrad = 0, int xlower = MIN, int xupper = MAX, int ylower = MIN, int yupper = MAX, attribute collision = true, attribute stubborn = true, attribute grativity = false, int collisionx = 0, int collisiony = 0, int collisionwidth = -1, int collisionheight = -1); //-1代表未指定，默认为图片的宽和高
+    GameObject(GamePage *parent, std::initializer_list<QString> str, QPointF p, QPointF v = {0,0}, qreal omega = 0, QRect border = {QPoint(MIN,MIN),QPoint(MAX,MAX)}, attribute collision = true, attribute stubborn = true, attribute grativity = false);
 
     virtual ~GameObject() {}
 
@@ -83,39 +73,41 @@ public:
 
     //get函数：
 
-    QPixmap getImg(); //返回应该显示的旋转后图片
+    QPixmap getImg()const //返回应显示的旋转后图片
+    {
+        auto retImg = img[imgNow].transformed(matrix, Qt::SmoothTransformation);
+        QRect rect = img[imgNow].rect();
+        rect.moveCenter(retImg.rect().center());
+        return retImg.copy(rect);
+    }
 
-    FloatRect getCollisionRect(); //返回碰撞矩形的绝对坐标
+    QRect getRect()const {return rect().translated(pos()); } //取得应显示的区域
+
+    QRectF getCollisionRect()const {return QRectF(collisionRect[imgNow]).translated(p); } //取得碰撞矩形的绝对坐标
 
     //set函数：
 
-    void setLocation(float x, float y); //更改位置
+    void setImg(int imgnow) { imgNow = imgnow; resize(img[imgNow].size()); } //更改图片
 
-    void setX(float x); //更改水平坐标
+    void setLocation(QPointF p1) { p=p1; move((p-cameraP).toPoint()); } //更改位置
 
-    void setY(float y); //更改垂直坐标
+    void setSpeed(QPointF v1) { v=v1; } //设置速度
 
-    void setSpeed(float x, float y, float rad); //设置速度
+    void setRadSpeed(qreal omega1) { omega=omega1; } //设置角速度
 
-    void setXSpeed(float x); //设置水平速度
+    void setReverseSpeed() { v.setX(-v.x()); v.setY(-v.y()); } //设为反向速度
 
-    void setYSpeed(float y); //设置垂直速度
+    void setXReverseSpeed() { v.setX(-v.x()); } //设为水平反向速度
 
-    void setRadSpeed(float rad); //设置角速度
+    void setYReverseSpeed() { v.setY(-v.y()); } //设为垂直反向速度
 
-    void setReverseSpeed(); //设为反向速度
+    void setLeftSpeed() { v.setX(-std::abs(v.x())); } //设置水平速度向左
 
-    void setXReverseSpeed(); //设为水平反向速度
+    void setRightSpeed() { v.setX(std::abs(v.x())); } //设置水平速度向右
 
-    void setYReverseSpeed(); //设为垂直反向速度
+    void setUpSpeed() { v.setY(-std::abs(v.y())); } //设置垂直速度向上
 
-    void setLeftSpeed(); //设置水平速度向左
-
-    void setRightSpeed(); //设置水平速度向右
-
-    void setUpSpeed(); //设置垂直速度向上
-
-    void setDownSpeed(); //设置垂直速度向下
+    void setDownSpeed() { v.setY(std::abs(v.y())); } //设置垂直速度向下
 
     //主功能函数：
 
@@ -147,8 +139,8 @@ public:
 
     state breakin = false;    //是否被主角穿过
 
-    VirtualObject(GamePage *parent, QString str, float realx, float realy, float realspeedx = 0, float realspeedy = 0, float realspeedrad = 0, int xlower = MIN, int xupper = MAX, int ylower = MIN, int yupper = MAX, attribute grativity = false, int collisionx = 0, int collisiony = 0, int collisionwidth = -1, int collisionheight = -1)
-        : GameObject(parent, str, realx, realy, realspeedx, realspeedy, realspeedrad, xlower, xupper, ylower, yupper, false, true, grativity, collisionx, collisiony, collisionwidth, collisionheight) { }
+    VirtualObject(GamePage *parent, std::initializer_list<QString> str, QPointF p, QPointF v = {0,0}, qreal omega = 0, QRect border = {QPoint(MIN,MIN),QPoint(MAX,MAX)}, attribute grativity = false)
+        : GameObject(parent, str, p, v, omega, border, false, true, grativity) { }
 
     ~VirtualObject() { }
 
@@ -162,8 +154,8 @@ public:
 
     state weighdown = false;    //是否被压下去
 
-    HeavyBody(GamePage *parent, QString str, float realx, float realy, float realspeedx = 0, float realspeedy = 0, float realspeedrad = 0, int xlower = MIN, int xupper = MAX, int ylower = MIN, int yupper = MAX, attribute grativity = false, int collisionx = 0, int collisiony = 0, int collisionwidth = -1, int collisionheight = -1)
-        : GameObject(parent, str, realx, realy, realspeedx, realspeedy, realspeedrad, xlower, xupper, ylower, yupper, true, true, grativity, collisionx, collisiony, collisionwidth, collisionheight) { }
+    HeavyBody(GamePage *parent, std::initializer_list<QString> str, QPointF p, QPointF v = {0,0}, qreal omega = 0, QRect border = {QPoint(MIN,MIN),QPoint(MAX,MAX)}, attribute grativity = false)
+        : GameObject(parent, str, p, v, omega, border, true, true, grativity) { }
 
     ~HeavyBody() { }
 
@@ -177,8 +169,8 @@ public:
 
     state weighdown = false;    //是否被压下去
 
-    Pushable(GamePage *parent, QString str, float realx, float realy, float realspeedx = 0, float realspeedy = 0, float realspeedrad = 0, int xlower = MIN, int xupper = MAX, int ylower = MIN, int yupper = MAX, attribute grativity = false, int collisionx = 0, int collisiony = 0, int collisionwidth = -1, int collisionheight = -1)
-        : GameObject(parent, str, realx, realy, realspeedx, realspeedy, realspeedrad, xlower, xupper, ylower, yupper, true, false, grativity, collisionx, collisiony, collisionwidth, collisionheight) { }
+    Pushable(GamePage *parent, std::initializer_list<QString> str, QPointF p, QPointF v = {0,0}, qreal omega = 0, QRect border = {QPoint(MIN,MIN),QPoint(MAX,MAX)}, attribute grativity = true)
+        : GameObject(parent, str, p, v, omega, border, true, false, grativity) { }
 
     ~Pushable() { }
 
@@ -191,6 +183,11 @@ class Role : public GameObject
 public:
 
     state killed = false;   //是否死亡
+
+    Role(GamePage *parent, std::initializer_list<QString> str, QPointF p, QPointF v = {0,0}, qreal omega = 0, QRect border = {QPoint(MIN,MIN),QPoint(MAX,MAX)}, attribute grativity = true)
+        : GameObject(parent, str, p, v, omega, border, true, false, grativity) { }
+
+    ~Role() { }
 
 };//所有角色，包括npc
 

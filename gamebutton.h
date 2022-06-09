@@ -7,27 +7,29 @@ class GameButton : public QWidget
 {
     Q_OBJECT
 
+private:
+
+    std::vector<QPixmap> img; //按钮图片
+
+    int imgNow = 0; //当前图片序号
+
+    std::vector<QString> text; //按钮文字
+
+    int textNow = 0; //当前文字序号
+
 public:
-
-    QPixmap img; //按钮图片
-
-    QPixmap img2; //如果鼠标移入会改变图片，这就是变化之后的图片
-
-    state flipped = false; //为真时加载变化后的图片
-
-    QString text; //按钮文本
-
-    mode changeMode; //模式1：两张图片；模式2：移动图片
 
     GameButton() {}
 
-    GameButton(GamePage *parent, QString pic1, QString pic2, QString text, int x, int y, QObject* receiver, const char* method);
-
-    GameButton(GamePage *parent, QString pic, QString text, int x, int y, QObject* receiver, const char* method);
+    GameButton(GamePage *parent, std::initializer_list<QString> pic, std::initializer_list<QString> text, QPoint point, QObject* receiver, const char* method);
 
     ~GameButton() {}
 
-    QPixmap getImg(); //取得应显示的按钮图片
+    QPixmap getImg() {return img[imgNow]; } //取得应显示的按钮图片
+
+    QString getText() {return text[textNow]; } //取得应显示的文字
+
+    QRect getRect() {return rect().translated(pos()); } //取得应显示的区域
 
     void paintEvent() = delete;
 

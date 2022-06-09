@@ -1,66 +1,42 @@
 #include "gameobject.h"
 #include "gamepage.h"
 
-GameObject::GameObject(GamePage *parent, QString str, float realx, float realy, float realspeedx, float realspeedy, float realspeedrad, int xlower, int xupper, int ylower, int yupper, attribute collision, attribute stubborn, attribute grativity, int collisionx, int collisiony, int collisionwidth, int collisionheight)
-    : QWidget(parent), img(str), realSpeedX(realspeedx), realSpeedY(realspeedy), realSpeedRad(realspeedrad), cameraSpeedX(parent->cameraSpeedX), cameraSpeedY(parent->cameraSpeedY), realX(realx), realY(realy), cameraX(parent->cameraX), cameraY(parent->cameraY), xLower(xlower), xUpper(xupper), yLower(ylower), yUpper(yupper), collision(collision), stubborn(stubborn), grativity(grativity), collisionX(collisionx), collisionY(collisiony), collisionWidth(collisionwidth), collisionHeight(collisionheight)
+GameObject::GameObject(GamePage *parent, std::initializer_list<QString> str, QPointF p, QPointF v, qreal omega, QRect border, attribute collision, attribute stubborn, attribute grativity)
+    : QWidget(parent), p(p), v(v), omega(omega), cameraP(parent->cameraP), cameraV(parent->cameraV), border(border), collision(collision), stubborn(stubborn), grativity(grativity)
 {
-    setFixedSize(QSize(img.width(), img.height()));
-    move(realX - cameraX, realY - cameraY);
-    if (collisionWidth == -1) collisionWidth = img.width();
-    if (collisionHeight == -1) collisionHeight = img.height();
+    for (auto i:str)
+    {
+        img.push_back(QPixmap(i));
+        if(collisionRectMap.find(i)!=collisionRectMap.end()) collisionRect.push_back(collisionRectMap[i]);
+        else collisionRect.push_back(img.rbegin()->rect());
+    }
+    resize(img[imgNow].size());
+    move((p-cameraP).toPoint());
 }
-
-QPixmap GameObject::getImg()
-{
-    QRect rect(0, 0, img.width(), img.height());
-    auto retImg = img.transformed(matrix, Qt::SmoothTransformation);
-    rect.moveCenter(retImg.rect().center());
-    return retImg.copy(rect);
-}
-
-FloatRect GameObject::getCollisionRect()
-{
-    return FloatRect(realX + collisionX, realY + collisionY, collisionWidth, collisionHeight);
-}
-
-void GameObject::setLocation(float x,float y)        { realX = x; realY = y; move(realX - cameraX, realY - cameraY); }
-void GameObject::setX(float x)                       { realX = x; move(realX - cameraX, y()); }
-void GameObject::setY(float y)                       { realY = y; move(x(), realY - cameraY); }
-void GameObject::setSpeed(float x,float y,float rad) { realSpeedX = x; realSpeedY = y; realSpeedRad = rad; }
-void GameObject::setXSpeed(float x)                  { realSpeedX = x; }
-void GameObject::setYSpeed(float y)                  { realSpeedY = y; }
-void GameObject::setRadSpeed(float rad)              { realSpeedRad = rad; }
-void GameObject::setReverseSpeed()                   { realSpeedX = -realSpeedX; realSpeedY = -realSpeedY; }
-void GameObject::setXReverseSpeed()                  { realSpeedX = -realSpeedX; }
-void GameObject::setYReverseSpeed()                  { realSpeedY = -realSpeedY; }
-void GameObject::setLeftSpeed()                      { realSpeedX = -std::abs(realSpeedX); }
-void GameObject::setRightSpeed()                     { realSpeedX = std::abs(realSpeedX); }
-void GameObject::setUpSpeed()                        { realSpeedY = -std::abs(realSpeedY); }
-void GameObject::setDownSpeed()                      { realSpeedY = std::abs(realSpeedY); }
 
 void GameObject::checkBorder()
 {
-    if (realX + collisionX < xLower && !propleft && !bounceleft)
+    if (getCollisionRect().left() < border.left() && !propleft && !bounceleft)
     {
         pushleft = false;
-        if(realSpeedX == 0.0) realSpeedX = pushSpeed;
+        if(v.x() == 0.0) v.setX(pushSpeed);
         else bounceright = true;
     }
-    if (realX + collisionX + collisionWidth > xUpper && !propright && !bounceright)
+    if (getCollisionRect().right() > border.right() && !propright && !bounceright)
     {
         pushright = false;
-        if(realSpeedX == 0.0) realSpeedX = -pushSpeed;
+        if(v.x() == 0.0) v.setX(-pushSpeed);
         else bounceleft = true;
     }
-    if (realY + collisionY < yLower && !propup && !bounceup)
+    if (getCollisionRect().top() < border.top() && !propup && !bounceup)
     {
-        if(realSpeedY == 0.0) realSpeedY = pushSpeed;
+        if(v.y() == 0.0) v.setY(pushSpeed);
         else bouncedown = true;
     }
-    if (realY + collisionY + collisionHeight > yUpper && !bouncedown)
+    if (getCollisionRect().bottom() > border.bottom() && !bouncedown)
     {
-        if(realSpeedY == 0.0) realSpeedY = -pushSpeed;
-        else bounceup = true; //bounceup: 对脚下物体相对速度为零则跳跃，对脚下物体有正相对速度时则反弹
+        if(v.y() == 0.0) v.setY(-pushSpeed);
+        else bounceup = true;
     }
 }
 
@@ -82,36 +58,33 @@ void GameObject::checkState()
 
 void GameObject::useState()
 {
-    aX = aY = 0;
-    if(grativity&&!propup)                           { aY = g; }
-    if(bounceup)                                     { if(downObject!=nullptr&&realSpeedY==downObject->realSpeedY)setYSpeed(-1);else setUpSpeed();downObject=nullptr; }
+    a = QPointF(0.0,0.0);
+    if(grativity&&!propup)                           { a.setY(g); }
+    if(bounceup)                                     { if(downObject!=nullptr&&v.y()==downObject->v.y())v.setY(-1);else setUpSpeed();downObject=nullptr; }
     if(bouncedown)                                   { setDownSpeed(); }
     if(bounceleft)                                   { setLeftSpeed(); }
     if(bounceright)                                  { setRightSpeed(); }
-    if(pushleft)                                     { setXSpeed(-pushSpeed); }
-    if(pushright)                                    { setXSpeed(pushSpeed); }
-    if(propup)                                       { setYSpeed(downObject->realSpeedY); }
-    if(propleft&&rightObject->realSpeedX<realSpeedX) { setXSpeed(rightObject->realSpeedX); }
-    if(propright&&leftObject->realSpeedX>realSpeedX) { setXSpeed(leftObject->realSpeedX); }
+    if(pushleft)                                     { v.setX(-pushSpeed); }
+    if(pushright)                                    { v.setX(pushSpeed); }
+    if(propup)                                       { v.setY(downObject->v.y()); }
+    if(propleft&&rightObject->v.x()<v.x())           { v.setX(rightObject->v.x()); }
+    if(propright&&leftObject->v.x()>v.x())           { v.setX(leftObject->v.x()); }
 }
 
 void GameObject::updateSpeed()
 {
-    if(!bounceleft&&!bounceright)realSpeedX += aX;
-    if(!bounceup&&!bouncedown)realSpeedY += aY;
+    if(!bounceleft&&!bounceright)v.setX(v.x()+a.x());
+    if(!bounceup&&!bouncedown)v.setY(v.y()+a.y());
     bounceup = bouncedown = bounceleft = bounceright = false;
 }
 
 void GameObject::updateLocation()
 {
-    matrix.translate(img.width() / 2.0, img.height() / 2.0);
-    matrix.rotate(realSpeedRad);
-    matrix.translate(-img.width() / 2.0, -img.height() / 2.0);
-    realX += realSpeedX;
-    realY += realSpeedY;
-    cameraX += cameraSpeedX;
-    cameraY += cameraSpeedY;
-    move(realX - cameraX, realY - cameraY);
+    matrix.translate(width() / 2.0, height() / 2.0);
+    matrix.rotate(omega);
+    matrix.translate(-width() / 2.0, -height() / 2.0);
+    p+=v;
+    move((p-cameraP).toPoint());
 }
 
 void GameObject::selfUpdate()

@@ -17,7 +17,8 @@ SOURCES += main.cpp\
         mainwindow.cpp \
     gamebutton.cpp \
     gameobject.cpp \
-    gamepage.cpp
+    gamepage.cpp \
+    global.cpp
 
 HEADERS  += mainwindow.h \
     gamebutton.h \

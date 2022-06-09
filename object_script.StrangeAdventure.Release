@@ -4,6 +4,7 @@ INPUT(
 ./release\gamebutton.o
 ./release\gameobject.o
 ./release\gamepage.o
+./release\global.o
 ./release\qrc_source.o
 ./release\moc_mainwindow.o
 ./release\moc_gamebutton.o

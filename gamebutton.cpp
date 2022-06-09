@@ -1,50 +1,35 @@
 #include "gamebutton.h"
 #include "gamepage.h"
 
-GameButton::GameButton(GamePage *parent, QString pic1, QString pic2, QString text, int x, int y, QObject* receiver, const char* method)
-    : QWidget(parent), img(pic1), img2(pic2), text(text)
+GameButton::GameButton(GamePage *parent, std::initializer_list<QString> pic, std::initializer_list<QString> text, QPoint point, QObject* receiver, const char* method)
+    : QWidget(parent), text(text)
 {
-    changeMode = 1;
-    setFixedSize(QSize(img.width(), img.height()));
-    move(x, y);
+    for(auto i : pic) img.push_back(QPixmap(i));
+    resize(img[imgNow].size());
+    move(point);
     connect(this, SIGNAL(clicked()), receiver, method);
-}
-
-GameButton::GameButton(GamePage *parent, QString pic, QString text, int x, int y, QObject* receiver, const char* method)
-    : QWidget(parent), img(pic), img2(pic), text(text)
-{
-    changeMode = 2;
-    setFixedSize(QSize(img.width(), img.height()));
-    move(x, y);
-    connect(this, SIGNAL(clicked()), receiver, method);
-}
-
-QPixmap GameButton::getImg()
-{
-    if (flipped) return img2;
-    else         return img;
 }
 
 void GameButton::enterEvent(QEvent *event)
 {
-    if (changeMode == 1)
+    if (img.size() == 1) move(x(), y() + 5);
+    else
     {
-        setFixedSize(QSize(img2.width(), img2.height()));
-        move(x() + img.width() / 2 - img2.width() / 2, y() + img.height() / 2 - img2.height() / 2 + 2);
-        flipped = true;
+        resize(img[1].size());
+        move(x() + img[0].width() / 2 - img[1].width() / 2, y() + img[0].height() / 2 - img[1].height() / 2 + 2);
+        imgNow = 1;
     }
-    else if (changeMode == 2) move(x(), y() + 5);
 }
 
 void GameButton::leaveEvent(QEvent *event)
 {
-    if (changeMode == 1)
-    {
-        setFixedSize(QSize(img.width(), img.height()));
-        move(x() + img2.width() / 2 - img.width() / 2, y() + img2.height() / 2 - img.height() / 2 - 2);
-        flipped = false;
-    }
-    else if (changeMode == 2) move(x(), y() - 5);
+   if (img.size() == 1) move(x(), y() - 5);
+   else
+   {
+       resize(img[0].size());
+       move(x() + img[1].width() / 2 - img[0].width() / 2, y() + img[1].height() / 2 - img[0].height() / 2 - 2);
+       imgNow = 0;
+   }
 }
 
 void GameButton::mouseReleaseEvent(QMouseEvent *event)
