@@ -7,7 +7,7 @@ GameObject::GameObject(GamePage *parent, std::initializer_list<QString> img_str,
     for (auto i:img_str)
     {
         img.push_back(QPixmap(i));
-        if(collisionRectMap.find(i)!=collisionRectMap.end()) collisionRect.push_back(collisionRectMap[i]);
+        if(collisionRectMap.find(i)!=collisionRectMap.end()) collisionRect.push_back(collisionRectMap.find(i)->second);
         else collisionRect.push_back(img.rbegin()->rect());
     }
     resize(img[imgNow].size());
@@ -89,9 +89,9 @@ void GameObject::updateLocation()
 
 void GameObject::selfUpdate()
 {
-    checkBorder();
-    checkState();
-    useState();
-    updateSpeed();
-    updateLocation();
+    this->checkBorder();
+    this->checkState();
+    this->useState();
+    this->updateSpeed();
+    this->updateLocation();
 }

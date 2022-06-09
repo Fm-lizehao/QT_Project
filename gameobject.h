@@ -51,11 +51,11 @@ public:
 
     QPointF a = {0,0}; //物体实际加速度
 
-    QPointF& cameraP; //相机左上角位置，引用GamePage中的cameraP
+    QPointF& cameraP; //引用相机左上角位置
 
-    QPointF& cameraV; //相机速度，引用GamePage中的cameraV
+    QPointF& cameraV; //引用相机速度
 
-    QRect border = {QPoint(MIN,MIN),QPoint(MAX,MAX)}; //物体反弹边界
+    QRect border = noBorder; //物体反弹边界
 
     attribute collision = true;   //是否参与碰撞
 
@@ -65,7 +65,7 @@ public:
 
     //基本函数：
 
-    GameObject(GamePage *parent, std::initializer_list<QString> img_str, QPointF p, QPointF v = {0,0}, qreal omega = 0, QRect border = {QPoint(MIN,MIN),QPoint(MAX,MAX)}, attribute collision = true, attribute stubborn = true, attribute grativity = false);
+    GameObject(GamePage *parent, std::initializer_list<QString> img_str, QPointF p, QPointF v = {0,0}, qreal omega = 0, QRect border = noBorder, attribute collision = true, attribute stubborn = true, attribute grativity = false);
 
     virtual ~GameObject() {}
 
@@ -111,23 +111,21 @@ public:
 
     //主功能函数：
 
-    void checkBorder(); //边界反弹
+    virtual void checkBorder(); //边界反弹
 
-    void checkState(); //检查当前状态，避免矛盾
+    virtual void checkState(); //检查当前状态，避免矛盾
 
-    void useState(); //使用当前状态设置加速度、速度、位置
+    virtual void useState(); //使用当前状态设置加速度、速度、位置
 
-    void updateSpeed(); //根据加速度刷新速度
+    virtual void updateSpeed(); //根据加速度刷新速度
 
-    void updateLocation(); //根据速度刷新位置
+    virtual void updateLocation(); //根据速度刷新位置
 
-    void selfUpdate(); //实际接口，依次调用checkBorder,checkState,useState,updateSpeed,updateLocation
+    virtual void selfUpdate(); //实际接口，依次调用checkBorder,checkState,useState,updateSpeed,updateLocation
 
 signals:
 
 public slots:
-
-    //槽函数：
 
 };
 
@@ -139,7 +137,7 @@ public:
 
     state breakin = false;    //是否被主角穿过
 
-    VirtualObject(GamePage *parent, std::initializer_list<QString> img_str, QPointF p, QPointF v = {0,0}, qreal omega = 0, QRect border = {QPoint(MIN,MIN),QPoint(MAX,MAX)}, attribute grativity = false)
+    VirtualObject(GamePage *parent, std::initializer_list<QString> img_str, QPointF p, QPointF v = {0,0}, qreal omega = 0, QRect border = noBorder, attribute grativity = false)
         : GameObject(parent, img_str, p, v, omega, border, false, true, grativity) { }
 
     ~VirtualObject() { }
@@ -154,7 +152,7 @@ public:
 
     state weighdown = false;    //是否被压下去
 
-    HeavyBody(GamePage *parent, std::initializer_list<QString> img_str, QPointF p, QPointF v = {0,0}, qreal omega = 0, QRect border = {QPoint(MIN,MIN),QPoint(MAX,MAX)}, attribute grativity = false)
+    HeavyBody(GamePage *parent, std::initializer_list<QString> img_str, QPointF p, QPointF v = {0,0}, qreal omega = 0, QRect border = noBorder, attribute grativity = false)
         : GameObject(parent, img_str, p, v, omega, border, true, true, grativity) { }
 
     ~HeavyBody() { }
@@ -169,7 +167,7 @@ public:
 
     state weighdown = false;    //是否被压下去
 
-    Pushable(GamePage *parent, std::initializer_list<QString> img_str, QPointF p, QPointF v = {0,0}, qreal omega = 0, QRect border = {QPoint(MIN,MIN),QPoint(MAX,MAX)}, attribute grativity = true)
+    Pushable(GamePage *parent, std::initializer_list<QString> img_str, QPointF p, QPointF v = {0,0}, qreal omega = 0, QRect border = noBorder, attribute grativity = true)
         : GameObject(parent, img_str, p, v, omega, border, true, false, grativity) { }
 
     ~Pushable() { }
@@ -184,7 +182,7 @@ public:
 
     state killed = false;   //是否死亡
 
-    Role(GamePage *parent, std::initializer_list<QString> img_str, QPointF p, QPointF v = {0,0}, qreal omega = 0, QRect border = {QPoint(MIN,MIN),QPoint(MAX,MAX)}, attribute grativity = true)
+    Role(GamePage *parent, std::initializer_list<QString> img_str, QPointF p, QPointF v = {0,0}, qreal omega = 0, QRect border = noBorder, attribute grativity = true)
         : GameObject(parent, img_str, p, v, omega, border, true, false, grativity) { }
 
     ~Role() { }
@@ -197,10 +195,14 @@ class Player : public Role
 
 public:
 
-    Player(GamePage *parent, std::initializer_list<QString> img_str, QPointF p, QPointF v = {0,0}, qreal omega = 0, QRect border = {QPoint(MIN,MIN),QPoint(MAX,MAX)}, attribute grativity = true)
-        : Role(parent, img_str, p, v, omega, border, grativity) { }
+    Player(GamePage *parent, QPointF p, QRect border = noBorder)
+        : Role(parent, playerImg, p, {0,0}, 0, border, true) { }
 
-    ~Role() { }
+    ~Player() { }
+
+signals:
+
+public slots:
 
 };//主角
 

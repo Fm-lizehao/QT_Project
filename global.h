@@ -39,7 +39,9 @@ class StartPage;
 class MainWindow;
 
 extern QTimer main_timer;
-extern QFont standard_font;
-extern std::map<QString, QRect> collisionRectMap;
+extern const QFont standard_font;
+extern const QRect noBorder;
+extern const std::map<QString, QRect> collisionRectMap;
+extern const std::initializer_list<QString> playerImg;
 
 #endif // GLOBAL_H
