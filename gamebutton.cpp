@@ -1,10 +1,10 @@
 #include "gamebutton.h"
 #include "gamepage.h"
 
-GameButton::GameButton(GamePage *parent, std::initializer_list<QString> pic, std::initializer_list<QString> text, QPoint point, QObject* receiver, const char* method)
+GameButton::GameButton(GamePage *parent, std::initializer_list<QString> img_str, std::initializer_list<QString> text, QPoint point, QObject* receiver, const char* method)
     : QWidget(parent), text(text)
 {
-    for(auto i : pic) img.push_back(QPixmap(i));
+    for(auto i : img_str) img.push_back(QPixmap(i));
     resize(img[imgNow].size());
     move(point);
     connect(this, SIGNAL(clicked()), receiver, method);

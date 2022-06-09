@@ -21,7 +21,7 @@ public:
 
     GameButton() {}
 
-    GameButton(GamePage *parent, std::initializer_list<QString> pic, std::initializer_list<QString> text, QPoint point, QObject* receiver, const char* method);
+    GameButton(GamePage *parent, std::initializer_list<QString> img_str, std::initializer_list<QString> text, QPoint point, QObject* receiver, const char* method);
 
     ~GameButton() {}
 

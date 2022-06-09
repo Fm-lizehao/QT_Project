@@ -1,10 +1,10 @@
 #include "gameobject.h"
 #include "gamepage.h"
 
-GameObject::GameObject(GamePage *parent, std::initializer_list<QString> str, QPointF p, QPointF v, qreal omega, QRect border, attribute collision, attribute stubborn, attribute grativity)
+GameObject::GameObject(GamePage *parent, std::initializer_list<QString> img_str, QPointF p, QPointF v, qreal omega, QRect border, attribute collision, attribute stubborn, attribute grativity)
     : QWidget(parent), p(p), v(v), omega(omega), cameraP(parent->cameraP), cameraV(parent->cameraV), border(border), collision(collision), stubborn(stubborn), grativity(grativity)
 {
-    for (auto i:str)
+    for (auto i:img_str)
     {
         img.push_back(QPixmap(i));
         if(collisionRectMap.find(i)!=collisionRectMap.end()) collisionRect.push_back(collisionRectMap[i]);

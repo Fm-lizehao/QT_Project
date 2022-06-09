@@ -65,7 +65,7 @@ public:
 
     //基本函数：
 
-    GameObject(GamePage *parent, std::initializer_list<QString> str, QPointF p, QPointF v = {0,0}, qreal omega = 0, QRect border = {QPoint(MIN,MIN),QPoint(MAX,MAX)}, attribute collision = true, attribute stubborn = true, attribute grativity = false);
+    GameObject(GamePage *parent, std::initializer_list<QString> img_str, QPointF p, QPointF v = {0,0}, qreal omega = 0, QRect border = {QPoint(MIN,MIN),QPoint(MAX,MAX)}, attribute collision = true, attribute stubborn = true, attribute grativity = false);
 
     virtual ~GameObject() {}
 
@@ -139,8 +139,8 @@ public:
 
     state breakin = false;    //是否被主角穿过
 
-    VirtualObject(GamePage *parent, std::initializer_list<QString> str, QPointF p, QPointF v = {0,0}, qreal omega = 0, QRect border = {QPoint(MIN,MIN),QPoint(MAX,MAX)}, attribute grativity = false)
-        : GameObject(parent, str, p, v, omega, border, false, true, grativity) { }
+    VirtualObject(GamePage *parent, std::initializer_list<QString> img_str, QPointF p, QPointF v = {0,0}, qreal omega = 0, QRect border = {QPoint(MIN,MIN),QPoint(MAX,MAX)}, attribute grativity = false)
+        : GameObject(parent, img_str, p, v, omega, border, false, true, grativity) { }
 
     ~VirtualObject() { }
 
@@ -154,8 +154,8 @@ public:
 
     state weighdown = false;    //是否被压下去
 
-    HeavyBody(GamePage *parent, std::initializer_list<QString> str, QPointF p, QPointF v = {0,0}, qreal omega = 0, QRect border = {QPoint(MIN,MIN),QPoint(MAX,MAX)}, attribute grativity = false)
-        : GameObject(parent, str, p, v, omega, border, true, true, grativity) { }
+    HeavyBody(GamePage *parent, std::initializer_list<QString> img_str, QPointF p, QPointF v = {0,0}, qreal omega = 0, QRect border = {QPoint(MIN,MIN),QPoint(MAX,MAX)}, attribute grativity = false)
+        : GameObject(parent, img_str, p, v, omega, border, true, true, grativity) { }
 
     ~HeavyBody() { }
 
@@ -169,8 +169,8 @@ public:
 
     state weighdown = false;    //是否被压下去
 
-    Pushable(GamePage *parent, std::initializer_list<QString> str, QPointF p, QPointF v = {0,0}, qreal omega = 0, QRect border = {QPoint(MIN,MIN),QPoint(MAX,MAX)}, attribute grativity = true)
-        : GameObject(parent, str, p, v, omega, border, true, false, grativity) { }
+    Pushable(GamePage *parent, std::initializer_list<QString> img_str, QPointF p, QPointF v = {0,0}, qreal omega = 0, QRect border = {QPoint(MIN,MIN),QPoint(MAX,MAX)}, attribute grativity = true)
+        : GameObject(parent, img_str, p, v, omega, border, true, false, grativity) { }
 
     ~Pushable() { }
 
@@ -184,8 +184,8 @@ public:
 
     state killed = false;   //是否死亡
 
-    Role(GamePage *parent, std::initializer_list<QString> str, QPointF p, QPointF v = {0,0}, qreal omega = 0, QRect border = {QPoint(MIN,MIN),QPoint(MAX,MAX)}, attribute grativity = true)
-        : GameObject(parent, str, p, v, omega, border, true, false, grativity) { }
+    Role(GamePage *parent, std::initializer_list<QString> img_str, QPointF p, QPointF v = {0,0}, qreal omega = 0, QRect border = {QPoint(MIN,MIN),QPoint(MAX,MAX)}, attribute grativity = true)
+        : GameObject(parent, img_str, p, v, omega, border, true, false, grativity) { }
 
     ~Role() { }
 
