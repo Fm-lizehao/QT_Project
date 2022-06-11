@@ -19,6 +19,8 @@ private:
 
 public:
 
+    //状态与属性：
+
     state propup = false; //是否被向上支撑
 
     state propleft = false; //是否被向左支撑
@@ -73,6 +75,10 @@ public:
 
     //get函数：
 
+    int getImgNumTotal()const {return img.size(); } //返回图片总数
+
+    int getImgNumNow()const {return imgNow; } //返回当前图片序号
+
     QPixmap getImg()const //返回应显示的旋转后图片
     {
         auto retImg = img[imgNow].transformed(matrix, Qt::SmoothTransformation);
@@ -87,7 +93,7 @@ public:
 
     //set函数：
 
-    void setImg(int imgnow) { imgNow = imgnow; resize(img[imgNow].size()); } //更改图片
+    void setImg(int imgnow) { imgNow = imgnow % img.size(); resize(img[imgNow].size()); } //更改图片
 
     void setLocation(QPointF p1) { p=p1; move((p-cameraP).toPoint()); } //更改位置
 
@@ -142,6 +148,10 @@ public:
 
     ~VirtualObject() { }
 
+signals:
+
+public slots:
+
 };//不参与碰撞的物体
 
 class HeavyBody : public GameObject
@@ -156,6 +166,10 @@ public:
         : GameObject(parent, img_str, p, v, omega, border, true, true, grativity) { }
 
     ~HeavyBody() { }
+
+signals:
+
+public slots:
 
 };//参与碰撞，且碰撞不改变运动状态的物体
 
@@ -172,6 +186,10 @@ public:
 
     ~Pushable() { }
 
+signals:
+
+public slots:
+
 };//可以通过碰撞改变运动状态的物体
 
 class Role : public GameObject
@@ -182,12 +200,42 @@ public:
 
     state killed = false;   //是否死亡
 
+    QTimer timer;    //自动切换图片计时器
+
     Role(GamePage *parent, std::initializer_list<QString> img_str, QPointF p, QPointF v = {0,0}, qreal omega = 0, QRect border = noBorder, attribute grativity = true)
         : GameObject(parent, img_str, p, v, omega, border, true, false, grativity) { }
 
     ~Role() { }
 
-};//所有角色，包括npc
+signals:
+
+public slots:
+
+};//所有角色的基类
+
+class NPC : public Role
+{
+    Q_OBJECT
+
+public:
+
+    NPC(GamePage *parent, std::initializer_list<QString> img_str, QPointF p, QPointF v = {0,0}, qreal omega = 0, QRect border = noBorder, attribute grativity = true)
+        : Role(parent, img_str, p, v, omega, border, grativity)
+    {
+        connect(&timer,SIGNAL(timeout()),this,SLOT(changeImg()),Qt::AutoConnection);
+        timer.setInterval(500);
+        timer.start();
+    }
+
+    ~NPC() { }
+
+signals:
+
+public slots:
+
+    void changeImg() {setImg(getImgNumNow()+1); } //同一状态切换图片
+
+};//NPC
 
 class Player : public Role
 {
@@ -195,14 +243,25 @@ class Player : public Role
 
 public:
 
-    Player(GamePage *parent, QPointF p, QRect border = noBorder)
-        : Role(parent, playerImg, p, {0,0}, 0, border, true) { }
+    state flying = false; //是否在飞
+
+    Player(GamePage *parent, QPointF p)
+        : Role(parent, playerImg, p, {0,0}, 0, noBorder, true)
+    {
+        connect(&timer,SIGNAL(timeout()),this,SLOT(changeImg()),Qt::AutoConnection);
+        timer.setInterval(500);
+        timer.start();
+    }
 
     ~Player() { }
+
+    void useState(); //使用当前状态设置加速度、速度、位置、图片，并对飞行中的bounceup行为作出修改
 
 signals:
 
 public slots:
+
+    void changeImg() {setImg(flip[getImgNumNow()]); } //同一状态切换图片
 
 };//主角
 

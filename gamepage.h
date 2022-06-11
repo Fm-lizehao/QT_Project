@@ -9,6 +9,10 @@ class GamePage : public QWidget
 
 public:
 
+    int pageWidth = windowWidth; //物理空间宽度
+
+    int pageHeight = windowHeight; //物理空间高度
+
     QPixmap background; //背景图
 
     QRect backgroundArea; //背景图区域
@@ -29,11 +33,13 @@ public:
 
     QPointF cameraV = {0,0}; //相机速度
 
-    explicit GamePage(QString bg, QRect bgarea, QPointF cameraP = {0,0}, MainWindow *parent = nullptr, int wid = 1280, int heig = 720);
+    explicit GamePage(MainWindow *parent = nullptr, int wid = windowWidth, int heig = windowHeight, QString bg = "", QRect bgarea = {0,0,windowWidth,windowHeight}, QPointF cameraP = {0,0});
 
     virtual ~GamePage();
 
     void paintEvent(QPaintEvent *event);
+
+    void updateCamera(); //更新相机位置和速度
 
 signals:
 
@@ -49,7 +55,7 @@ class StartPage : public GamePage
 
 public:
 
-    explicit StartPage(MainWindow *parent = nullptr, int wid = 1280, int heig = 720);
+    explicit StartPage(MainWindow *parent = nullptr, int wid = windowWidth, int heig = windowHeight);
 
     ~StartPage() {}
 
@@ -65,7 +71,7 @@ class PlayPage : public GamePage
 
 public:
 
-    explicit PlayPage(MainWindow *parent = nullptr, int wid = 1280, int heig = 720);
+    explicit PlayPage(MainWindow *parent = nullptr, int wid = windowWidth, int heig = windowHeight);
 
     ~PlayPage() {}
 

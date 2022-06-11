@@ -11,7 +11,7 @@ GameObject::GameObject(GamePage *parent, std::initializer_list<QString> img_str,
         else collisionRect.push_back(img.rbegin()->rect());
     }
     resize(img[imgNow].size());
-    move((p-cameraP).toPoint());
+    move((this->p-cameraP).toPoint());
 }
 
 void GameObject::checkBorder()
@@ -19,24 +19,20 @@ void GameObject::checkBorder()
     if (getCollisionRect().left() < border.left() && !propleft && !bounceleft)
     {
         pushleft = false;
-        if(v.x() == 0.0) v.setX(pushSpeed);
-        else bounceright = true;
+        bounceright = true;
     }
     if (getCollisionRect().right() > border.right() && !propright && !bounceright)
     {
         pushright = false;
-        if(v.x() == 0.0) v.setX(-pushSpeed);
-        else bounceleft = true;
+        bounceleft = true;
     }
     if (getCollisionRect().top() < border.top() && !propup && !bounceup)
     {
-        if(v.y() == 0.0) v.setY(pushSpeed);
-        else bouncedown = true;
+        bouncedown = true;
     }
     if (getCollisionRect().bottom() > border.bottom() && !bouncedown)
     {
-        if(v.y() == 0.0) v.setY(-pushSpeed);
-        else bounceup = true;
+        bounceup = true;
     }
 }
 
@@ -60,7 +56,7 @@ void GameObject::useState()
 {
     a = QPointF(0.0,0.0);
     if(grativity&&!propup)                           { a.setY(g); }
-    if(bounceup)                                     { if(downObject!=nullptr&&v.y()==downObject->v.y())v.setY(-1);else setUpSpeed();downObject=nullptr; }
+    if(bounceup)                                     { if(downObject==nullptr)setUpSpeed(); else{v.setY(-pushSpeed); downObject=nullptr; } }
     if(bouncedown)                                   { setDownSpeed(); }
     if(bounceleft)                                   { setLeftSpeed(); }
     if(bounceright)                                  { setRightSpeed(); }
@@ -73,8 +69,8 @@ void GameObject::useState()
 
 void GameObject::updateSpeed()
 {
-    if(!bounceleft&&!bounceright)v.setX(v.x()+a.x());
-    if(!bounceup&&!bouncedown)v.setY(v.y()+a.y());
+    if(!bounceleft&&!bounceright)  v.setX(v.x()+a.x());
+    if(!bounceup&&!bouncedown)     v.setY(v.y()+a.y());
     bounceup = bouncedown = bounceleft = bounceright = false;
 }
 
@@ -94,4 +90,20 @@ void GameObject::selfUpdate()
     this->useState();
     this->updateSpeed();
     this->updateLocation();
+}
+
+void Player::useState()
+{
+    a = QPointF(0.0,0.0);
+    if(grativity&&!propup)                           { a.setY(g); }
+    if(bounceup)                                     { v.setY(-pushSpeed); downObject=nullptr; }
+    if(bouncedown)                                   { setDownSpeed(); }
+    if(bounceleft)                                   { setLeftSpeed(); }
+    if(bounceright)                                  { setRightSpeed(); }
+    if(pushleft)                                     { v.setX(-pushSpeed); }
+    if(pushright)                                    { v.setX(pushSpeed); }
+    if(propup)                                       { v.setY(downObject->v.y()); }
+    if(propleft&&rightObject->v.x()<v.x())           { v.setX(rightObject->v.x()); }
+    if(propright&&leftObject->v.x()>v.x())           { v.setX(leftObject->v.x()); }
+    //更改图片：（未完成）
 }

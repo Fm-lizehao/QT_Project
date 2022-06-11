@@ -15,11 +15,11 @@ private:
 
 public:
 
-    GamePage *page = NULL;
+    GamePage *page = NULL; //窗口对应的页面
 
-    QMediaPlayer * music = NULL;
+    QMediaPlayer * music = NULL; //音乐播放器
 
-    QMediaPlaylist * playlist = NULL;
+    QMediaPlaylist * playlist = NULL; //播放列表
 
     MainWindow(QWidget *parent = 0);
 

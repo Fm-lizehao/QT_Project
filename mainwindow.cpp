@@ -6,7 +6,7 @@ MainWindow::MainWindow(QWidget *parent)
 {
     connect(this, SIGNAL(quitSignal()), qApp, SLOT(quit()));
     ui->setupUi(this);
-    setFixedSize(1280, 720);
+    setFixedSize(windowWidth, windowHeight);
     setWindowIcon(QPixmap(pic(icon)));
     setWindowTitle("正常的大冒险");
     page = new StartPage(this, this->width(), this->height());
@@ -55,7 +55,7 @@ void MainWindow::config()
 
 void MainWindow::exit()
 {
-    if (!(QMessageBox::question(this, tr("退出游戏"), tr("     你真的要退出吗?    (盯) "), tr(" 啊~可耻地润了T__T "), tr(" 人家点错惹>﹏< "))))
+    if (!(QMessageBox::question(this, tr("退出游戏"), tr("     你真的要退出吗?    (盯) "), tr(" 啊~可耻地逃了T__T "), tr(" 人家点错了>﹏< "))))
     {
         quitSignal();
     }
