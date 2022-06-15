@@ -18,12 +18,10 @@ public:
     QPointF& cameraP; //引用相机左上角位置
     QPointF& cameraV; //引用相机速度
     QRect border = noBorder; //物体反弹边界
-
     attribute collision = true;   //是否参与碰撞
     attribute stubborn = true;   //是否撞不动
     attribute grativity = false;   //是否受重力下落
     attribute cankill = false;   //是否能杀死主角
-
     state propup = false; //是否被向上支撑（自动刷新）
     state propleft = false; //是否被向左支撑（自动刷新）
     state propright = false; //是否被向右支撑（自动刷新）
@@ -33,12 +31,10 @@ public:
     state bouncedown = false; //是否应当向下弹（调用函数后立即恢复）
     state bounceleft = false; //是否应当向左弹（调用函数后立即恢复）
     state bounceright = false; //是否应当向右弹（调用函数后立即恢复）
-
     GameObject* upObject = nullptr; //上边紧靠的物体（自动刷新）
     GameObject* downObject = nullptr; //下边紧靠的物体（自动刷新）
     GameObject* leftObject = nullptr; //左边紧靠的物体（自动刷新）
     GameObject* rightObject = nullptr; //右边紧靠的物体（自动刷新）
-
     direction order = NONE; //即将处理的碰撞（自动刷新）
     //基本函数：
     GameObject(GamePage *parent, initializer_list<QString> img_str, QPointF p, QPointF v = {0,0}, qreal omega = 0, QRect border = noBorder, attribute collision = true, attribute stubborn = true, attribute grativity = false, attribute cankill = false);
@@ -132,8 +128,7 @@ public:
     ~Role() { }
     int leftOrRight()const {if(v.x()>0) return 0; if(v.x()<0) return 1; return getImgNumNow()%2; } //返回人物朝向，0为右，1为左
     void checkCollision(GameObject* other)
-    {
-        if(other->cankill&&intersect(getCollisionRect(), other->getCollisionRect())) killed = true;
+    {   if(other->cankill&&intersect(getCollisionRect(), other->getCollisionRect())) killed = true;
         GameObject::checkCollision(other);
     }//检查与另一物体的碰撞方位，更新order和killed
 signals:
