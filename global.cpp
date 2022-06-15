@@ -30,7 +30,6 @@ const initializer_list<QString> playerImg
         pic(Player_cry3_left)    //17
     };
 const int flip[18] = {0,1,4,5,2,3,6,7,8,9,10,11,14,15,16,17,16,17};
-
 bool intersect(QRectF rect1, QRectF rect2)
 {
     return ((rect1.left()>=rect2.left()&&rect1.left()<=rect2.right())||(rect2.left()>=rect1.left()&&rect2.left()<=rect1.right()))

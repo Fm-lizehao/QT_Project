@@ -1,10 +1,7 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
-
 #include "global.h"
-
 #include "ui_mainwindow.h"
-
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
@@ -14,7 +11,6 @@ public:
     GamePage *page = NULL; //窗口对应的页面
     QMediaPlayer * music = NULL; //音乐播放器
     QMediaPlaylist * playlist = NULL; //播放列表
-
     MainWindow(QWidget *parent = 0);
     ~MainWindow();
 signals:
@@ -26,5 +22,4 @@ public slots:
     void config(); //游戏设置
     void exit(); //退出游戏
 };
-
 #endif // MAINWINDOW_H

@@ -1,6 +1,5 @@
 #ifndef GLOBAL_H
 #define GLOBAL_H
-
 #include <cstring>
 #include <map>
 #include <vector>
@@ -15,9 +14,7 @@
 #include <QPainter>
 #include <QtMultimedia/QMediaPlayer>
 #include <QMediaPlaylist>
-
 using namespace std;
-
 #define INTIME(x) connect(&main_timer,SIGNAL(timeout()),this,SLOT(x()),Qt::DirectConnection) //每秒将一个函数触发60次
 #define MIN -2147483648                              //MIN宏
 #define MAX 2147483647                               //MAX宏
@@ -33,12 +30,10 @@ using namespace std;
 #define pushSpeed 0.36                               //推动标准速度
 #define bounceSpeed 1.2                              //弹跳标准速度
 #define g 0.003                                      //重力加速度
-
 typedef bool state;
 typedef bool attribute;
 typedef int mode;
 typedef char direction;
-
 class GameButton;
 class GameObject;
 class VirtualObject;
@@ -50,14 +45,11 @@ class Player;
 class GamePage;
 class StartPage;
 class MainWindow;
-
 extern QTimer main_timer;
 extern const QFont standard_font;
 extern const QRect noBorder;
 extern const map<QString, QRect> collisionRectMap;
 extern const initializer_list<QString> playerImg;
 extern const int flip[18];
-
 bool intersect(QRectF rect1, QRectF rect2);
-
 #endif // GLOBAL_H

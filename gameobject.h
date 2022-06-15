@@ -1,8 +1,6 @@
 #ifndef GAMEOBJECT_H
 #define GAMEOBJECT_H
-
 #include "global.h"
-
 class GameObject : public QWidget
 {
     Q_OBJECT
@@ -42,12 +40,10 @@ public:
     GameObject* rightObject = nullptr; //右边紧靠的物体（自动刷新）
 
     direction order = NONE; //即将处理的碰撞（自动刷新）
-
     //基本函数：
     GameObject(GamePage *parent, initializer_list<QString> img_str, QPointF p, QPointF v = {0,0}, qreal omega = 0, QRect border = noBorder, attribute collision = true, attribute stubborn = true, attribute grativity = false, attribute cankill = false);
     virtual ~GameObject() {}
     void paintEvent() = delete;
-
     //get函数：
     int getImgNumTotal()const {return img.size(); } //返回图片总数
     int getImgNumNow()const {return imgNow; } //返回当前图片序号
@@ -58,7 +54,6 @@ public:
         return retImg.copy(rect); }
     QRect getRect()const {return rect().translated(pos()); } //取得应显示的区域
     QRectF getCollisionRect()const {return QRectF(collisionRect[imgNow]).translated(p); } //取得碰撞矩形的绝对坐标
-
     //set函数：
     void setImg(int imgnow) { imgNow = imgnow % img.size(); resize(img[imgNow].size()); } //更改图片
     void setLocation(QPointF p1) { p=p1; move((p-cameraP).toPoint()); } //更改位置
@@ -68,11 +63,9 @@ public:
     void setRightSpeed() { v.setX(abs(v.x())); } //设置水平速度向右
     void setUpSpeed() { v.setY(-abs(v.y())); } //设置垂直速度向上
     void setDownSpeed() { v.setY(abs(v.y())); } //设置垂直速度向下
-
     //主功能函数：
     virtual void checkCollision(GameObject* other); //检查与另一物体的碰撞方位，更新order
     virtual void doCollision(); //根据order更新状态并清空order
-
     virtual void checkBorder(); //边界反弹，更新状态
     virtual void checkState(); //检查当前状态，避免矛盾
     virtual void useState(); //使用当前状态设置加速度、速度、位置
@@ -88,15 +81,10 @@ class VirtualObject : public GameObject
     Q_OBJECT
 public:
     state breakin = false;    //是否被主角或npc穿过
-
     VirtualObject(GamePage *parent, initializer_list<QString> img_str, QPointF p, QPointF v = {0,0}, qreal omega = 0, QRect border = noBorder, attribute grativity = false, attribute cankill = false)
         : GameObject(parent, img_str, p, v, omega, border, false, true, grativity, cankill) { }
     ~VirtualObject() { }
-
-    void checkCollision(GameObject* other)
-    {
-        if(intersect(getCollisionRect(), other->getCollisionRect())) breakin = true;
-    }//检查与另一物体的碰撞，更新breakin
+    void checkCollision(GameObject* other) {if(intersect(getCollisionRect(),other->getCollisionRect())) breakin = true; }//检查与另一物体的碰撞，更新breakin
     void doCollision() { } //空函数
 signals:
 public slots:
@@ -108,13 +96,10 @@ class HeavyBody : public GameObject
 public:
     state weighdown = false;    //是否被主角或npc压下去
     state butted = false;    //是否被主角或npc顶起来
-
     HeavyBody(GamePage *parent, initializer_list<QString> img_str, QPointF p, QPointF v = {0,0}, qreal omega = 0, QRect border = noBorder, attribute grativity = false, attribute cankill = false)
         : GameObject(parent, img_str, p, v, omega, border, true, true, grativity, cankill) { }
     ~HeavyBody() { }
-
     void doCollision(); //根据order更新状态并清空order
-
     void checkState(); //检查当前状态，避免矛盾
     void useState(); //使用当前状态设置加速度、速度、位置
 signals:
@@ -126,13 +111,10 @@ class Pushable : public GameObject
     Q_OBJECT
 public:
     state weighdown = false;    //是否被主角或npc压下去
-
     Pushable(GamePage *parent, initializer_list<QString> img_str, QPointF p, QPointF v = {0,0}, qreal omega = 0, QRect border = noBorder, attribute grativity = true, attribute cankill = false)
         : GameObject(parent, img_str, p, v, omega, border, true, false, grativity, cankill) { }
     ~Pushable() { }
-
     void doCollision(); //根据order更新状态并清空order
-
     void checkState(); //检查当前状态，避免矛盾
     void useState(); //使用当前状态设置加速度、速度、位置
 signals:
@@ -145,11 +127,9 @@ class Role : public GameObject
 public:
     state killed = false;   //是否死亡
     QTimer timer;    //自动切换图片计时器
-
     Role(GamePage *parent, initializer_list<QString> img_str, QPointF p, QPointF v = {0,0}, qreal omega = 0, QRect border = noBorder, attribute grativity = true, attribute cankill = false)
         : GameObject(parent, img_str, p, v, omega, border, true, false, grativity, cankill) { }
     ~Role() { }
-
     int leftOrRight()const {if(v.x()>0) return 0; if(v.x()<0) return 1; return getImgNumNow()%2; } //返回人物朝向，0为右，1为左
     void checkCollision(GameObject* other)
     {
@@ -165,7 +145,6 @@ class NPC : public Role
     Q_OBJECT
 public:
     state victory = false;   //是否杀死了主角
-
     NPC(GamePage *parent, initializer_list<QString> img_str, QPointF p, QPointF v = {0,0}, qreal omega = 0, QRect border = noBorder, attribute grativity = true, attribute cankill = false)
         : Role(parent, img_str, p, v, omega, border, grativity, cankill)
     {   connect(&timer,SIGNAL(timeout()),this,SLOT(changeImg()),Qt::AutoConnection);
@@ -183,7 +162,6 @@ class Player : public Role
 public:
     state flying = false; //是否在飞
     state jumping = false; //是否在跳跃
-
     Player(GamePage *parent, QPointF p)
         : Role(parent, playerImg, p, {0,0}, 0, noBorder, true, false)
     {   connect(&timer,SIGNAL(timeout()),this,SLOT(changeImg()),Qt::AutoConnection);
@@ -191,16 +169,13 @@ public:
         timer.start();
         this->grabKeyboard(); }
     ~Player() { }
-
     void keyPressEvent(QKeyEvent *event); //键盘按下
     void keyReleaseEvent(QKeyEvent *event); //键盘松开
-
     void stand(); //设为站立图片
     void walk(); //设为行走图片
     void jump(); //设为跳跃图片
     void fly(); //设为飞行图片
     void cry(); //设为跪哭图片
-
     void checkBorder() { } //空函数
     void useState(); //增加跳跃，对飞行中的bounceup行为作出修改
     void updateSpeed(); //增加了页面边界速度设为0的判断，增加了图片更改判断
@@ -208,5 +183,4 @@ signals:
 public slots:
     void changeImg() {setImg(flip[getImgNumNow()]); } //同一状态切换图片
 };//主角
-
 #endif // GAMEOBJECT_H
