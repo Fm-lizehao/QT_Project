@@ -277,8 +277,8 @@ void Player::updateSpeed()
     if(getCollisionRect().top()<0&&v.y()<0) v.setY(0);
     if(getCollisionRect().top()>((GamePage*)parent())->pageHeight) killed = true;
     if(killed) cry();
-    else if(jumping) jump();
     else if(flying) fly();
-    else if((propup&&!pushleft&&!pushright)||!propup) stand();
+    else if(jumping) jump();
     else if(propup&&(pushleft||pushright)) walk();
+    else stand();
 }

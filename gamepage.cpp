@@ -116,5 +116,10 @@ PlayPage::PlayPage(MainWindow *parent, int wid, int heig)
     heavyBodies.insert(make_pair("001:Object", new HeavyBody(this, {pic(Float_144)}, {0,400}, {0,0}, 0, PageRect())));
     heavyBodies.insert(make_pair("002:Object", new HeavyBody(this, {pic(Float_144)}, {150,400}, {0,0}, 0, PageRect())));
     heavyBodies.insert(make_pair("003:Object", new HeavyBody(this, {pic(Float_144)}, {300,400}, {0,0}, 0, PageRect())));
+    heavyBodies.insert(make_pair("004:Object", new HeavyBody(this, {pic(Float_144)}, {450,400}, {0,0}, 0, PageRect())));
+    heavyBodies.insert(make_pair("005:Object", new HeavyBody(this, {pic(Float_144)}, {600,400}, {0,0}, 0, PageRect())));
+    heavyBodies.insert(make_pair("006:Object", new HeavyBody(this, {pic(Float_144)}, {750,400}, {0,0}, 0, PageRect())));
+    heavyBodies.insert(make_pair("007:Object", new HeavyBody(this, {pic(Float_144)}, {900,400}, {0,0}, 0, PageRect())));
+    heavyBodies.insert(make_pair("008:Object", new HeavyBody(this, {pic(Float_144)}, {1050,400}, {0,0}, 0, PageRect())));
     player = new Player(this,{100,100});
 }

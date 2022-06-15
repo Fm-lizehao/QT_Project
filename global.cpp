@@ -5,8 +5,9 @@ const QFont standard_font("幼圆", 15, QFont::Bold, false);
 const QRect noBorder = {QPoint(MIN,MIN),QPoint(MAX,MAX)};
 const map<QString, QRect> collisionRectMap
     ={
-
-     }; //此处插入需要限制碰撞区域的图片的<QString, QRect>
+    {pic(Player_cry3_right),{12,16,48,32}},
+    {pic(Player_cry3_left),{0,16,48,32}}
+     }; //此处插入需要限制碰撞区域的图片的pair<QString, QRect>
 const initializer_list<QString> playerImg
     ={
         pic(Player_stand_right), //0
