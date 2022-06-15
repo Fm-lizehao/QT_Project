@@ -256,6 +256,7 @@ void Player::useState()
 {
     a = QPointF(0.0,0.0);
     if(grativity&&!propup&&!bounceup&&!bouncedown)   { a.setY(g); }
+    if(killed)                                       { v.setX(0); }
     if(!killed&&bounceup)                            { if(!flying) jumping = true; v.setY(-bounceSpeed); bounceup = false; }
     if(bouncedown)                                   { setDownSpeed(); bouncedown = false; }
     if(!killed&&pushleft)                            { v.setX(-pushSpeed); }
