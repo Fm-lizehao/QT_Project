@@ -28,7 +28,7 @@ MainWindow::~MainWindow()
 void MainWindow::startGame()
 {
     page->deleteLater();
-    page = new PlayPage(this, this->width(), this->height());
+    page = new PlayPage(this, this->width()*2, this->height());
     page->show();
 }
 
