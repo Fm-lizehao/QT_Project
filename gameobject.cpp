@@ -44,8 +44,8 @@ void GameObject::checkCollision(GameObject* other)
 
 void GameObject::doCollision()
 {
-    if((order&UP)>>3&&collision&&!stubborn) bouncedown = true; else {upObject = nullptr; }
-    if((order&DOWN)>>2&&collision&&!stubborn) propup = true; else {propup = false; downObject = nullptr; }
+    if((order&UP)>>3&&collision) bouncedown = true; else {upObject = nullptr; }
+    if((order&DOWN)>>2&&collision) propup = true; else {propup = false; downObject = nullptr; }
     if((order&LEFT)>>1&&collision) propright = true; else {propright = false; leftObject = nullptr; }
     if((order&RIGHT)&&collision) propleft = true; else {propleft = false; rightObject = nullptr; }
     order = NONE;
@@ -79,12 +79,15 @@ void GameObject::useState()
     if(bounceright)                                  { setRightSpeed(); bounceright = false; }
     if(pushleft)                                     { v.setX(-pushSpeed); }
     if(pushright)                                    { v.setX(pushSpeed); }
-    if(propup)                                       { p-=QPointF(0,getCollisionRect().bottom()-downObject->getCollisionRect().top()); }
-    if(propleft)                                     { p-=QPointF(getCollisionRect().right()-rightObject->getCollisionRect().left(),0); }
-    if(propright)                                    { p+=QPointF(leftObject->getCollisionRect().right()-getCollisionRect().left(),0); }
-    if(propup&&downObject->v.y()<v.y())              { v.setY(downObject->v.y()); }
-    if(propleft&&rightObject->v.x()<v.x())           { v.setX(rightObject->v.x()); }
-    if(propright&&leftObject->v.x()>v.x())           { v.setX(leftObject->v.x()); }
+    if(propup&&getCollisionRect().bottom()>downObject->getCollisionRect().top())
+                                                     { p-=QPointF(0,getCollisionRect().bottom()-downObject->getCollisionRect().top()); }
+    if(propleft&&getCollisionRect().right()>rightObject->getCollisionRect().left())
+                                                     { p-=QPointF(getCollisionRect().right()-rightObject->getCollisionRect().left(),0); }
+    if(propright&&leftObject->getCollisionRect().right()>getCollisionRect().left())
+                                                     { p+=QPointF(leftObject->getCollisionRect().right()-getCollisionRect().left(),0); }
+    if(propup&&downObject->v.y()<v.y()&&!stubborn)   { v.setY(downObject->v.y()); }
+    if(propleft&&rightObject->v.x()<v.x()&&!stubborn){ v.setX(rightObject->v.x()); }
+    if(propright&&leftObject->v.x()>v.x()&&!stubborn){ v.setX(leftObject->v.x()); }
 }
 
 void GameObject::updateSpeed() {v.setX(v.x()+a.x()); v.setY(v.y()+a.y()); }
@@ -107,6 +110,23 @@ void GameObject::selfUpdate()
     this->updateLocation();
 }
 
+void VirtualObject::checkState()
+{
+    if(bounceleft&&bounceright)                      { bounceleft = bounceright = false; }
+    if(bouncedown)                                   { bounceup = false; }
+}
+
+void VirtualObject::useState()
+{
+    a = QPointF(0.0,0.0);
+    if(grativity&&!bounceup&&!bouncedown)            { a.setY(g); }
+    if(bounceup)                                     { setUpSpeed(); bounceup = false; }
+    if(bouncedown)                                   { setDownSpeed(); bouncedown = false; }
+    if(bounceleft)                                   { setLeftSpeed(); bounceleft = false; }
+    if(bounceright)                                  { setRightSpeed(); bounceright = false; }
+    if(breakin&&getImgNumNow()!=getImgNumTotal()-1)  { setImg(getImgNumTotal()-1); v = a = {0,0}; }
+}
+
 void HeavyBody::doCollision()
 {
     if((order&UP)>>3) weighdown = true; else {weighdown = false; upObject = nullptr; }
@@ -120,17 +140,19 @@ void HeavyBody::checkState()
 {
     if(bounceleft&&bounceright)                      { bounceleft = bounceright = false; }
     if(bouncedown)                                   { bounceup = false; }
-    if(propup)                                       { bouncedown = false; }
 }
 
 void HeavyBody::useState()
 {
     a = QPointF(0.0,0.0);
-    if(grativity&&!propup&&!bounceup&&!bouncedown)   { a.setY(g); }
+    if(grativity&&!bounceup&&!bouncedown)            { a.setY(g); }
     if(bounceup)                                     { setUpSpeed(); bounceup = false; }
     if(bouncedown)                                   { setDownSpeed(); bouncedown = false; }
     if(bounceleft)                                   { setLeftSpeed(); bounceleft = false; }
     if(bounceright)                                  { setRightSpeed(); bounceright = false; }
+    if(weighdown&&getImgNumTotal()>=3&&!butted)      { setImg(getImgNumTotal()-2); }
+    else if(!butted&&getImgNumNow()!=0)              { setImg(0); }
+    if(butted&&getImgNumNow()!=getImgNumTotal()-1)   { setImg(getImgNumTotal()-1); }
 }
 
 void Pushable::doCollision()
@@ -145,7 +167,7 @@ void Pushable::doCollision()
 void Pushable::checkState()
 {
     if(bounceleft&&bounceright)                      { bounceleft = bounceright = false; }
-    if(bouncedown)                                   { bounceup = false; }
+    if(weighdown||bouncedown)                        { bounceup = false; }
     if(propup)                                       { bouncedown = false; }
     if(propleft)                                     { bounceright = false; }
     if(propright)                                    { bounceleft = false; }
@@ -154,17 +176,53 @@ void Pushable::checkState()
 void Pushable::useState()
 {
     a = QPointF(0.0,0.0);
+    v.setX(0.0);
     if(grativity&&!propup&&!bounceup&&!bouncedown)   { a.setY(g); }
-    if(bounceup)                                     { if(downObject==nullptr)setUpSpeed(); else v.setY(-bounceSpeed); bounceup = false; }
+    if(bounceup)                                     { setUpSpeed(); bounceup = false; }
     if(bouncedown)                                   { setDownSpeed(); bouncedown = false; }
     if(bounceleft)                                   { setLeftSpeed(); bounceleft = false; }
     if(bounceright)                                  { setRightSpeed(); bounceright = false; }
-    if(propup)                                       { p-=QPointF(0,getCollisionRect().bottom()-downObject->getCollisionRect().top()); }
-    if(propleft)                                     { p-=QPointF(getCollisionRect().right()-rightObject->getCollisionRect().left(),0); }
-    if(propright)                                    { p+=QPointF(leftObject->getCollisionRect().right()-getCollisionRect().left(),0); }
+    if(weighdown)                                    { setImg(getImgNumTotal()-1); setDownSpeed(); }
+    else if(getImgNumNow()!=0)                       { setImg(0); }
+    if(propup&&getCollisionRect().bottom()>downObject->getCollisionRect().top())
+                                                     { p-=QPointF(0,getCollisionRect().bottom()-downObject->getCollisionRect().top()); }
+    if(propleft&&getCollisionRect().right()>rightObject->getCollisionRect().left())
+                                                     { p-=QPointF(getCollisionRect().right()-rightObject->getCollisionRect().left(),0); }
+    if(propright&&leftObject->getCollisionRect().right()>getCollisionRect().left())
+                                                     { p+=QPointF(leftObject->getCollisionRect().right()-getCollisionRect().left(),0); }
     if(propup&&downObject->v.y()<v.y())              { v.setY(downObject->v.y()); }
     if(propleft&&rightObject->v.x()<v.x())           { v.setX(rightObject->v.x()); }
     if(propright&&leftObject->v.x()>v.x())           { v.setX(leftObject->v.x()); }
+}
+
+void Role::checkCollision(GameObject* other)
+{
+    QRectF rect1 = getCollisionRect();
+    QRectF rect2 = other->getCollisionRect();
+    if(other->cankill&&intersect(rect1, rect2)) killed = true;
+    if(!other->collision) return;
+    if(intersect(rect1, rect2))
+    {
+        direction tempOrder = 0;
+        qreal min = MAX;
+        qreal up = rect2.bottom()-rect1.top();
+        qreal down = rect1.bottom()-rect2.top();
+        qreal left = rect2.right()-rect1.left();
+        qreal right = rect1.right()-rect2.left();
+        if(up>=0&&up<min) {min = up; tempOrder = UP; }
+        if(down>=0&&down<min) {min = down; tempOrder = DOWN; }
+        if(left>=0&&left<min) {min = left; tempOrder = LEFT; }
+        if(right>=0&&right<min) {min = right; tempOrder = RIGHT; }
+        if(!other->stubborn&&(tempOrder==LEFT||tempOrder==RIGHT)) return;
+        order |= tempOrder;
+        switch(tempOrder)
+        {
+        case UP: upObject = other; break;
+        case DOWN: downObject = other; break;
+        case LEFT: leftObject = other; break;
+        case RIGHT: rightObject = other; break;
+        }
+    }
 }
 
 void Player::keyPressEvent(QKeyEvent *event)
@@ -194,13 +252,13 @@ void Player::keyReleaseEvent(QKeyEvent *event)
     case Qt::Key_A: case Qt::Key_Left:
         pushleft = false;
         if(pushright) break;
-        if(leftObject == nullptr) v.setX(0);
+        if(leftObject == nullptr||!leftObject->stubborn) v.setX(0);
         else v.setX(leftObject->v.x());
         break;
     case Qt::Key_D: case Qt::Key_Right:
         pushright = false;
         if(pushleft) break;
-        if(rightObject == nullptr) v.setX(0);
+        if(rightObject == nullptr||!rightObject->stubborn) v.setX(0);
         else v.setX(rightObject->v.x());
         break;
     }
@@ -217,7 +275,7 @@ void Player::stand()
 
 void Player::walk()
 {
-    if(timer.isActive()&&(getImgNumNow()==2+leftOrRight()||getImgNumNow()==4+leftOrRight())) return;
+    if(timer.isActive()&&(getImgNumNow()==2+leftOrRight()||getImgNumNow()==4+leftOrRight())&&!propleft&&!propright) return;
     timer.stop();
     setImg(2+leftOrRight());
     if(propleft||propright) return;
@@ -261,9 +319,12 @@ void Player::useState()
     if(bouncedown)                                   { setDownSpeed(); bouncedown = false; }
     if(!killed&&pushleft)                            { v.setX(-pushSpeed); }
     if(!killed&&pushright)                           { v.setX(pushSpeed); }
-    if(propup)                                       { p-=QPointF(0,getCollisionRect().bottom()-downObject->getCollisionRect().top()); }
-    if(propleft)                                     { p-=QPointF(getCollisionRect().right()-rightObject->getCollisionRect().left(),0); }
-    if(propright)                                    { p+=QPointF(leftObject->getCollisionRect().right()-getCollisionRect().left(),0); }
+    if(propup&&getCollisionRect().bottom()>downObject->getCollisionRect().top())
+                                                     { p-=QPointF(0,getCollisionRect().bottom()-downObject->getCollisionRect().top()); }
+    if(propleft&&getCollisionRect().right()>rightObject->getCollisionRect().left())
+                                                     { p-=QPointF(getCollisionRect().right()-rightObject->getCollisionRect().left(),0); }
+    if(propright&&leftObject->getCollisionRect().right()>getCollisionRect().left())
+                                                     { p+=QPointF(leftObject->getCollisionRect().right()-getCollisionRect().left(),0); }
     if(propup&&downObject->v.y()<v.y())              { v.setY(downObject->v.y()); jumping = flying = false; }
     if(propleft&&rightObject->v.x()<v.x())           { v.setX(rightObject->v.x()); }
     if(propright&&leftObject->v.x()>v.x())           { v.setX(leftObject->v.x()); }

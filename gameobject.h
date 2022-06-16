@@ -82,6 +82,8 @@ public:
     ~VirtualObject() { }
     void checkCollision(GameObject* other) {if(intersect(getCollisionRect(),other->getCollisionRect())) breakin = true; }//检查与另一物体的碰撞，更新breakin
     void doCollision() { } //空函数
+    void checkState(); //检查当前状态，避免矛盾
+    void useState(); //使用当前状态设置加速度、速度、位置、图片
 signals:
 public slots:
 };//不参与碰撞的物体
@@ -127,10 +129,7 @@ public:
         : GameObject(parent, img_str, p, v, omega, border, true, false, grativity, cankill) { }
     ~Role() { }
     int leftOrRight()const {if(v.x()>0) return 0; if(v.x()<0) return 1; return getImgNumNow()%2; } //返回人物朝向，0为右，1为左
-    void checkCollision(GameObject* other)
-    {   if(other->cankill&&intersect(getCollisionRect(), other->getCollisionRect())) killed = true;
-        GameObject::checkCollision(other);
-    }//检查与另一物体的碰撞方位，更新order和killed
+    void checkCollision(GameObject* other); //检查与另一物体的碰撞方位，更新order和killed
 signals:
 public slots:
 };//所有角色的基类

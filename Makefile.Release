@@ -203,7 +203,6 @@ release/qrc_source.cpp: source.qrc \
 		image/FightMenu.png \
 		image/Cloud_2.png \
 		image/Stage4_book_crevice_6.png \
-		image/ShareWeixinImage.png \
 		image/Player_walk2_right.png \
 		image/StagePlant_pig.png \
 		image/Startup_screen_7_1.png \
@@ -216,8 +215,6 @@ release/qrc_source.cpp: source.qrc \
 		image/Civilian_knee_2.png \
 		image/Stage4_scrip_triangle.png \
 		image/Emoji_hero_6.png \
-		image/ShareWeiboImage.jpg \
-		image/ShareInternImage.jpg \
 		image/HillMonster_idle.png \
 		image/Startup_screen_end_2.png \
 		image/Startup_title_zh.png \
@@ -349,9 +346,9 @@ release/qrc_source.cpp: source.qrc \
 		image/Player_jump_right.png \
 		image/HelloBoard2.png \
 		image/Startup_screen_3_1.png \
+		image/StagePlant_pig_hurt.png \
 		image/Crown.png \
 		image/Pipe.png \
-		image/StagePlant_pig_hurt.png \
 		image/Player_walk1_left.png \
 		image/Thumb_book_opened.png \
 		image/Bridge_middle.png \
@@ -480,6 +477,7 @@ release/qrc_source.cpp: source.qrc \
 		image/Thumb_dpad_right.png \
 		image/StagePlant_shadow_pressed.png \
 		image/Startup_button_achievement.png \
+		image/Float_120.png \
 		image/Stage4_explosion2.png \
 		image/Gear.png \
 		image/StagePlant_gun_1.png \
