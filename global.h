@@ -50,6 +50,7 @@ extern const QFont standard_font;
 extern const QRect noBorder;
 extern const map<QString, QRect> collisionRectMap;
 extern const initializer_list<QString> playerImg;
+extern const initializer_list<QString> slimeImg;
 extern const int flip[18];
 bool intersect(QRectF rect1, QRectF rect2);
 #endif // GLOBAL_H

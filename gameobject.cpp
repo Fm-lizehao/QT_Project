@@ -199,10 +199,10 @@ void Role::checkCollision(GameObject* other)
 {
     QRectF rect1 = getCollisionRect();
     QRectF rect2 = other->getCollisionRect();
-    if(other->cankill&&intersect(rect1, rect2)) killed = true;
-    if(!other->collision) return;
     if(intersect(rect1, rect2))
     {
+        if(other->cankill) {killed = true; return; }
+        if(!other->collision) return;
         direction tempOrder = 0;
         qreal min = MAX;
         qreal up = rect2.bottom()-rect1.top();
@@ -223,6 +223,42 @@ void Role::checkCollision(GameObject* other)
         case RIGHT: rightObject = other; break;
         }
     }
+}
+
+void NPC::checkCollision(GameObject* other)
+{
+    if(other==((GamePage*)parent())->player){if(cankill&&intersect(getCollisionRect(),other->getCollisionRect())) victory = true; }
+    else Role::checkCollision(other);
+}
+
+void NPC::useState()
+{
+    a = QPointF(0.0,0.0);
+    setImg(leftOrRight());
+    if(grativity&&!propup&&!bouncedown)              { a.setY(g); }
+    if(victory)                                      { v.setX(0); if(getImgNumTotal()>=4) setImg(getImgNumTotal()-4+leftOrRight()); bounceup = true; }
+    if(killed)                                       { v.setX(0); if(getImgNumTotal()>=2) setImg(getImgNumTotal()-2+leftOrRight()); cankill = false; stubborn = true; }
+    if(!killed&&bounceup)                            { if(downObject!=nullptr) v.setY(-bounceSpeed/1.7); }
+    if(bouncedown)                                   { setDownSpeed(); bouncedown = false; }
+    if(propup&&getCollisionRect().bottom()>downObject->getCollisionRect().top())
+                                                     { p-=QPointF(0,getCollisionRect().bottom()-downObject->getCollisionRect().top()); }
+    if(propleft&&getCollisionRect().right()>rightObject->getCollisionRect().left())
+                                                     { p-=QPointF(getCollisionRect().right()-rightObject->getCollisionRect().left(),0); }
+    if(propright&&leftObject->getCollisionRect().right()>getCollisionRect().left())
+                                                     { p+=QPointF(leftObject->getCollisionRect().right()-getCollisionRect().left(),0); }
+    if(propup&&downObject->v.y()<v.y())              { v.setY(downObject->v.y()); }
+    if(propleft&&rightObject->v.x()<v.x())           { v.setX(rightObject->v.x()); }
+    if(propright&&leftObject->v.x()>v.x())           { v.setX(leftObject->v.x()); }
+}
+
+void NPC::updateSpeed()
+{
+    v.setX(v.x()+a.x());
+    v.setY(v.y()+a.y());
+    if(getCollisionRect().left()<0&&v.x()<0) v.setX(0);
+    if(getCollisionRect().right()>((GamePage*)parent())->pageWidth&&v.x()>0) v.setX(0);
+    if(getCollisionRect().top()<0&&v.y()<0) v.setY(0);
+    if(getCollisionRect().top()>((GamePage*)parent())->pageHeight) killed = true;
 }
 
 void Player::keyPressEvent(QKeyEvent *event)
@@ -252,13 +288,13 @@ void Player::keyReleaseEvent(QKeyEvent *event)
     case Qt::Key_A: case Qt::Key_Left:
         pushleft = false;
         if(pushright) break;
-        if(leftObject == nullptr||!leftObject->stubborn) v.setX(0);
+        if(leftObject == nullptr) v.setX(0);
         else v.setX(leftObject->v.x());
         break;
     case Qt::Key_D: case Qt::Key_Right:
         pushright = false;
         if(pushleft) break;
-        if(rightObject == nullptr||!rightObject->stubborn) v.setX(0);
+        if(rightObject == nullptr) v.setX(0);
         else v.setX(rightObject->v.x());
         break;
     }

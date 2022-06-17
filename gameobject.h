@@ -139,15 +139,14 @@ class NPC : public Role
     Q_OBJECT
 public:
     state victory = false;   //是否杀死了主角
-    NPC(GamePage *parent, initializer_list<QString> img_str, QPointF p, QPointF v = {0,0}, qreal omega = 0, QRect border = noBorder, attribute grativity = true, attribute cankill = false)
-        : Role(parent, img_str, p, v, omega, border, grativity, cankill)
-    {   connect(&timer,SIGNAL(timeout()),this,SLOT(changeImg()),Qt::AutoConnection);
-        timer.setInterval(250);
-        timer.start(); }
+    NPC(GamePage *parent, initializer_list<QString> img_str, QPointF p, QPointF v = {0,0}, qreal omega = 0, QRect border = noBorder, attribute grativity = true, attribute cankill = true)
+        : Role(parent, img_str, p, v, omega, border, grativity, cankill) { }
     ~NPC() { }
+    void checkCollision(GameObject* other); //检查与另一物体的碰撞方位，更新order,victory和killed
+    void useState(); //增加对victory和killed的处理
+    void updateSpeed(); //增加了页面边界速度设为0的判断
 signals:
 public slots:
-    void changeImg() {setImg(getImgNumNow()+1); } //同一状态切换图片
 };//NPC
 
 class Player : public Role

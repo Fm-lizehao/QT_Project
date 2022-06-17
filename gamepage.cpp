@@ -48,7 +48,7 @@ void GamePage::updateAll()
     {
         for(auto j : virtualObjects) i->checkCollision(j.second);
         for(auto j : npcs) {if(i==j)continue; i->checkCollision(j); }
-        if(player != nullptr) {i->checkCollision(player); if(i->cankill&&(i->upObject==player||i->downObject==player||i->leftObject==player||i->rightObject==player)) i->victory=true; }
+        if(player != nullptr) {i->checkCollision(player); }
         for(auto j : pushables) i->checkCollision(j.second);
         for(auto j : heavyBodies) i->checkCollision(j.second);
         i->doCollision();
@@ -122,5 +122,6 @@ PlayPage::PlayPage(MainWindow *parent, int wid, int heig)
     heavyBodies.insert(make_pair("007:Object", new HeavyBody(this, {pic(Float_144)}, {900,400}, {0,0}, 0, PageRect())));
     heavyBodies.insert(make_pair("008:Object", new HeavyBody(this, {pic(Float_144)}, {1050,400}, {0,0}, 0, PageRect())));
     pushables.insert(make_pair("001:Block", new Pushable(this, {pic(BrickUnknown)}, {500,80})));
+    npcs.push_back(new NPC(this,slimeImg,{800,100},{-0.2,0}));
     player = new Player(this,{100,100});
 }

@@ -201,6 +201,8 @@ release/qrc_source.cpp: source.qrc \
 		image/Hero_gun.png \
 		image/Startup_screen_3_2.png \
 		image/FightMenu.png \
+		image/Slime_idle_right.png \
+		image/MapEdit.png \
 		image/Cloud_2.png \
 		image/Stage4_book_crevice_6.png \
 		image/Player_walk2_right.png \
@@ -333,6 +335,7 @@ release/qrc_source.cpp: source.qrc \
 		image/ZZZ_2.png \
 		image/Castle_1.png \
 		image/Transition_emoji_2.png \
+		image/Slime_tear_left.png \
 		image/startBtn2.png \
 		image/TreeTiny_tall_2.png \
 		image/Startup_bottomsep.png \
@@ -373,6 +376,7 @@ release/qrc_source.cpp: source.qrc \
 		image/Cloud_1_bad.png \
 		image/Civilian_knee_1.png \
 		image/Spring_2.png \
+		image/Slime_laugh_right.png \
 		image/Coin.png \
 		image/Emoji_hero_5.png \
 		image/Civilian_attack.png \
@@ -387,6 +391,7 @@ release/qrc_source.cpp: source.qrc \
 		image/MyDialog_raw.png \
 		image/Player_fly1_right.png \
 		image/Hero_muffler_3.png \
+		image/Slime_laugh_left.png \
 		image/HillMonster_emoji.png \
 		image/Startup_screen_5_3.png \
 		image/Arch_hor_2.png \
@@ -433,10 +438,12 @@ release/qrc_source.cpp: source.qrc \
 		image/Stage4_book_scrip_crevice.png \
 		image/Check.png \
 		image/StageSimple_block_top.png \
+		image/EndEdit.png \
 		image/Player_cry3_right.png \
 		image/BrickUnknown_inner.png \
 		image/Civilian_knee_3.png \
 		image/Startup_title_line_both.png \
+		image/Slime_idle_left.png \
 		image/Stage4_scrip_square.png \
 		image/TalkBox_no_emoji_up.png \
 		image/Emoji_hero_7.png \
@@ -465,6 +472,7 @@ release/qrc_source.cpp: source.qrc \
 		image/NPC_lady_fall_2.png \
 		image/RateUsMenu.png \
 		image/Startup_screen_1_1.png \
+		image/Slime_tear_right.png \
 		image/Corner.png \
 		image/Emoji_king_3.png \
 		image/Stage3_get_book.png \

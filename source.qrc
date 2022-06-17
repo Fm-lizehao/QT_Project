@@ -446,5 +446,13 @@
         <file>sound/Audio_yell.mp3</file>
         <file>sound/Audio_yell_2.mp3</file>
         <file>image/Float_120.png</file>
+        <file>image/Slime_idle_left.png</file>
+        <file>image/Slime_idle_right.png</file>
+        <file>image/Slime_laugh_left.png</file>
+        <file>image/Slime_laugh_right.png</file>
+        <file>image/Slime_tear_left.png</file>
+        <file>image/Slime_tear_right.png</file>
+        <file>image/EndEdit.png</file>
+        <file>image/MapEdit.png</file>
     </qresource>
 </RCC>

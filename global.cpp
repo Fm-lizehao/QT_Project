@@ -5,25 +5,34 @@ const QFont standard_font("幼圆", 15, QFont::Bold, false);
 const QRect noBorder = {QPoint(MIN,MIN),QPoint(MAX,MAX)};
 const map<QString, QRect> collisionRectMap
     ={
-    {pic(Player_stand_right),{26,0,23,48}},
-    {pic(Player_stand_left),{23,0,23,48}},
-    {pic(Player_walk1_right),{26,0,23,48}},
-    {pic(Player_walk1_left),{23,0,23,48}},
-    {pic(Player_walk2_right),{26,0,23,48}},
-    {pic(Player_walk2_left),{23,0,23,48}},
-    {pic(Player_jump_right),{26,0,23,48}},
-    {pic(Player_jump_left),{23,0,23,48}},
-    {pic(Player_fly1_right),{26,0,23,48}},
-    {pic(Player_fly1_left),{23,0,23,48}},
-    {pic(Player_fly2_right),{26,0,23,48}},
-    {pic(Player_fly2_left),{23,0,23,48}},
-    {pic(Player_cry1_right),{26,0,23,48}},
-    {pic(Player_cry1_left),{23,0,23,48}},
-    {pic(Player_cry2_right),{26,0,23,48}},
-    {pic(Player_cry2_left),{23,0,23,48}},
+    {pic(Player_stand_right),{26,0,25,48}},
+    {pic(Player_stand_left),{21,0,25,48}},
+    {pic(Player_walk1_right),{26,0,25,48}},
+    {pic(Player_walk1_left),{21,0,25,48}},
+    {pic(Player_walk2_right),{26,0,25,48}},
+    {pic(Player_walk2_left),{21,0,25,48}},
+    {pic(Player_jump_right),{26,0,25,48}},
+    {pic(Player_jump_left),{21,0,25,48}},
+    {pic(Player_fly1_right),{26,0,25,48}},
+    {pic(Player_fly1_left),{21,0,25,48}},
+    {pic(Player_fly2_right),{26,0,25,48}},
+    {pic(Player_fly2_left),{21,0,25,48}},
+    {pic(Player_cry1_right),{26,0,25,48}},
+    {pic(Player_cry1_left),{21,0,25,48}},
+    {pic(Player_cry2_right),{26,0,25,48}},
+    {pic(Player_cry2_left),{21,0,25,48}},
     {pic(Player_cry3_right),{24,16,48,32}},
     {pic(Player_cry3_left),{0,16,48,32}}
      }; //此处插入需要限制碰撞区域的图片的pair<QString, QRect>
+const initializer_list<QString> slimeImg
+    ={
+        pic(Slime_idle_right),   //0
+        pic(Slime_idle_left),    //1
+        pic(Slime_laugh_right),  //2
+        pic(Slime_laugh_left),   //3
+        pic(Slime_tear_right),   //4
+        pic(Slime_tear_left),    //5
+    };
 const initializer_list<QString> playerImg
     ={
         pic(Player_stand_right), //0
