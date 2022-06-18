@@ -67,9 +67,9 @@ public slots:
         for(auto i : virtualObjects)
             outFile<<i.second->p.x()<<' '<<i.second->p.y()<<' '<<i.second->source[0].toStdString()<<endl;
         outFile.close(); }
-    void erase(int x,int y)
+    void erase(QPoint pos)
     {   for(auto i=virtualObjects.begin(); i!=virtualObjects.end(); i++)
-            if(i->second->getRect().contains(x,y))
+            if(i->second->getRect().contains(pos))
                 virtualObjects.erase(i); }
     void valuate() {if(true) print(); }
     void mousePressEvent(QMouseEvent* event);

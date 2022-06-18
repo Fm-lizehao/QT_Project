@@ -134,31 +134,18 @@ EditPage::EditPage(MainWindow *parent, int wid, int heig)
 void EditPage::mousePressEvent(QMouseEvent *event)
 {
     if(event->button()==Qt::RightButton)
-    {
-        setCursor(Qt::ArrowCursor);
-        current = nullptr;
-    }
+    {   setCursor(Qt::ArrowCursor);
+        current = nullptr; }
     else if(event->button()==Qt::LeftButton&&event->x()>=330&&current!=nullptr)
-    {
-        if(current==buttons["008:Eraser"])
-        {
-            setCursor(QCursor(QPixmap(pic(StagePlant_slime_shovel_2))));
-            erase(event->x(),event->y());
-        }
-        else if(current!=buttons["009:Finish"])
-        {
-            char temp[10]={};
-            sprintf(temp,"%d",virtualObjects.size());
-            virtualObjects.insert(make_pair(temp, new VirtualObject(this,{current->source[0]},QPointF(event->x()-current->width()/2.0,event->y()-current->height()/2.0))));
-        }
-    }
+    {   if(current==buttons["008:Eraser"])
+        {   setCursor(QCursor(QPixmap(pic(StagePlant_slime_shovel_2))));
+            erase(event->pos()); }
+        else
+        {   char temp[10]={}; sprintf(temp,"%d",virtualObjects.size());
+            virtualObjects.insert(make_pair(temp, new VirtualObject(this,{current->source[0]},QPointF(event->x()-current->width()/2,event->y()-current->height()/2)))); }}
 }
 
-void EditPage::mouseReleaseEvent(QMouseEvent *event)
-{
-    if(current==buttons["008:Eraser"])
-        setCursor(QCursor(current->getImg()));
-}
+void EditPage::mouseReleaseEvent(QMouseEvent *event) {if(current==buttons["008:Eraser"]) setCursor(QCursor(current->getImg())); }
 
 PVZPage::PVZPage(MainWindow *parent, int wid, int heig)
     : GamePage(parent, wid, heig)
