@@ -1,4 +1,4 @@
-#include "global.h"
+#include "mainwindow.h"
 
 QTimer main_timer;
 const QFont standard_font("幼圆", 15, QFont::Bold, false);

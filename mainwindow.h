@@ -1,7 +1,8 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
-#include "global.h"
+#include "gamepage.h"
 #include "ui_mainwindow.h"
+#include "global.h"
 class MainWindow : public QMainWindow
 {
     Q_OBJECT

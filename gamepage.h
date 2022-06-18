@@ -2,7 +2,6 @@
 #define GAMEPAGE_H
 #include "gamebutton.h"
 #include "gameobject.h"
-#include "mainwindow.h"
 #include "global.h"
 class GamePage : public QWidget
 {
@@ -60,7 +59,7 @@ public:
     ~EditPage() { }
 signals:
 public slots:
-    void changeCursor(GameButton* ptr)
+    void clicked(GameButton* ptr)
     {   setCursor(QCursor(ptr->getImg()));
         current = ptr; }
     void print()
@@ -72,7 +71,7 @@ public slots:
     {   for(auto i=virtualObjects.begin(); i!=virtualObjects.end(); i++)
             if(i->second->getRect().contains(x,y))
                 virtualObjects.erase(i); }
-    void valuate();
+    void valuate() {if(true) print(); }
     void mousePressEvent(QMouseEvent* event);
     void mouseReleaseEvent(QMouseEvent* event);
 }; //地图编辑页面

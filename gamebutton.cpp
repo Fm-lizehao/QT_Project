@@ -1,4 +1,4 @@
-#include "gamepage.h"
+#include "mainwindow.h"
 
 GameButton::GameButton(GamePage *parent, initializer_list<QString> img_str, initializer_list<QString> text, QPoint point, QObject* receiver, const char* method)
     : QWidget(parent), source(img_str), text(text)

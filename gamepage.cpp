@@ -1,4 +1,4 @@
-#include "gamepage.h"
+#include "mainwindow.h"
 
 GamePage::GamePage(MainWindow *parent, int wid, int heig, QString bg, QRect bgarea, QPointF cameraP)
     : QWidget(parent), pageWidth(wid), pageHeight(heig), background(bg), backgroundArea(bgarea), cameraP(cameraP)
@@ -126,14 +126,9 @@ PlayPage::PlayPage(MainWindow *parent, int wid, int heig)
 EditPage::EditPage(MainWindow *parent, int wid, int heig)
     :GamePage(parent, wid, heig, pic(MapEdit), {0, 0, 1280, 720})
 {
-    buttons.insert(make_pair("001:Brick",new GameButton(this, {pic(Brick)}, {""}, {62, 100}, this, SLOT(changeCursor(GameButton*)))));
-    buttons.insert(make_pair("008:Eraser",new GameButton(this, {pic(StagePlant_slime_shovel_1)}, {""}, {175, 575}, this, SLOT(changeCursor(GameButton*)))));
+    buttons.insert(make_pair("001:Brick",new GameButton(this, {pic(Brick)}, {""}, {62, 100}, this, SLOT(clicked(GameButton*)))));
+    buttons.insert(make_pair("008:Eraser",new GameButton(this, {pic(StagePlant_slime_shovel_1)}, {""}, {175, 575}, this, SLOT(clicked(GameButton*)))));
     buttons.insert(make_pair("009:Finish",new GameButton(this, {pic(EndEdit)}, {""}, {1055, 608}, this, SLOT(valuate()))));
-}
-
-void EditPage::valuate()
-{
-    if(true) print();//此处应直接以存在txt文档中的数据为基础新建一个普通的gamepage
 }
 
 void EditPage::mousePressEvent(QMouseEvent *event)
