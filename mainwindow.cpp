@@ -38,10 +38,10 @@ void MainWindow::mapEdit()
     page->show();
 }
 
-void MainWindow::readMe()
+void MainWindow::PVZ()
 {
     page->deleteLater();
-
+    page = new PVZPage(this, this->width(), this->height());
     page->show();
 }
 
