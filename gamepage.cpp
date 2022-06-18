@@ -102,26 +102,96 @@ StartPage::StartPage(MainWindow *parent, int wid, int heig)
     buttons.insert(make_pair("003:Info", new GameButton(this, {pic(Startup_button_main_1), pic(Startup_button_main_2)}, {"操作说明"}, {780, 488}, parent, SLOT(readMe()))));
     buttons.insert(make_pair("004:Config", new GameButton(this, {pic(Startup_button_main_3)}, {"设置"}, {170, 0}, parent, SLOT(config()))));
     buttons.insert(make_pair("005:Exit", new GameButton(this, {pic(Startup_button_main_3)}, {"退出"}, {20, 0}, parent, SLOT(exit()))));
-    virtualObjects.insert(make_pair("001:Cloud", new VirtualObject(this, {pic(Cloud_0_cute)}, {200, 40}, {-0.2, 0}, 0, PageRect(), false)));
-    virtualObjects.insert(make_pair("002:Title", new VirtualObject(this, {pic(Startup_title_zh)}, {744, 168}, {0, 0}, 0, PageRect(), false)));
-    virtualObjects.insert(make_pair("003:Bottomline", new VirtualObject(this, {pic(Startup_title_line_both)}, {767, 238}, {0, 0}, 0, PageRect(), false)));
-    virtualObjects.insert(make_pair("004:Topline", new VirtualObject(this, {pic(Startup_topsep)}, {640, 78}, {0, 0}, 0, PageRect(), false)));
-    virtualObjects.insert(make_pair("005:Jp-of", new VirtualObject(this, {pic(Startup_title_jpof)}, {856, 164}, {0, 0}, 0.2, PageRect(), false)));
+    virtualObjects.insert(make_pair("001:Cloud", new VirtualObject(this, {pic(Cloud_0_cute)}, {200, 40}, {-0.2, 0}, 0, pageRect(), false)));
+    virtualObjects.insert(make_pair("002:Title", new VirtualObject(this, {pic(Startup_title_zh)}, {744, 168}, {0, 0}, 0, pageRect(), false)));
+    virtualObjects.insert(make_pair("003:Bottomline", new VirtualObject(this, {pic(Startup_title_line_both)}, {767, 238}, {0, 0}, 0, pageRect(), false)));
+    virtualObjects.insert(make_pair("004:Topline", new VirtualObject(this, {pic(Startup_topsep)}, {640, 78}, {0, 0}, 0, pageRect(), false)));
+    virtualObjects.insert(make_pair("005:Jp-of", new VirtualObject(this, {pic(Startup_title_jpof)}, {856, 164}, {0, 0}, 0.2, pageRect(), false)));
 }
 
 PlayPage::PlayPage(MainWindow *parent, int wid, int heig)
     : GamePage(parent, wid, heig, pic(Startup_leftCastle), {80, 120, 1100, 600})
 {
-    virtualObjects.insert(make_pair("001:Cloud", new VirtualObject(this, {pic(Cloud_0_cute),pic(Cloud_0_bad)}, {200, 80}, {-0.2, 0}, 0, PageRect(), false, true)));
-    heavyBodies.insert(make_pair("001:Object", new HeavyBody(this, {pic(Float_144)}, {0,400}, {0,0}, 0, PageRect())));
-    heavyBodies.insert(make_pair("002:Object", new HeavyBody(this, {pic(Float_144)}, {150,400}, {0,0}, 0, PageRect())));
-    heavyBodies.insert(make_pair("003:Object", new HeavyBody(this, {pic(Float_144)}, {300,400}, {0,0}, 0, PageRect())));
-    heavyBodies.insert(make_pair("004:Object", new HeavyBody(this, {pic(Float_144)}, {450,400}, {0,0}, 0, PageRect())));
-    heavyBodies.insert(make_pair("005:Object", new HeavyBody(this, {pic(Float_144)}, {600,400}, {0,0}, 0, PageRect())));
-    heavyBodies.insert(make_pair("006:Object", new HeavyBody(this, {pic(Float_144)}, {750,400}, {0,0}, 0, PageRect())));
-    heavyBodies.insert(make_pair("007:Object", new HeavyBody(this, {pic(Float_144)}, {900,400}, {0,0}, 0, PageRect())));
-    heavyBodies.insert(make_pair("008:Object", new HeavyBody(this, {pic(Float_144)}, {1050,400}, {0,0}, 0, PageRect())));
+    virtualObjects.insert(make_pair("001:Cloud", new VirtualObject(this, {pic(Cloud_0_cute),pic(Cloud_0_bad)}, {200, 80}, {-0.2, 0}, 0, pageRect(), false, true)));
+    heavyBodies.insert(make_pair("001:Object", new HeavyBody(this, {pic(Float_144)}, {0,400}, {0,0}, 0, pageRect())));
+    heavyBodies.insert(make_pair("002:Object", new HeavyBody(this, {pic(Float_144)}, {150,400}, {0,0}, 0, pageRect())));
+    heavyBodies.insert(make_pair("003:Object", new HeavyBody(this, {pic(Float_144)}, {300,400}, {0,0}, 0, pageRect())));
+    heavyBodies.insert(make_pair("004:Object", new HeavyBody(this, {pic(Float_144)}, {450,400}, {0,0}, 0, pageRect())));
+    heavyBodies.insert(make_pair("005:Object", new HeavyBody(this, {pic(Float_144)}, {600,400}, {0,0}, 0, pageRect())));
+    heavyBodies.insert(make_pair("006:Object", new HeavyBody(this, {pic(Float_144)}, {750,400}, {0,0}, 0, pageRect())));
+    heavyBodies.insert(make_pair("007:Object", new HeavyBody(this, {pic(Float_144)}, {900,400}, {0,0}, 0, pageRect())));
+    heavyBodies.insert(make_pair("008:Object", new HeavyBody(this, {pic(Float_144)}, {1050,400}, {0,0}, 0, pageRect())));
     pushables.insert(make_pair("001:Block", new Pushable(this, {pic(BrickUnknown)}, {500,80})));
     npcs.push_back(new NPC(this,slimeImg,{800,100},{-0.2,0}));
     player = new Player(this,{100,100});
+}
+
+EditPage::EditPage(MainWindow *parent, int wid, int heig)
+    :GamePage(parent, wid, heig, pic(MapEdit), {0, 0, 1280, 720})
+{
+    outFile.open("saved.txt");
+    outFile.close();
+    buttons.insert(make_pair("001:Brick",new GameButton(this, {pic(Brick),pic(Brick)}, {""}, {62, 100}, this, SLOT(changeCursor(GameButton*)))));
+    sourceLib.insert(make_pair(buttons["001:Brick"],pic(Brick)));
+    buttons.insert(make_pair("008:Eraser",new GameButton(this, {pic(StagePlant_slime_shovel_1),pic(StagePlant_slime_shovel_1)}, {""}, {175, 575}, this, SLOT(changeCursor(GameButton*)))));
+    buttons.insert(make_pair("009:Finish",new GameButton(this, {pic(EndEdit),pic(EndEdit)}, {""}, {1055, 608}, this, SLOT(valuate()))));
+}
+
+void EditPage::changeCursor(GameButton* ptr)
+{
+    setCursor(QCursor(ptr->getImg()));
+    current = ptr;
+}
+
+void EditPage::print()
+{
+    outFile.open("saved.txt", ios::app);
+    for(auto i : objects)
+        outFile<<i.first.x()<<' '<<i.first.y()<<' '<<i.second.toStdString()<<endl;
+    outFile.close();
+}
+
+void EditPage::erase(int x, int y)
+{
+    for(auto i=virtualObjects.begin(); i!=virtualObjects.end(); ++i)
+        if(i->second->getRect().contains(x,y))
+            virtualObjects.erase(i);
+}
+
+void EditPage::valuate()
+{
+    if(true) {print(); this->hide(); }//如果难度足够//此处应直接以存在txt文档中的数据为基础新建一个普通的gamepage
+    else return;
+}
+
+void EditPage::mousePressEvent(QMouseEvent *event)
+{
+    if(event->button()==Qt::RightButton)
+    {
+        setCursor(Qt::ArrowCursor);
+        current = nullptr;
+        return;
+    }
+    if(event->button()==Qt::LeftButton&&current!=nullptr)
+    {
+        if(event->x()<=330) return;
+        if(current==buttons["008:Eraser"])
+        {
+            setCursor(QCursor(QPixmap(pic(StagePlant_slime_shovel_2))));
+            erase(event->x(),event->y());
+        }
+        else if(current!=buttons["009:Finish"])
+        {
+            char temp[10]={};
+            sprintf(temp,"%d",virtualObjects.size());
+            virtualObjects.insert(make_pair(temp, new VirtualObject(this,{sourceLib[current]},QPointF(event->x()-current->width()/2,event->y()-current->height()/2))));
+            objects.push_back(make_pair(QPoint(event->x()-current->width()/2,event->y()-current->height()/2),sourceLib[current]));
+        }
+    }
+}
+
+void EditPage::mouseReleaseEvent(QMouseEvent *event)
+{
+    if(current==buttons["008:Eraser"])
+        setCursor(QCursor(current->getImg()));
 }

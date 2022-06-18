@@ -35,7 +35,7 @@ void MainWindow::startGame()
 void MainWindow::mapEdit()
 {
     page->deleteLater();
-
+    page = new EditPage(this, this->width(), this->height());
     page->show();
 }
 

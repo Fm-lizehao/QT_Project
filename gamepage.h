@@ -20,7 +20,7 @@ public:
     explicit GamePage(MainWindow *parent = nullptr, int wid = windowWidth, int heig = windowHeight, QString bg = "", QRect bgarea = {0,0,windowWidth,windowHeight}, QPointF cameraP = {0,0});
     virtual ~GamePage();
     void paintEvent(QPaintEvent *event);
-    QRect PageRect() {return QRect(0,0,pageWidth,pageHeight); } //返回页面矩形
+    QRect pageRect() {return QRect(0,0,pageWidth,pageHeight); } //返回页面矩形
     void updateCamera(); //更新相机位置和速度
 signals:
 public slots:
@@ -46,4 +46,24 @@ public:
 signals:
 public slots:
 }; //游戏页面
+
+class EditPage : public GamePage
+{
+    Q_OBJECT
+public:
+    ofstream outFile;
+    GameButton* current = nullptr;
+    map<GameButton*,QString> sourceLib;
+    vector<pair<QPoint,QString>> objects;
+    explicit EditPage(MainWindow *parent = nullptr, int wid = windowWidth, int heig = windowHeight);
+    ~EditPage() { }
+signals:
+public slots:
+    void changeCursor(GameButton* ptr);
+    void print();
+    void erase(int x,int y);
+    void valuate();
+    void mousePressEvent(QMouseEvent* event);
+    void mouseReleaseEvent(QMouseEvent* event);
+}; //地图编辑页面
 #endif // GAMEPAGE_H

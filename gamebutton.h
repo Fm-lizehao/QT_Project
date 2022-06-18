@@ -21,7 +21,7 @@ public:
     QString getText() {return text[textNow]; } //取得应显示的文字
     QRect getRect() {return rect().translated(pos()); } //取得应显示的区域
 signals:
-    void clicked();
+    void clicked(GameButton* ptr);
 public slots:
 };
 #endif // GAMEBUTTON_H

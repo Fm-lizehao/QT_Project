@@ -1,6 +1,7 @@
 #ifndef GLOBAL_H
 #define GLOBAL_H
 #include <cstring>
+#include <fstream>
 #include <map>
 #include <vector>
 #include <utility>
