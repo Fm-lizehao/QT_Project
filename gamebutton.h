@@ -4,12 +4,12 @@
 class GameButton : public QWidget
 {
     Q_OBJECT
-private:
+public:
     vector<QPixmap> img; //按钮图片
+    vector<QString> source; //图片来源
     int imgNow = 0; //当前图片序号
     vector<QString> text; //按钮文字
     int textNow = 0; //当前文字序号
-public:
     GameButton() {}
     GameButton(GamePage *parent, initializer_list<QString> img_str, initializer_list<QString> text, QPoint point, QObject* receiver, const char* method);
     ~GameButton() {}

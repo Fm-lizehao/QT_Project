@@ -1,5 +1,8 @@
 #ifndef GAMEPAGE_H
 #define GAMEPAGE_H
+#include "gamebutton.h"
+#include "gameobject.h"
+#include "mainwindow.h"
 #include "global.h"
 class GamePage : public QWidget
 {
@@ -53,15 +56,22 @@ class EditPage : public GamePage
 public:
     ofstream outFile;
     GameButton* current = nullptr;
-    map<GameButton*,QString> sourceLib;
-    vector<pair<QPoint,QString>> objects;
     explicit EditPage(MainWindow *parent = nullptr, int wid = windowWidth, int heig = windowHeight);
     ~EditPage() { }
 signals:
 public slots:
-    void changeCursor(GameButton* ptr);
-    void print();
-    void erase(int x,int y);
+    void changeCursor(GameButton* ptr)
+    {   setCursor(QCursor(ptr->getImg()));
+        current = ptr; }
+    void print()
+    {   outFile.open("saved.txt");
+        for(auto i : virtualObjects)
+            outFile<<i.second->p.x()<<' '<<i.second->p.y()<<' '<<i.second->source[0].toStdString()<<endl;
+        outFile.close(); }
+    void erase(int x,int y)
+    {   for(auto i=virtualObjects.begin(); i!=virtualObjects.end(); i++)
+            if(i->second->getRect().contains(x,y))
+                virtualObjects.erase(i); }
     void valuate();
     void mousePressEvent(QMouseEvent* event);
     void mouseReleaseEvent(QMouseEvent* event);

@@ -4,12 +4,12 @@
 class GameObject : public QWidget
 {
     Q_OBJECT
-private:
+public:
     vector<QPixmap> img; //物体图片
+    vector<QString> source; //图片来源
     vector<QRect> collisionRect; //各个图片的碰撞区域
     int imgNow = 0; //当前图片序号
     QMatrix matrix; //物体旋转矩阵
-public:
     //状态与属性：
     QPointF p = {0,0}; //物体实际位置
     QPointF v = {0,0}; //物体实际速度

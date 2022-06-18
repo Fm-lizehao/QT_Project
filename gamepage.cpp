@@ -1,7 +1,4 @@
-#include "gamebutton.h"
-#include "gameobject.h"
 #include "gamepage.h"
-#include "mainwindow.h"
 
 GamePage::GamePage(MainWindow *parent, int wid, int heig, QString bg, QRect bgarea, QPointF cameraP)
     : QWidget(parent), pageWidth(wid), pageHeight(heig), background(bg), backgroundArea(bgarea), cameraP(cameraP)
@@ -129,39 +126,14 @@ PlayPage::PlayPage(MainWindow *parent, int wid, int heig)
 EditPage::EditPage(MainWindow *parent, int wid, int heig)
     :GamePage(parent, wid, heig, pic(MapEdit), {0, 0, 1280, 720})
 {
-    outFile.open("saved.txt");
-    outFile.close();
-    buttons.insert(make_pair("001:Brick",new GameButton(this, {pic(Brick),pic(Brick)}, {""}, {62, 100}, this, SLOT(changeCursor(GameButton*)))));
-    sourceLib.insert(make_pair(buttons["001:Brick"],pic(Brick)));
-    buttons.insert(make_pair("008:Eraser",new GameButton(this, {pic(StagePlant_slime_shovel_1),pic(StagePlant_slime_shovel_1)}, {""}, {175, 575}, this, SLOT(changeCursor(GameButton*)))));
-    buttons.insert(make_pair("009:Finish",new GameButton(this, {pic(EndEdit),pic(EndEdit)}, {""}, {1055, 608}, this, SLOT(valuate()))));
-}
-
-void EditPage::changeCursor(GameButton* ptr)
-{
-    setCursor(QCursor(ptr->getImg()));
-    current = ptr;
-}
-
-void EditPage::print()
-{
-    outFile.open("saved.txt", ios::app);
-    for(auto i : objects)
-        outFile<<i.first.x()<<' '<<i.first.y()<<' '<<i.second.toStdString()<<endl;
-    outFile.close();
-}
-
-void EditPage::erase(int x, int y)
-{
-    for(auto i=virtualObjects.begin(); i!=virtualObjects.end(); ++i)
-        if(i->second->getRect().contains(x,y))
-            virtualObjects.erase(i);
+    buttons.insert(make_pair("001:Brick",new GameButton(this, {pic(Brick)}, {""}, {62, 100}, this, SLOT(changeCursor(GameButton*)))));
+    buttons.insert(make_pair("008:Eraser",new GameButton(this, {pic(StagePlant_slime_shovel_1)}, {""}, {175, 575}, this, SLOT(changeCursor(GameButton*)))));
+    buttons.insert(make_pair("009:Finish",new GameButton(this, {pic(EndEdit)}, {""}, {1055, 608}, this, SLOT(valuate()))));
 }
 
 void EditPage::valuate()
 {
-    if(true) {print(); this->hide(); }//如果难度足够//此处应直接以存在txt文档中的数据为基础新建一个普通的gamepage
-    else return;
+    if(true) print();//此处应直接以存在txt文档中的数据为基础新建一个普通的gamepage
 }
 
 void EditPage::mousePressEvent(QMouseEvent *event)
@@ -170,11 +142,9 @@ void EditPage::mousePressEvent(QMouseEvent *event)
     {
         setCursor(Qt::ArrowCursor);
         current = nullptr;
-        return;
     }
-    if(event->button()==Qt::LeftButton&&current!=nullptr)
+    else if(event->button()==Qt::LeftButton&&event->x()>=330&&current!=nullptr)
     {
-        if(event->x()<=330) return;
         if(current==buttons["008:Eraser"])
         {
             setCursor(QCursor(QPixmap(pic(StagePlant_slime_shovel_2))));
@@ -184,8 +154,7 @@ void EditPage::mousePressEvent(QMouseEvent *event)
         {
             char temp[10]={};
             sprintf(temp,"%d",virtualObjects.size());
-            virtualObjects.insert(make_pair(temp, new VirtualObject(this,{sourceLib[current]},QPointF(event->x()-current->width()/2,event->y()-current->height()/2))));
-            objects.push_back(make_pair(QPoint(event->x()-current->width()/2,event->y()-current->height()/2),sourceLib[current]));
+            virtualObjects.insert(make_pair(temp, new VirtualObject(this,{current->source[0]},QPointF(event->x()-current->width()/2.0,event->y()-current->height()/2.0))));
         }
     }
 }
