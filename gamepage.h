@@ -63,7 +63,7 @@ public slots:
     {   setCursor(QCursor(ptr->getImg()));
         current = ptr; }
     void print()
-    {   outFile.open("saved.txt");
+    {   outFile.open("Usermap.map");
         for(auto i : virtualObjects)
             outFile<<i.second->p.x()<<' '<<i.second->p.y()<<' '<<i.second->source[0].toStdString()<<endl;
         outFile.close(); }
