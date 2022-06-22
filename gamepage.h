@@ -94,41 +94,40 @@ public:
     int EnemyType[N_Enemy]={0,0,0,0,0,0,1,1,2,2,2,2,2,2};
     int EnemyRow[N_Enemy]={0,1,2,0,1,2,0,1,0,1,2,0,1,2};
     int EnemyHp[3]={80,120,160};
-    int EnemyPer[3]={};
+    int EnemyPer[3]={0,1,2};
     QString EnemyStr[N_Enemy]={};
-    QTimer T;
+    QTimer timer;
     GameButton *btn1,*btn2,*btn3,*btn4;
     int Time=0;
-    int coins=0;
+    int coins=100;
     int type=0;
     int Killed=0;
     bool is_selected=false;
-    int Fc[3]={},Fx[3]={},Fy[3]{};
+    int Fc[3]={},Fx[3]={250,250,250},Fy[3]{225,325,425};
     VirtualObject *F[3];
     QString Fs[3];
-    int A[3][6];
-    int StartTime[3][6];
+    int A[3][6]={};
+    int StartTime[3][6]={};
     GameButton *B[3][6];
     VirtualObject *C[3][6];
-    QString s[3][6];
-    int ex[N_Enemy],ey[N_Enemy],hp[N_Enemy],ec;
+    QString s[3][6]={};
+    int ex[N_Enemy]={},ey[N_Enemy]={},hp[N_Enemy]={},ec=0;
     VirtualObject *e[N_Enemy];
     QString es[N_Enemy];
     GameButton *eb[N_Enemy];
-    int bx[N_Bullet],by[N_Bullet],bc;
+    int bx[N_Bullet]={},by[N_Bullet]={},bc=0;
     VirtualObject *b[N_Bullet];
     QString bs[N_Bullet];
 signals:
 public slots:
-    void empty();
     void swap();
-    void Timeout();
-    void selectplt(int type);
-    void selectpos(int x,int y);
-    void SelectEnemy(int i);
-    void UpdateCoins();
-    void GameWin();
-    void GameLose();
+    void timeout();
+    void selectPlant(GameButton* btn);
+    void selectPos(int x,int y);
+    void selectEnemy(int i);
+    void updateCoins();
+    void gameWin();
+    void gameLose();
 }; //彩蛋页面
 
 #endif // GAMEPAGE_H

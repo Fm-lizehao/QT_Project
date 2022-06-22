@@ -170,6 +170,7 @@ public:
     void fly(); //设为飞行图片
     void cry(); //设为跪哭图片
     void checkBorder() { } //空函数
+    void checkState(); //检查当前状态，避免矛盾
     void useState(); //增加跳跃，对飞行中的bounceup行为作出修改
     void updateSpeed(); //增加了页面边界速度设为0的判断，增加了图片更改判断
 signals:

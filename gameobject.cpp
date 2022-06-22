@@ -212,7 +212,6 @@ void Role::checkCollision(GameObject* other)
         if(down>=0&&down<min) {min = down; tempOrder = DOWN; }
         if(left>=0&&left<min) {min = left; tempOrder = LEFT; }
         if(right>=0&&right<min) {min = right; tempOrder = RIGHT; }
-        if(!other->stubborn&&(tempOrder==LEFT||tempOrder==RIGHT)) return;
         order |= tempOrder;
         switch(tempOrder)
         {
@@ -343,6 +342,18 @@ void Player::cry()
     setImg(12+leftOrRight());
     timer.setInterval(800);
     timer.start();
+}
+
+void Player::checkState()
+{
+    if(bounceleft&&bounceright)                      { bounceleft = bounceright = false; }
+    if(pushleft&&pushright)                          { pushleft = pushright = false; v.setX(0); }
+    if(bouncedown)                                   { bounceup = false; }
+    if(propup)                                       { bouncedown = false; }
+    if(pushleft||propleft)                           { bounceright = false; }
+    if(pushright||propright)                         { bounceleft = false; }
+    if(propleft&&!rightObject->stubborn&&pushright)  { propleft = false; rightObject = nullptr; }
+    if(propright&&!leftObject->stubborn&&pushleft)   { propright = false; leftObject = nullptr; }
 }
 
 void Player::useState()
