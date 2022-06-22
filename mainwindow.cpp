@@ -9,19 +9,13 @@ MainWindow::MainWindow(QWidget *parent)
     setWindowIcon(QPixmap(pic(icon)));
     setWindowTitle("正常的大冒险");
     page = new StartPage(this, this->width(), this->height());
-    music = new QMediaPlayer;
-    music->setVolume(50);
-    playlist = new QMediaPlaylist(music);
-    playlist->addMedia(QUrl(snd(Audio_bgm_into_the_castle)));
-    playlist->setPlaybackMode(QMediaPlaylist::Loop);
-    music->setPlaylist(playlist);
-    music->play();
 }
 
-MainWindow::~MainWindow()
+void MainWindow::backMain()
 {
-    delete ui;
-    delete music;
+    page->deleteLater();
+    page = new StartPage(this, this->width(), this->height());
+    page->show();
 }
 
 void MainWindow::startGame()
@@ -54,8 +48,5 @@ void MainWindow::config()
 
 void MainWindow::exit()
 {
-    if (!(QMessageBox::question(this, tr("退出游戏"), tr("     你真的要退出吗?    (盯) "), tr(" 啊~可耻地逃了T__T "), tr(" 人家点错了>﹏< "))))
-    {
-        quitSignal();
-    }
+    if (!(QMessageBox::question(this, tr("退出游戏"), tr("     你真的要退出吗?    (盯) "), tr(" 啊~可耻地逃了T__T "), tr(" 人家点错了>﹏< ")))) quitSignal();
 }

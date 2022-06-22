@@ -7,6 +7,8 @@ class GamePage : public QWidget
 {
     Q_OBJECT
 public:
+    QMediaPlayer * music = NULL; //音乐播放器
+    QMediaPlaylist * playlist = NULL; //播放列表
     int pageWidth = windowWidth; //物理空间宽度
     int pageHeight = windowHeight; //物理空间高度
     QPixmap background; //背景图
@@ -20,7 +22,7 @@ public:
     QPointF cameraP = {0,0}; //相机左上角位置
     QPointF cameraV = {0,0}; //相机速度
     explicit GamePage(MainWindow *parent = nullptr, int wid = windowWidth, int heig = windowHeight, QString bg = "", QRect bgarea = {0,0,windowWidth,windowHeight}, QPointF cameraP = {0,0});
-    virtual ~GamePage();
+    virtual ~GamePage() { }
     void paintEvent(QPaintEvent *event);
     QRect pageRect() {return QRect(0,0,pageWidth,pageHeight); } //返回页面矩形
     void updateCamera(); //更新相机位置和速度
@@ -43,8 +45,11 @@ class PlayPage : public GamePage
 {
     Q_OBJECT
 public:
+    map<QString, VirtualObject*> topVirtualObjects; //页面中的顶层遮挡物体
     explicit PlayPage(MainWindow *parent = nullptr, int wid = windowWidth, int heig = windowHeight);
     ~PlayPage() {}
+    void paintEvent(QPaintEvent *event);
+    void playerKilled(); //死亡画面
 signals:
 public slots:
 }; //游戏页面

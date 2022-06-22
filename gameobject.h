@@ -82,7 +82,7 @@ public:
     ~VirtualObject() { }
     void checkCollision(GameObject* other) {if(intersect(getCollisionRect(),other->getCollisionRect())) breakin = true; }//检查与另一物体的碰撞，更新breakin
     void doCollision() { } //空函数
-    void checkState(); //检查当前状态，避免矛盾
+    void checkState() { } //检查当前状态，避免矛盾
     void useState(); //使用当前状态设置加速度、速度、位置、图片
 signals:
 public slots:
@@ -98,7 +98,7 @@ public:
         : GameObject(parent, img_str, p, v, omega, border, true, true, grativity, cankill) { }
     ~HeavyBody() { }
     void doCollision(); //根据order更新状态并清空order
-    void checkState(); //检查当前状态，避免矛盾
+    void checkState() { } //检查当前状态，避免矛盾
     void useState(); //使用当前状态设置加速度、速度、位置
 signals:
 public slots:
@@ -130,6 +130,7 @@ public:
     ~Role() { }
     int leftOrRight()const {if(v.x()>0) return 0; if(v.x()<0) return 1; return getImgNumNow()%2; } //返回人物朝向，0为右，1为左
     void checkCollision(GameObject* other); //检查与另一物体的碰撞方位，更新order和killed
+    void updateSpeed(); //增加了页面边界速度设为0的判断
 signals:
 public slots:
 };//所有角色的基类
@@ -144,7 +145,6 @@ public:
     ~NPC() { }
     void checkCollision(GameObject* other); //检查与另一物体的碰撞方位，更新order,victory和killed
     void useState(); //增加对victory和killed的处理
-    void updateSpeed(); //增加了页面边界速度设为0的判断
 signals:
 public slots:
 };//NPC
@@ -175,6 +175,6 @@ public:
     void updateSpeed(); //增加了页面边界速度设为0的判断，增加了图片更改判断
 signals:
 public slots:
-    void changeImg() {setImg(flip[getImgNumNow()]); } //同一状态切换图片
+    void changeImg(); //同一状态切换图片
 };//主角
 #endif // GAMEOBJECT_H

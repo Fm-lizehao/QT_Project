@@ -9,14 +9,13 @@ class MainWindow : public QMainWindow
 private:
     Ui::MainWindow *ui;
 public:
-    GamePage *page = NULL; //窗口对应的页面
-    QMediaPlayer * music = NULL; //音乐播放器
-    QMediaPlaylist * playlist = NULL; //播放列表
+    GamePage *page = NULL; //当前页面
     MainWindow(QWidget *parent = 0);
-    ~MainWindow();
+    ~MainWindow() {delete ui; }
 signals:
     void quitSignal(); //退出应用程序信号
 public slots:
+    void backMain(); //返回主界面
     void startGame(); //开始游戏
     void mapEdit(); //地图编辑
     void PVZ(); //PVZ

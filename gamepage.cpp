@@ -4,24 +4,22 @@ GamePage::GamePage(MainWindow *parent, int wid, int heig, QString bg, QRect bgar
     : QWidget(parent), pageWidth(wid), pageHeight(heig), background(bg), backgroundArea(bgarea), cameraP(cameraP)
 {
     resize(windowWidth,windowHeight);
+    music = new QMediaPlayer(this);
+    music->setVolume(50);
+    playlist = new QMediaPlaylist(music);
+    playlist->setPlaybackMode(QMediaPlaylist::Loop);
+    music->setPlaylist(playlist);
     INTIME(updateAll);
-}
-
-GamePage::~GamePage()
-{
-    delete player;
 }
 
 void GamePage::updateCamera()
 {
     cameraV = {0,0};
     if(player != nullptr)
-    {
-        if(cameraP.x()>0&&player->getCollisionRect().left()<cameraP.x()+250) cameraV.setX(-pushSpeed);
+    {   if(cameraP.x()>0&&player->getCollisionRect().left()<cameraP.x()+250) cameraV.setX(-pushSpeed);
         if(cameraP.x()+windowWidth<pageWidth&&player->getCollisionRect().right()>cameraP.x()+1030) cameraV.setX(pushSpeed);
         if(cameraP.y()>0&&player->getCollisionRect().top()<cameraP.y()+120) cameraV.setY(-pushSpeed);
-        if(cameraP.y()+windowHeight<pageHeight&&player->getCollisionRect().bottom()>cameraP.y()+600) cameraV.setY(pushSpeed);
-    }
+        if(cameraP.y()+windowHeight<pageHeight&&player->getCollisionRect().bottom()>cameraP.y()+600) cameraV.setY(pushSpeed); }
     cameraP += cameraV;
 }
 
@@ -29,43 +27,33 @@ void GamePage::updateAll()
 {
     updateCamera();
     for (auto i : virtualObjects)
-    {
-        for(auto j : npcs) i.second->checkCollision(j);
-        if(player != nullptr) i.second->checkCollision(player);
-    }
+    {   for(auto j : npcs) i.second->checkCollision(j);
+        if(player != nullptr) i.second->checkCollision(player); }
     for(auto i : pushables)
-    {
-        for(auto j: npcs) i.second->checkCollision(j);
+    {   for(auto j: npcs) i.second->checkCollision(j);
         if(player != nullptr) i.second->checkCollision(player);
         for(auto j : pushables) {if(i.second==j.second)continue; i.second->checkCollision(j.second); }
         for(auto j : heavyBodies) i.second->checkCollision(j.second);
-        i.second->doCollision();
-    }
+        i.second->doCollision(); }
     for(auto i : npcs)
-    {
-        for(auto j : virtualObjects) i->checkCollision(j.second);
+    {   for(auto j : virtualObjects) i->checkCollision(j.second);
         for(auto j : npcs) {if(i==j)continue; i->checkCollision(j); }
         if(player != nullptr) {i->checkCollision(player); }
         for(auto j : pushables) i->checkCollision(j.second);
         for(auto j : heavyBodies) i->checkCollision(j.second);
-        i->doCollision();
-    }
+        i->doCollision(); }
     if(player != nullptr)
-    {
-        for(auto j : virtualObjects) player->checkCollision(j.second);
+    {   for(auto j : virtualObjects) player->checkCollision(j.second);
         for(auto j: npcs) player->checkCollision(j);
         for(auto j : pushables) player->checkCollision(j.second);
         for(auto j : heavyBodies) player->checkCollision(j.second);
-        player->doCollision();
-    }
+        player->doCollision(); }
     for(auto i : heavyBodies)
-    {
-        for(auto j: npcs) i.second->checkCollision(j);
+    {   for(auto j: npcs) i.second->checkCollision(j);
         if(player != nullptr) i.second->checkCollision(player);
         for(auto j : pushables) i.second->checkCollision(j.second);
         for(auto j : heavyBodies) {if(i.second==j.second)continue; i.second->checkCollision(j.second); }
-        i.second->doCollision();
-    }
+        i.second->doCollision(); }
     for (auto i : virtualObjects)    i.second->selfUpdate();
     for (auto i : pushables)         i.second->selfUpdate();
     for (auto i : npcs)              i->selfUpdate();
@@ -85,10 +73,8 @@ void GamePage::paintEvent(QPaintEvent *event)
     for (auto i : npcs)             painter.drawPixmap(i->getRect(), i->getImg());
     if  (player != nullptr)         painter.drawPixmap(player->getRect(), player->getImg());
     for (auto i : buttons)
-    {
-        painter.drawPixmap(i.second->getRect(), i.second->getImg());
-        painter.drawText(i.second->getRect(), Qt::AlignCenter, i.second->getText());
-    }
+    {   painter.drawPixmap(i.second->getRect(), i.second->getImg());
+        painter.drawText(i.second->getRect(), Qt::AlignCenter, i.second->getText()); }
 }
 
 StartPage::StartPage(MainWindow *parent, int wid, int heig)
@@ -104,11 +90,14 @@ StartPage::StartPage(MainWindow *parent, int wid, int heig)
     virtualObjects.insert(make_pair("003:Bottomline", new VirtualObject(this, {pic(Startup_title_line_both)}, {767, 238}, {0, 0}, 0, pageRect(), false)));
     virtualObjects.insert(make_pair("004:Topline", new VirtualObject(this, {pic(Startup_topsep)}, {640, 78}, {0, 0}, 0, pageRect(), false)));
     virtualObjects.insert(make_pair("005:Jp-of", new VirtualObject(this, {pic(Startup_title_jpof)}, {856, 164}, {0, 0}, 0.2, pageRect(), false)));
+    playlist->addMedia(QUrl(snd(Audio_bgm_into_the_castle)));
+    music->play();
 }
 
 PlayPage::PlayPage(MainWindow *parent, int wid, int heig)
     : GamePage(parent, wid, heig, pic(Startup_leftCastle), {80, 120, 1100, 600})
 {
+    buttons.insert(make_pair("001:Back", new GameButton(this, {pic(Startup_button_main_3)}, {"返回"}, {20, 0}, parent, SLOT(backMain()))));
     virtualObjects.insert(make_pair("001:Cloud", new VirtualObject(this, {pic(Cloud_0_cute),pic(Cloud_0_bad)}, {200, 80}, {-0.2, 0}, 0, pageRect(), false, true)));
     heavyBodies.insert(make_pair("001:Object", new HeavyBody(this, {pic(Float_144)}, {0,400}, {0,0}, 0, pageRect())));
     heavyBodies.insert(make_pair("002:Object", new HeavyBody(this, {pic(Float_144)}, {150,400}, {0,0}, 0, pageRect())));
@@ -121,6 +110,23 @@ PlayPage::PlayPage(MainWindow *parent, int wid, int heig)
     pushables.insert(make_pair("001:Block", new Pushable(this, {pic(BrickUnknown)}, {500,80})));
     npcs.push_back(new NPC(this,slimeImg,{800,100},{-0.2,0}));
     player = new Player(this,{100,100});
+    playlist->addMedia(QUrl(snd(Audio_bgm_aquatic_circus)));
+    music->play();
+}
+
+void PlayPage::paintEvent(QPaintEvent *event)
+{
+    GamePage::paintEvent(event);
+    QPainter painter(this);
+    for (auto i : topVirtualObjects)   painter.drawPixmap(i.second->getRect(), i.second->getImg());
+}
+
+void PlayPage::playerKilled()
+{
+    topVirtualObjects.insert(make_pair("001:Killed", new VirtualObject(this, {pic(FailFrame)}, {450,130})));
+    QMediaPlayer * musicKilled = new QMediaPlayer(this);
+    musicKilled->setMedia(QUrl(snd(Audio_boos)));
+    musicKilled->play();
 }
 
 EditPage::EditPage(MainWindow *parent, int wid, int heig)
@@ -129,6 +135,9 @@ EditPage::EditPage(MainWindow *parent, int wid, int heig)
     buttons.insert(make_pair("001:Brick",new GameButton(this, {pic(Brick)}, {""}, {62, 100}, this, SLOT(clicked(GameButton*)))));
     buttons.insert(make_pair("008:Eraser",new GameButton(this, {pic(StagePlant_slime_shovel_1)}, {""}, {175, 575}, this, SLOT(clicked(GameButton*)))));
     buttons.insert(make_pair("009:Finish",new GameButton(this, {pic(EndEdit)}, {""}, {1055, 608}, this, SLOT(valuate()))));
+    buttons.insert(make_pair("010:Back", new GameButton(this, {pic(Startup_button_main_3)}, {"返回"}, {20, 0}, parent, SLOT(backMain()))));
+    playlist->addMedia(QUrl(snd(Audio_bgm_air_ducts)));
+    music->play();
 }
 
 void EditPage::mousePressEvent(QMouseEvent *event)
@@ -150,6 +159,8 @@ void EditPage::mouseReleaseEvent(QMouseEvent *event) {if(event->button()==Qt::Le
 PVZPage::PVZPage(MainWindow *parent, int wid, int heig)
     : GamePage(parent, wid, heig)
 {
+    playlist->addMedia(QUrl(snd(Audio_bgm_strategic_war)));
+    music->play();
     static char str[100];
     sprintf(str,"金钱：%d",coins);
     buttons.insert(make_pair("001:Plant", new GameButton(this, {pic(StagePlant_btn_flower)}, {""}, {100, 568}, this, SLOT(selectPlant(GameButton*)))));
