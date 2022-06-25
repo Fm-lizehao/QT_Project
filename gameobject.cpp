@@ -168,7 +168,7 @@ void NPC::checkCollision(GameObject* other)
 void NPC::useState()
 {
     setImg(leftOrRight());
-    if(victory)                                      { v.setX(0); if(getImgNumTotal()>=4) setImg(getImgNumTotal()-4+leftOrRight()); if(downObject!=nullptr) v.setY(-bounceSpeed/1.7); }
+    if(victory)                                      { v.setX(0); if(getImgNumTotal()>=4) setImg(getImgNumTotal()-4+leftOrRight()); if(downObject!=nullptr) v.setY(-bounceSpeed/2); }
     if(killed)                                       { v.setX(0); if(getImgNumTotal()>=2) setImg(getImgNumTotal()-2+leftOrRight()); cankill = false; stubborn = true; victory = false; }
     GameObject::useState();
 }
@@ -179,7 +179,7 @@ void Player::keyPressEvent(QKeyEvent *event)
     switch(event->key())
     {case Qt::Key_A: case Qt::Key_Left: pushright = false; if(!killed) pushleft = true; break;
      case Qt::Key_D: case Qt::Key_Right: pushleft = false; if(!killed) pushright = true; break;
-     case Qt::Key_W: case Qt::Key_Up: case Qt::Key_Space: if(!killed&&(propup||flying)) bounceup = true; break; }
+     case Qt::Key_W: case Qt::Key_Up: case Qt::Key_Space: if(!killed&&(propup||flying)) {bounceup = true;QMediaPlayer*m = new QMediaPlayer(this);m->setVolume(50);m->setMedia(QUrl(snd(Audio_jump)));m->play();}break; }
 }
 
 void Player::keyReleaseEvent(QKeyEvent *event)

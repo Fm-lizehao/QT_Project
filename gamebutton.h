@@ -16,12 +16,12 @@ public:
     void paintEvent() = delete;
     void enterEvent(QEvent *event); //鼠标移入函数
     void leaveEvent(QEvent *event);  //鼠标移出函数
-    void mouseReleaseEvent(QMouseEvent *e);  //鼠标点击
+    void mouseReleaseEvent(QMouseEvent *event);  //鼠标点击
     QPixmap getImg() {return img[imgNow]; } //取得应显示的按钮图片
     QString getText() {return text[textNow]; } //取得应显示的文字
     QRect getRect() {return rect().translated(pos()); } //取得应显示的区域
 signals:
-    void clicked(GameButton* ptr);
+    void clicked(QMouseEvent *event, GameButton* ptr);
 public slots:
 };
 #endif // GAMEBUTTON_H

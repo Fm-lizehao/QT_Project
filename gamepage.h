@@ -13,6 +13,9 @@ public:
     int pageHeight = windowHeight; //物理空间高度
     QPixmap background; //背景图
     QRect backgroundArea; //背景图区域
+    map<QString, VirtualObject*> topVirtualObjects; //顶层遮挡物
+    vector<pair<QPoint,QTextItem>> topText; //顶层文字
+    map<QString, GameButton*> topButtons; //顶层按钮
     map<QString, GameButton*> buttons; //页面中的按钮
     map<QString, VirtualObject*> virtualObjects; //页面中不碰撞的物体
     map<QString, HeavyBody*> heavyBodies; //页面中碰撞不改变运动状态的物体
@@ -45,14 +48,22 @@ class PlayPage : public GamePage
 {
     Q_OBJECT
 public:
-    map<QString, VirtualObject*> topVirtualObjects; //页面中的顶层遮挡物体
-    explicit PlayPage(MainWindow *parent = nullptr, int wid = windowWidth, int heig = windowHeight);
+    explicit PlayPage(MainWindow *parent = nullptr, int wid = windowWidth, int heig = windowHeight, QString bgm = "", QString bg = "", QRect bgarea = {0,0,windowWidth,windowHeight}, QPointF cameraP = {0,0});
     ~PlayPage() {}
-    void paintEvent(QPaintEvent *event);
     void playerKilled(); //死亡画面
 signals:
 public slots:
 }; //游戏页面
+
+class PlayPage1 : public PlayPage
+{
+    Q_OBJECT
+public:
+    explicit PlayPage1(MainWindow *parent = nullptr, int wid = windowWidth, int heig = windowHeight);
+    ~PlayPage1() {}
+signals:
+public slots:
+}; //关卡1
 
 class EditPage : public GamePage
 {
@@ -64,7 +75,7 @@ public:
     ~EditPage() { }
 signals:
 public slots:
-    void clicked(GameButton* ptr)
+    void clicked(QMouseEvent* event, GameButton* ptr)
     {   setCursor(QCursor(ptr->getImg()));
         current = ptr; }
     void print()
@@ -84,9 +95,13 @@ public slots:
 class PVZPage : public GamePage
 {
     Q_OBJECT
+
 public:
-    explicit PVZPage(MainWindow *parent = nullptr, int wid = windowWidth, int heig = windowHeight);
+
+    explicit PVZPage(MainWindow *parent = nullptr, int wid = 1280, int heig = 720);
+
     ~PVZPage() {}
+
     static const int N_Enemy = 14;
     static const int N_Last = 8;
     static const int N_Bullet = 1000;
@@ -99,40 +114,47 @@ public:
     int EnemyType[N_Enemy]={0,0,0,0,0,0,1,1,2,2,2,2,2,2};
     int EnemyRow[N_Enemy]={0,1,2,0,1,2,0,1,0,1,2,0,1,2};
     int EnemyHp[3]={80,120,160};
-    int EnemyPer[3]={0,1,2};
-    QString EnemyStr[N_Enemy]={};
-    QTimer timer;
+    int EnemyPer[3];
+    QString EnemyStr[N_Enemy];
+    QTimer T;
     GameButton *btn1,*btn2,*btn3,*btn4;
-    int Time=0;
-    int coins=100;
-    int type=0;
-    int Killed=0;
-    bool is_selected=false;
-    int Fc[3]={},Fx[3]={250,250,250},Fy[3]{225,325,425};
+    int Time;
+    int coins;
+    int type;
+    int Killed;
+    bool is_selected;
+    int Fc[3],Fx[3],Fy[3];
     VirtualObject *F[3];
     QString Fs[3];
-    int A[3][6]={};
-    int StartTime[3][6]={};
+    int A[3][6];
+    int StartTime[3][6];
     GameButton *B[3][6];
     VirtualObject *C[3][6];
-    QString s[3][6]={};
-    int ex[N_Enemy]={},ey[N_Enemy]={},hp[N_Enemy]={},ec=0;
+    QString s[3][6];
+
+    int ex[N_Enemy],ey[N_Enemy],hp[N_Enemy],ec;
     VirtualObject *e[N_Enemy];
     QString es[N_Enemy];
     GameButton *eb[N_Enemy];
-    int bx[N_Bullet]={},by[N_Bullet]={},bc=0;
+
+    int bx[N_Bullet],by[N_Bullet],bc;
     VirtualObject *b[N_Bullet];
     QString bs[N_Bullet];
+
 signals:
+
 public slots:
+
+    void empty();
     void swap();
-    void timeout();
-    void selectPlant(GameButton* btn);
-    void selectPos(int x,int y);
-    void selectEnemy(int i);
-    void updateCoins();
-    void gameWin();
-    void gameLose();
-}; //彩蛋页面
+    void Timeout();
+    void selectplt(int type);
+    void selectpos(int x,int y);
+    void SelectEnemy(int i);
+    void UpdateCoins();
+    void GameWin();
+    void GameLose();
+}; //PVZ
+
 
 #endif // GAMEPAGE_H

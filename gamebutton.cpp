@@ -6,7 +6,7 @@ GameButton::GameButton(GamePage *parent, initializer_list<QString> img_str, init
     for(auto i : img_str) img.push_back(QPixmap(i));
     resize(img[imgNow].size());
     move(point);
-    connect(this, SIGNAL(clicked(GameButton*)), receiver, method);
+    connect(this, SIGNAL(clicked(QMouseEvent*,GameButton*)), receiver, method);
 }
 
 void GameButton::enterEvent(QEvent *event)
@@ -27,4 +27,4 @@ void GameButton::leaveEvent(QEvent *event)
        imgNow = 0; }
 }
 
-void GameButton::mouseReleaseEvent(QMouseEvent *event) {if(event->button()==Qt::LeftButton) emit clicked(this); }
+void GameButton::mouseReleaseEvent(QMouseEvent *event) {if(event->button()==Qt::LeftButton) emit clicked(event,this); }

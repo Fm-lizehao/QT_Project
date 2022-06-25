@@ -5,7 +5,7 @@ GamePage::GamePage(MainWindow *parent, int wid, int heig, QString bg, QRect bgar
 {
     resize(windowWidth,windowHeight);
     music = new QMediaPlayer(this);
-    music->setVolume(50);
+    music->setVolume(defaultVolume);
     playlist = new QMediaPlaylist(music);
     playlist->setPlaybackMode(QMediaPlaylist::Loop);
     music->setPlaylist(playlist);
@@ -75,6 +75,11 @@ void GamePage::paintEvent(QPaintEvent *event)
     for (auto i : buttons)
     {   painter.drawPixmap(i.second->getRect(), i.second->getImg());
         painter.drawText(i.second->getRect(), Qt::AlignCenter, i.second->getText()); }
+    for (auto i : topVirtualObjects)   painter.drawPixmap(i.second->getRect(), i.second->getImg());
+    for (auto i : topText)  painter.drawTextItem(i.first, i.second);
+    for (auto i : topButtons)
+    {   painter.drawPixmap(i.second->getRect(), i.second->getImg());
+        painter.drawText(i.second->getRect(), Qt::AlignCenter, i.second->getText()); }
 }
 
 StartPage::StartPage(MainWindow *parent, int wid, int heig)
@@ -94,46 +99,34 @@ StartPage::StartPage(MainWindow *parent, int wid, int heig)
     music->play();
 }
 
-PlayPage::PlayPage(MainWindow *parent, int wid, int heig)
-    : GamePage(parent, wid, heig, pic(Startup_leftCastle), {80, 120, 1100, 600})
+PlayPage::PlayPage(MainWindow *parent, int wid, int heig, QString bgm, QString bg, QRect bgarea, QPointF cameraP)
+    : GamePage(parent, wid, heig, bg, bgarea, cameraP)
 {
     buttons.insert(make_pair("001:Back", new GameButton(this, {pic(Startup_button_main_3)}, {"返回"}, {20, 0}, parent, SLOT(backMain()))));
-    virtualObjects.insert(make_pair("001:Cloud", new VirtualObject(this, {pic(Cloud_0_cute),pic(Cloud_0_bad)}, {200, 80}, {-0.2, 0}, 0, pageRect(), false, true)));
-    heavyBodies.insert(make_pair("001:Object", new HeavyBody(this, {pic(Float_144)}, {0,400}, {0,0}, 0, pageRect())));
-    heavyBodies.insert(make_pair("002:Object", new HeavyBody(this, {pic(Float_144)}, {150,400}, {0,0}, 0, pageRect())));
-    heavyBodies.insert(make_pair("003:Object", new HeavyBody(this, {pic(Float_144)}, {300,400}, {0,0}, 0, pageRect())));
-    heavyBodies.insert(make_pair("004:Object", new HeavyBody(this, {pic(Float_144)}, {450,400}, {0,0}, 0, pageRect())));
-    heavyBodies.insert(make_pair("005:Object", new HeavyBody(this, {pic(Float_144)}, {600,400}, {0,0}, 0, pageRect())));
-    heavyBodies.insert(make_pair("006:Object", new HeavyBody(this, {pic(Float_144)}, {750,400}, {0,0}, 0, pageRect())));
-    heavyBodies.insert(make_pair("007:Object", new HeavyBody(this, {pic(Float_144)}, {900,400}, {0,0}, 0, pageRect())));
-    heavyBodies.insert(make_pair("008:Object", new HeavyBody(this, {pic(Float_144)}, {1050,400}, {0,0}, 0, pageRect())));
-    pushables.insert(make_pair("001:Block", new Pushable(this, {pic(BrickUnknown)}, {500,80})));
-    npcs.push_back(new NPC(this,slimeImg,{800,100},{-0.2,0}));
-    player = new Player(this,{100,100});
-    playlist->addMedia(QUrl(snd(Audio_bgm_aquatic_circus)));
+    playlist->addMedia(QUrl(bgm));
     music->play();
-}
-
-void PlayPage::paintEvent(QPaintEvent *event)
-{
-    GamePage::paintEvent(event);
-    QPainter painter(this);
-    for (auto i : topVirtualObjects)   painter.drawPixmap(i.second->getRect(), i.second->getImg());
 }
 
 void PlayPage::playerKilled()
 {
     topVirtualObjects.insert(make_pair("001:Killed", new VirtualObject(this, {pic(FailFrame)}, {450,130})));
-    QMediaPlayer * musicKilled = new QMediaPlayer(this);
-    musicKilled->setMedia(QUrl(snd(Audio_boos)));
-    musicKilled->play();
+    QMediaPlayer * killedMusic = new QMediaPlayer(this);
+    killedMusic->setVolume(defaultVolume);
+    killedMusic->setMedia(QUrl(snd(Audio_boos)));
+    killedMusic->play();
+}
+
+PlayPage1::PlayPage1(MainWindow *parent, int wid, int heig)
+    : PlayPage(parent, wid, heig, snd(Audio_bgm_aquatic_circus), pic(Startup_leftCastle), {80, 120, 1100, 600}, {0,0})
+{
+
 }
 
 EditPage::EditPage(MainWindow *parent, int wid, int heig)
     :GamePage(parent, wid, heig, pic(MapEdit), {0, 0, 1280, 720})
 {
-    buttons.insert(make_pair("001:Brick",new GameButton(this, {pic(Brick)}, {""}, {62, 100}, this, SLOT(clicked(GameButton*)))));
-    buttons.insert(make_pair("008:Eraser",new GameButton(this, {pic(StagePlant_slime_shovel_1)}, {""}, {175, 575}, this, SLOT(clicked(GameButton*)))));
+    buttons.insert(make_pair("001:Brick",new GameButton(this, {pic(Brick)}, {""}, {62, 100}, this, SLOT(clicked(QMouseEvent*,GameButton*)))));
+    buttons.insert(make_pair("008:Eraser",new GameButton(this, {pic(StagePlant_slime_shovel_1)}, {""}, {175, 575}, this, SLOT(clicked(QMouseEvent*,GameButton*)))));
     buttons.insert(make_pair("009:Finish",new GameButton(this, {pic(EndEdit)}, {""}, {1055, 608}, this, SLOT(valuate()))));
     buttons.insert(make_pair("010:Back", new GameButton(this, {pic(Startup_button_main_3)}, {"返回"}, {20, 0}, parent, SLOT(backMain()))));
     playlist->addMedia(QUrl(snd(Audio_bgm_air_ducts)));
@@ -162,45 +155,71 @@ PVZPage::PVZPage(MainWindow *parent, int wid, int heig)
     playlist->addMedia(QUrl(snd(Audio_bgm_strategic_war)));
     music->play();
     static char str[100];
+    btn1 = new GameButton(this, {pic(StagePlant_btn_flower)}, {""}, {100, 568}, this, SLOT(empty()));
+    connect(btn1,&GameButton::clicked,this,[=](){selectplt(1);});
+    buttons.insert(std::make_pair("001:Plant", btn1));
+    btn2 = new GameButton(this, {pic(StagePlant_btn_gun)}, {""}, {200, 568}, this, SLOT(empty()));
+    connect(btn2,&GameButton::clicked,this,[=](){selectplt(2);});
+    buttons.insert(std::make_pair("002:Gun", btn2));
+    btn3 = new GameButton(this, {pic(StagePlant_btn_shovel)}, {""}, {300,568}, this, SLOT(empty()));
+    connect(btn3,&GameButton::clicked,this,[=](){selectplt(3);});
+    buttons.insert(std::make_pair("003:Shovel", btn3));
+    coins=100;
     sprintf(str,"金钱：%d",coins);
-    buttons.insert(make_pair("001:Plant", new GameButton(this, {pic(StagePlant_btn_flower)}, {""}, {100, 568}, this, SLOT(selectPlant(GameButton*)))));
-    buttons.insert(make_pair("002:Gun", new GameButton(this, {pic(StagePlant_btn_gun)}, {""}, {200, 568}, this, SLOT(selectPlant(GameButton*)))));
-    buttons.insert(make_pair("003:Shovel", new GameButton(this, {pic(StagePlant_btn_shovel)}, {""}, {300,568}, this, SLOT(selectPlant(GameButton*)))));
-    buttons.insert(make_pair("004:Coins", new GameButton(this,{pic(Startup_button_main_1)},{QString(str)},{500,20},this,SLOT(selectPlant(GameButton*)))));
-    virtualObjects.insert(make_pair("001:Box", new VirtualObject(this, {pic(Box_1)}, {150, 300})));
-    virtualObjects.insert(make_pair("002:Base", new VirtualObject(this, {pic(Base)}, {137, 358})));
-    virtualObjects.insert(make_pair("003:Pig", new VirtualObject(this, {pic(StagePlant_pig)}, {900, 568})));
-    virtualObjects.insert(make_pair("004:Line2", new VirtualObject(this, {pic(Line)}, {80, 521})));
-    virtualObjects.insert(make_pair("005:Line3", new VirtualObject(this, {pic(Line)}, {80, 170})));
-    timer.setInterval(10);
-    random_shuffle(EnemyPer,EnemyPer+3);
-    connect(&timer,SIGNAL(timeout()),this,SLOT(timeout()));
+    btn4 = new GameButton(this,{pic(Startup_button_main_1)},{QString(str)},{500,20},this,SLOT(empty()));
+    buttons.insert(std::make_pair("004:Coins", btn4));
+    virtualObjects.insert(std::make_pair("001:Box", new VirtualObject(this, {pic(Box_1)}, {150, 300})));
+    virtualObjects.insert(std::make_pair("003:Pig", new VirtualObject(this, {pic(StagePlant_pig)}, {900, 568})));
+    virtualObjects.insert(std::make_pair("004:Line2", new VirtualObject(this, {pic(Line)}, {80, 521})));
+    virtualObjects.insert(std::make_pair("005:Line3", new VirtualObject(this, {pic(Line)}, {80, 170})));
+    virtualObjects.insert(std::make_pair("006:Base", new VirtualObject(this, {pic(Base)}, {137, 358})));
+    virtualObjects.insert(std::make_pair("007:Fork1", new VirtualObject(this, {pic(Fork)}, {259, 247})));
+    virtualObjects.insert(std::make_pair("007:Fork2", new VirtualObject(this, {pic(Fork)}, {259, 347})));
+    virtualObjects.insert(std::make_pair("007:Fork3", new VirtualObject(this, {pic(Fork)}, {259, 447})));
+    is_selected=0;
+    Time=0;
+    ec=0;bc=0;
+    Killed=0;
+    T.setInterval(10);
+    for (int i=0;i<3;i++) EnemyPer[i]=i;
+    std::random_shuffle(EnemyPer,EnemyPer+3);
+    connect(&T,&QTimer::timeout,this,[=](){Timeout();});
     for (int i=0;i<3;i++){
         for (int j=0;j<6;j++){
             int x=300+j*100;
             int y=200+i*100;
+            A[i][j]=0;
             sprintf(str,"%d%d:Slot",i,j);
             s[i][j]=QString(str);
             B[i][j]=new GameButton(this, {pic(StagePlant_shadow), pic(StagePlant_shadow_pressed)}, {""}, {x, y}, this, SLOT(empty()));
-            connect(B[i][j],&GameButton::clicked,this,[=](){selectPos(i,j);});
+            connect(B[i][j],&GameButton::clicked,this,[=](){selectpos(i,j);});
             B[i][j]->hide();
             sprintf(str,"002_%d%d:Line",i,j);
-            virtualObjects.insert(make_pair(QString(str), new VirtualObject(this, {pic(Line1)}, {x+3, y+85})));
+            virtualObjects.insert(std::make_pair(QString(str), new VirtualObject(this, {pic(Line1)}, {x+3, y+85})));
         }
     }
     for (int i=0;i<3;i++){
+        Fc[i]=0;
+        Fx[i]=250;
+        Fy[i]=225+i*100;
         sprintf(str,"%d:Fish",i);
         Fs[i]=QString(str);
         F[i]=new VirtualObject(this,{pic(Fish_1)},{Fx[i],Fy[i]});
-        virtualObjects.insert(make_pair(Fs[i],F[i]));
+        virtualObjects.insert(std::make_pair(Fs[i],F[i]));
     }
-    timer.start();
+    T.start();
 }
+void PVZPage::empty(){
 
-void PVZPage::updateCoins(){
+}
+void PVZPage::UpdateCoins(){
     static char str[100];
+    btn4->hide();
+    buttons.erase("004:Coins");
+    delete btn4;
     sprintf(str,"金钱：%d",coins);
-    buttons["004:Coins"]->text[0]=QString(str);
+    btn4 = new GameButton(this,{pic(Startup_button_main_1)},{QString(str)},{500,20},this,SLOT(empty()));
+    buttons.insert(std::make_pair("004:Coins", btn4));
 }
 
 void PVZPage::swap(){
@@ -209,7 +228,7 @@ void PVZPage::swap(){
             for (int i=0;i<3;i++){
                 for (int j=0;j<6;j++) if (!A[i][j]){
                     B[i][j]->show();
-                    buttons.insert(make_pair(s[i][j],B[i][j]));
+                    buttons.insert(std::make_pair(s[i][j],B[i][j]));
                 }
             }
         } else{
@@ -218,14 +237,14 @@ void PVZPage::swap(){
                     C[i][j]->hide();
                     virtualObjects.erase(s[i][j]);
                     B[i][j]->show();
-                    buttons.insert(make_pair(s[i][j],B[i][j]));
+                    buttons.insert(std::make_pair(s[i][j],B[i][j]));
                 }
             }
             for (int i=0;i<ec;i++) if (hp[i]>0){
                 e[i]->hide();
                 virtualObjects.erase(es[i]);
                 eb[i]->show();
-                buttons.insert(make_pair(es[i],eb[i]));
+                buttons.insert(std::make_pair(es[i],eb[i]));
             }
         }
     } else{
@@ -243,7 +262,7 @@ void PVZPage::swap(){
                     B[i][j]->hide();
                     buttons.erase(s[i][j]);
                     C[i][j]->show();
-                    virtualObjects.insert(make_pair(s[i][j],C[i][j]));
+                    virtualObjects.insert(std::make_pair(s[i][j],C[i][j]));
                 }
             }
             for (int i=0;i<ec;i++) if (hp[i]>0){
@@ -251,20 +270,20 @@ void PVZPage::swap(){
                 buttons.erase(es[i]);
                 delete e[i];
                 e[i]=new VirtualObject(this,{EnemyStr[i]},{ex[i],ey[i]});
-                virtualObjects.insert(make_pair(es[i],e[i]));
+                virtualObjects.insert(std::make_pair(es[i],e[i]));
             }
         }
     }
 }
-void PVZPage::selectPlant(GameButton* btn){
+void PVZPage::selectplt(int t){
     if (!is_selected){
-        if (btn->source[0]==pic(StagePlant_btn_flower)){
+        if (t==1){
             if (coins>=30){
                 type=1;
                 is_selected=1;
                 swap();
             }
-        } else if (btn->source[0]==pic(StagePlant_btn_gun)){
+        } else if (t==2){
             if (coins>=50){
                 type=2;
                 is_selected=1;
@@ -280,20 +299,20 @@ void PVZPage::selectPlant(GameButton* btn){
         swap();
     }
 }
-void PVZPage::selectPos(int i,int j){
+void PVZPage::selectpos(int i,int j){
     int x=300+j*100;
     int y=200+i*100;
     if (type<=2){
         A[i][j]=type;
         StartTime[i][j]=Time;
         C[i][j]=new VirtualObject(this,{type==1?pic(StagePlant_flower):pic(StagePlant_gun_1)},{x,y});
-        virtualObjects.insert(make_pair(s[i][j],C[i][j]));
+        virtualObjects.insert(std::make_pair(s[i][j],C[i][j]));
         B[i][j]->hide();
         buttons.erase(s[i][j]);
         coins-=type==1?30:50;
         is_selected=0;
         swap();
-        updateCoins();
+        UpdateCoins();
     } else{
         A[i][j]=0;
         B[i][j]->hide();
@@ -303,18 +322,18 @@ void PVZPage::selectPos(int i,int j){
     }
 }
 
-void PVZPage::selectEnemy(int i){
+void PVZPage::SelectEnemy(int i){
     hp[i]=0;
     eb[i]->hide();
     buttons.erase(es[i]);
     delete eb[i];
     coins+=10;
-    updateCoins();
+    UpdateCoins();
     is_selected=0;
     swap();
     Killed++;
     if (Killed == N_Enemy){
-        gameWin();
+        GameWin();
         return;
     }
     if (Killed == N_Last){
@@ -325,7 +344,7 @@ void PVZPage::selectEnemy(int i){
     }
 }
 
-void PVZPage::timeout(){
+void PVZPage::Timeout(){
     static char str[100];
     if (is_selected) return;
     Time++;
@@ -343,9 +362,9 @@ void PVZPage::timeout(){
         e[ec]=new VirtualObject(this,{EnemyStr[ec]},{ex[ec],ey[ec]});
         sprintf(str,"%d:enemy",ec);
         es[ec]=QString(str);
-        virtualObjects.insert(make_pair(es[ec],e[ec]));
+        virtualObjects.insert(std::make_pair(es[ec],e[ec]));
         eb[ec]=new GameButton(this,{pic(Startup_button_main_1)},{""},{ex[ec],ey[ec]},this,SLOT(empty()));
-        connect(eb[ec],&GameButton::clicked, this, [=](){selectEnemy(ec);});
+        connect(eb[ec],&GameButton::clicked, this, [=](){SelectEnemy(ec);});
         eb[ec]->hide();
         ec++;
     }
@@ -353,7 +372,7 @@ void PVZPage::timeout(){
         for (int j=0;j<6;j++){
             if (A[i][j]==1&&(Time-StartTime[i][j])%CoinGainTime==0){
                 coins+=10;
-                updateCoins();
+                UpdateCoins();
             }
             if (A[i][j]==2&&(Time-StartTime[i][j])%BulletGainTime==0){
                 int x=300+j*100+100;
@@ -363,7 +382,7 @@ void PVZPage::timeout(){
                 b[bc]=new VirtualObject(this,{pic(Toggle_bk)},{bx[bc],by[bc]});
                 sprintf(str,"%d:bullet",bc);
                 bs[bc]=QString(str);
-                virtualObjects.insert(make_pair(bs[bc],b[bc]));
+                virtualObjects.insert(std::make_pair(bs[bc],b[bc]));
                 bc++;
 
                 x=300+j*100;
@@ -372,7 +391,7 @@ void PVZPage::timeout(){
                 virtualObjects.erase(s[i][j]);
                 delete C[i][j];
                 C[i][j]=new VirtualObject(this,{pic(StagePlant_gun_2)},{x,y});
-                virtualObjects.insert(make_pair(s[i][j],C[i][j]));
+                virtualObjects.insert(std::make_pair(s[i][j],C[i][j]));
             }
             if (A[i][j]==2&&(Time-StartTime[i][j])%BulletGainTime==100){
                 int x=300+j*100;
@@ -381,7 +400,7 @@ void PVZPage::timeout(){
                 virtualObjects.erase(s[i][j]);
                 delete C[i][j];
                 C[i][j]=new VirtualObject(this,{pic(StagePlant_gun_1)},{x,y});
-                virtualObjects.insert(make_pair(s[i][j],C[i][j]));
+                virtualObjects.insert(std::make_pair(s[i][j],C[i][j]));
             }
         }
     }
@@ -393,7 +412,7 @@ void PVZPage::timeout(){
                 delete b[i];
                 bx[i]+=2;
                 b[i]=new VirtualObject(this,{pic(Toggle_bk)},{bx[i],by[i]});
-                virtualObjects.insert(make_pair(bs[i],b[i]));
+                virtualObjects.insert(std::make_pair(bs[i],b[i]));
             }
     }
     if (Time%FishTime==0){
@@ -407,7 +426,7 @@ void PVZPage::timeout(){
                     Fc[i]=2;
                 } else{
                     F[i]=new VirtualObject(this,{Fx[i]%100>50?pic(Fish_1):pic(Fish_2)},{Fx[i],Fy[i]});
-                    virtualObjects.insert(make_pair(Fs[i],F[i]));
+                    virtualObjects.insert(std::make_pair(Fs[i],F[i]));
                 }
             }
     }
@@ -416,13 +435,16 @@ void PVZPage::timeout(){
             if (hp[i]>0){
                 e[i]->hide();
                 virtualObjects.erase(es[i]);
+                //eb[i]->hide();
+                //buttons.erase(es[i]);
                 delete e[i];
                 delete eb[i];
                 ex[i]--;
                 e[i]=new VirtualObject(this,{EnemyStr[i]},{ex[i],ey[i]});
-                virtualObjects.insert(make_pair(es[i],e[i]));
+                virtualObjects.insert(std::make_pair(es[i],e[i]));
                 eb[i]=new GameButton(this,{EnemyStr[i]},{""},{ex[i],ey[i]},this,SLOT(empty()));
-                connect(eb[i],&GameButton::clicked, this, [=](){selectEnemy(i);});
+                connect(eb[i],&GameButton::clicked, this, [=](){SelectEnemy(i);});
+                //buttons.insert(std::make_pair(es[i],eb[i]));
             }
     }
     for (int i=0;i<ec;i++)
@@ -432,7 +454,7 @@ void PVZPage::timeout(){
                 if (Fc[u]==0){
                     Fc[u]=1;
                 } else if (Fc[u]==2){
-                    gameLose();
+                    GameLose();
                     return;
                 }
             }
@@ -447,12 +469,14 @@ void PVZPage::timeout(){
                 hp[i]=-1;
                 e[i]->hide();
                 virtualObjects.erase(es[i]);
+                //eb[i]->hide();
+                //buttons.erase(es[i]);
                 delete e[i];
                 coins+=10;
-                updateCoins();
+                UpdateCoins();
                 Killed++;
                 if (Killed == N_Enemy){
-                    gameWin();
+                    GameWin();
                     return;
                 }
                 if (Killed == N_Last){
@@ -478,10 +502,10 @@ void PVZPage::timeout(){
                             virtualObjects.erase(es[i]);
                             delete e[i];
                             coins+=10;
-                            updateCoins();
+                            UpdateCoins();
                             Killed++;
                             if (Killed == N_Enemy){
-                                gameWin();
+                                GameWin();
                                 return;
                             }
                             if (Killed == N_Last){
@@ -497,11 +521,11 @@ void PVZPage::timeout(){
         }
 }
 
-void PVZPage::gameWin(){
+void PVZPage::GameWin(){
     this->hide();
-    timer.stop();
+    T.stop();
 }
-void PVZPage::gameLose(){
+void PVZPage::GameLose(){
     this->hide();
-    timer.stop();
+    T.stop();
 }

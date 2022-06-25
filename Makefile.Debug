@@ -173,6 +173,7 @@ debug/qrc_source.cpp: source.qrc \
 		image/Hero_muffler_2.png \
 		image/Emoji_king_5.png \
 		image/Player_fly1_left.png \
+		image/Fork.png \
 		image/Startup_screen_5_2.png \
 		image/Arch_hor_1.png \
 		image/TreeTiny_2.png \
@@ -703,11 +704,13 @@ debug/moc_mainwindow.cpp: gamepage.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qtimer.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qbasictimer.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/QFont \
-		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/QPaintEvent \
-		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/QPainter \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/QTextItem \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qpaintengine.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qpainter.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qtextoption.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qpen.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/QPaintEvent \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/QPainter \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtMultimedia/QMediaPlayer \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtMultimedia/qmediaplayer.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtMultimedia/qmediaobject.h \
@@ -879,11 +882,13 @@ debug/moc_gamebutton.cpp: global.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qtimer.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qbasictimer.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/QFont \
-		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/QPaintEvent \
-		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/QPainter \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/QTextItem \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qpaintengine.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qpainter.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qtextoption.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qpen.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/QPaintEvent \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/QPainter \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtMultimedia/QMediaPlayer \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtMultimedia/qmediaplayer.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtMultimedia/qmediaobject.h \
@@ -1029,11 +1034,13 @@ debug/moc_gameobject.cpp: global.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qtimer.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qbasictimer.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/QFont \
-		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/QPaintEvent \
-		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/QPainter \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/QTextItem \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qpaintengine.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qpainter.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qtextoption.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qpen.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/QPaintEvent \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/QPainter \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtMultimedia/QMediaPlayer \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtMultimedia/qmediaplayer.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtMultimedia/qmediaobject.h \
@@ -1180,11 +1187,13 @@ debug/moc_gamepage.cpp: gamebutton.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qtimer.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qbasictimer.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/QFont \
-		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/QPaintEvent \
-		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/QPainter \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/QTextItem \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qpaintengine.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qpainter.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qtextoption.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qpen.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/QPaintEvent \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/QPainter \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtMultimedia/QMediaPlayer \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtMultimedia/qmediaplayer.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtMultimedia/qmediaobject.h \
@@ -1354,11 +1363,13 @@ debug/main.o: main.cpp mainwindow.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qtimer.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qbasictimer.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/QFont \
-		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/QPaintEvent \
-		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/QPainter \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/QTextItem \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qpaintengine.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qpainter.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qtextoption.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qpen.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/QPaintEvent \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/QPainter \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtMultimedia/QMediaPlayer \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtMultimedia/qmediaplayer.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtMultimedia/qmediaobject.h \
@@ -1532,11 +1543,13 @@ debug/mainwindow.o: mainwindow.cpp mainwindow.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qtimer.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qbasictimer.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/QFont \
-		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/QPaintEvent \
-		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/QPainter \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/QTextItem \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qpaintengine.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qpainter.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qtextoption.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qpen.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/QPaintEvent \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/QPainter \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtMultimedia/QMediaPlayer \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtMultimedia/qmediaplayer.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtMultimedia/qmediaobject.h \
@@ -1710,11 +1723,13 @@ debug/gamebutton.o: gamebutton.cpp mainwindow.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qtimer.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qbasictimer.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/QFont \
-		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/QPaintEvent \
-		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/QPainter \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/QTextItem \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qpaintengine.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qpainter.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qtextoption.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qpen.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/QPaintEvent \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/QPainter \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtMultimedia/QMediaPlayer \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtMultimedia/qmediaplayer.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtMultimedia/qmediaobject.h \
@@ -1888,11 +1903,13 @@ debug/gameobject.o: gameobject.cpp mainwindow.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qtimer.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qbasictimer.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/QFont \
-		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/QPaintEvent \
-		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/QPainter \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/QTextItem \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qpaintengine.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qpainter.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qtextoption.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qpen.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/QPaintEvent \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/QPainter \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtMultimedia/QMediaPlayer \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtMultimedia/qmediaplayer.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtMultimedia/qmediaobject.h \
@@ -2066,11 +2083,13 @@ debug/gamepage.o: gamepage.cpp mainwindow.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qtimer.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qbasictimer.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/QFont \
-		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/QPaintEvent \
-		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/QPainter \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/QTextItem \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qpaintengine.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qpainter.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qtextoption.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qpen.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/QPaintEvent \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/QPainter \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtMultimedia/QMediaPlayer \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtMultimedia/qmediaplayer.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtMultimedia/qmediaobject.h \
@@ -2244,11 +2263,13 @@ debug/global.o: global.cpp mainwindow.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qtimer.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtCore/qbasictimer.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/QFont \
-		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/QPaintEvent \
-		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/QPainter \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/QTextItem \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qpaintengine.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qpainter.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qtextoption.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/qpen.h \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/QPaintEvent \
+		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtGui/QPainter \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtMultimedia/QMediaPlayer \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtMultimedia/qmediaplayer.h \
 		C:/ProgramData/Qt/Qt5.6.1/5.6/mingw49_32/include/QtMultimedia/qmediaobject.h \

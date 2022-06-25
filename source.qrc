@@ -456,5 +456,6 @@
         <file>image/MapEdit.png</file>
         <file>image/Line.png</file>
         <file>image/Line1.png</file>
+        <file>image/Fork.png</file>
     </qresource>
 </RCC>
