@@ -102,59 +102,62 @@ public:
 
     ~PVZPage() {}
 
-    static const int N_Enemy = 14;
-    static const int N_Last = 8;
-    static const int N_Bullet = 1000;
-    static const int FishTime = 1;
-    static const int EnemyTime = 5;
-    static const int CoinGainTime = 600;
-    static const int BulletGainTime = 400;
-    static const int BulletFlyTime = 1;
-    int EnemyGainTime[N_Enemy]={200,1200,2400,2600,3000,3400,3800,4200,16700,16701,16702,17500,17501,17502};
-    int EnemyType[N_Enemy]={0,0,0,0,0,0,1,1,2,2,2,2,2,2};
-    int EnemyRow[N_Enemy]={0,1,2,0,1,2,0,1,0,1,2,0,1,2};
-    int EnemyHp[3]={80,120,160};
-    int EnemyPer[3];
-    QString EnemyStr[N_Enemy];
-    QTimer T;
-    GameButton *btn1,*btn2,*btn3,*btn4;
-    int Time;
-    int coins;
-    int type;
-    int Killed;
-    bool is_selected;
-    int Fc[3],Fx[3],Fy[3];
-    VirtualObject *F[3];
-    QString Fs[3];
-    int A[3][6];
-    int StartTime[3][6];
-    GameButton *B[3][6];
-    VirtualObject *C[3][6];
-    QString s[3][6];
+    static const int N_Enemy = 14;      //敌人个数
+    static const int N_Last = 8;    //最后一波之前的敌人个数
+    static const int N_Bullet = 1000;    //子弹数量上限
+    static const int FishTime = 1;    //鱼的前进周期
+    static const int EnemyTime = 5;    //敌人的前进周期
+    static const int CoinGainTime = 600;    //生产硬币的周期
+    static const int BulletGainTime = 400;    //生产子弹的周期
+    static const int BulletFlyTime = 1;    //子弹的飞行周期
 
-    int ex[N_Enemy],ey[N_Enemy],hp[N_Enemy],ec;
-    VirtualObject *e[N_Enemy];
-    QString es[N_Enemy];
-    GameButton *eb[N_Enemy];
+    int EnemyGainTime[N_Enemy]={200,1200,2400,2600,3000,3400,3800,4200,16700,16701,16702,17500,17501,17502};    //敌人的生成时间
+    int EnemyType[N_Enemy]={0,0,0,0,0,0,1,1,2,2,2,2,2,2};    //敌人种类
+    int EnemyRow[N_Enemy]={0,1,2,0,1,2,0,1,0,1,2,0,1,2};    //敌人所在行
+    int EnemyHp[3]={80,120,160};    //敌人血量上限
+    int EnemyPer[3]={0,1,2};    //敌人所在行的排列
 
-    int bx[N_Bullet],by[N_Bullet],bc;
-    VirtualObject *b[N_Bullet];
-    QString bs[N_Bullet];
+    QString EnemyStr[N_Enemy]={};      //用于存敌人的标识串名
+    QTimer T;       //计时器
+    GameButton *btn1,*btn2,*btn3,*btn4;       //向日葵、豌豆射手、铲子、金币数的按钮
+    int Time=0;       //计时器的计数器
+    int Coins=100;    //硬币数量
+    int Type=0;       //当前选择的植物种类（向日葵/豌豆射手）
+    int numKill=0;    //已杀死的敌人数量
+    bool isSelected = false;    //是否处于向日葵/豌豆射手/铲子的选中状态
+    int Plant[3][6]={};       //该格子已种植物类型
+    int StartTime[3][6]={};       //种下这个植物的时间
+
+    QString strPlt[3][6]={};       //用于存植物的标识串名
+    GameButton *btnPlt[3][6]={};       //植物的按钮（用于选中铲子时）
+    VirtualObject *picPlt[3][6]={};       //植物图片（用于没选中铲子时）
+
+    int cFish[3]={},xFish[3]={250,250,250},yFish[3]={225,325,425};       //鱼的状态、横纵坐标
+    QString strFish[3]={"Fish1","Fish2","Fish3"};       //用于存鱼的标识串名
+    VirtualObject *picFish[3]={};       //鱼对象
+
+    int xEne[N_Enemy]={},yEne[N_Enemy]={},Hp[N_Enemy]={},cntEne=0;       //敌人横纵坐标、血量、计数器
+    QString strEne[N_Enemy]={};       //用于存敌人的标识串名
+    GameButton *btnEne[N_Enemy]={};       //用于挖掉敌人的按钮
+    VirtualObject *picEne[N_Enemy]={};       //敌人对象
+
+    int xBul[N_Bullet]={},yBul[N_Bullet]={},cntBul=0;       //子弹横纵坐标、计数器
+    QString strBul[N_Bullet]={};       //用于存子弹的标识串名
+    VirtualObject *picBul[N_Bullet]={};       //子弹对象
 
 signals:
 
 public slots:
 
-    void empty();
+    void empty() { }
     void swap();
     void Timeout();
-    void selectplt(int type);
+    void selectplt(QMouseEvent* event,GameButton* btn);
     void selectpos(int x,int y);
     void SelectEnemy(int i);
     void UpdateCoins();
     void GameWin();
     void GameLose();
-}; //PVZ
-
+}; //开始页面
 
 #endif // GAMEPAGE_H

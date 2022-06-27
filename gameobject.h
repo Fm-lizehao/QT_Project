@@ -37,7 +37,7 @@ public:
     GameObject* rightObject = nullptr; //右边紧靠的物体（自动刷新）
     direction order = NONE; //即将处理的碰撞（自动刷新）
     //基本函数：
-    GameObject(GamePage *parent, initializer_list<QString> img_str, QPointF p, QPointF v = {0,0}, qreal omega = 0, QRect border = noBorder, attribute collision = true, attribute stubborn = true, attribute grativity = false, attribute cankill = false);
+    GameObject(GamePage *parent, initializer_list<QString> img_str, QPoint p, QPointF v = {0,0}, qreal omega = 0, QRect border = noBorder, attribute collision = true, attribute stubborn = true, attribute grativity = false, attribute cankill = false);
     virtual ~GameObject() {}
     void paintEvent() = delete;
     //get函数：
@@ -77,7 +77,7 @@ class VirtualObject : public GameObject
     Q_OBJECT
 public:
     state breakin = false;    //是否被主角或npc穿过
-    VirtualObject(GamePage *parent, initializer_list<QString> img_str, QPointF p, QPointF v = {0,0}, qreal omega = 0, QRect border = noBorder, attribute grativity = false, attribute cankill = false)
+    VirtualObject(GamePage *parent, initializer_list<QString> img_str, QPoint p, QPointF v = {0,0}, qreal omega = 0, QRect border = noBorder, attribute grativity = false, attribute cankill = false)
         : GameObject(parent, img_str, p, v, omega, border, false, true, grativity, cankill) { }
     ~VirtualObject() { }
     void checkCollision(GameObject* other) {if(intersect(getCollisionRect(),other->getCollisionRect())) breakin = true; }//检查与另一物体的碰撞，更新breakin
@@ -94,7 +94,7 @@ class HeavyBody : public GameObject
 public:
     state weighdown = false;    //是否被主角或npc压下去
     state butted = false;    //是否被主角或npc顶起来
-    HeavyBody(GamePage *parent, initializer_list<QString> img_str, QPointF p, QPointF v = {0,0}, qreal omega = 0, QRect border = noBorder, attribute grativity = false, attribute cankill = false)
+    HeavyBody(GamePage *parent, initializer_list<QString> img_str, QPoint p, QPointF v = {0,0}, qreal omega = 0, QRect border = noBorder, attribute grativity = false, attribute cankill = false)
         : GameObject(parent, img_str, p, v, omega, border, true, true, grativity, cankill) { }
     ~HeavyBody() { }
     void doCollision(); //根据order更新状态并清空order
@@ -109,7 +109,7 @@ class Pushable : public GameObject
     Q_OBJECT
 public:
     state weighdown = false;    //是否被主角或npc压下去
-    Pushable(GamePage *parent, initializer_list<QString> img_str, QPointF p, QPointF v = {0,0}, qreal omega = 0, QRect border = noBorder, attribute grativity = true, attribute cankill = false)
+    Pushable(GamePage *parent, initializer_list<QString> img_str, QPoint p, QPointF v = {0,0}, qreal omega = 0, QRect border = noBorder, attribute grativity = true, attribute cankill = false)
         : GameObject(parent, img_str, p, v, omega, border, true, false, grativity, cankill) { }
     ~Pushable() { }
     void doCollision(); //根据order更新状态并清空order
@@ -125,7 +125,7 @@ class Role : public GameObject
 public:
     state killed = false;   //是否死亡
     QTimer timer;    //自动切换图片计时器
-    Role(GamePage *parent, initializer_list<QString> img_str, QPointF p, QPointF v = {0,0}, qreal omega = 0, QRect border = noBorder, attribute grativity = true, attribute cankill = false)
+    Role(GamePage *parent, initializer_list<QString> img_str, QPoint p, QPointF v = {0,0}, qreal omega = 0, QRect border = noBorder, attribute grativity = true, attribute cankill = false)
         : GameObject(parent, img_str, p, v, omega, border, true, false, grativity, cankill) { }
     ~Role() { }
     int leftOrRight()const {if(v.x()>0) return 0; if(v.x()<0) return 1; return getImgNumNow()%2; } //返回人物朝向，0为右，1为左
@@ -140,7 +140,7 @@ class NPC : public Role
     Q_OBJECT
 public:
     state victory = false;   //是否杀死了主角
-    NPC(GamePage *parent, initializer_list<QString> img_str, QPointF p, QPointF v = {0,0}, qreal omega = 0, QRect border = noBorder, attribute grativity = true, attribute cankill = true)
+    NPC(GamePage *parent, initializer_list<QString> img_str, QPoint p, QPointF v = {0,0}, qreal omega = 0, QRect border = noBorder, attribute grativity = true, attribute cankill = true)
         : Role(parent, img_str, p, v, omega, border, grativity, cankill) { }
     ~NPC() { }
     void checkCollision(GameObject* other); //检查与另一物体的碰撞方位，更新order,victory和killed
@@ -155,7 +155,7 @@ class Player : public Role
 public:
     state flying = false; //是否在飞
     state jumping = false; //是否在跳跃
-    Player(GamePage *parent, QPointF p)
+    Player(GamePage *parent, QPoint p)
         : Role(parent, playerImg, p, {0,0}, 0, noBorder, true, false)
     {   connect(&timer,SIGNAL(timeout()),this,SLOT(changeImg()),Qt::AutoConnection);
         timer.setInterval(250);

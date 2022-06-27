@@ -1,6 +1,6 @@
 #include "mainwindow.h"
 
-GameObject::GameObject(GamePage *parent, initializer_list<QString> img_str, QPointF p, QPointF v, qreal omega, QRect border, attribute collision, attribute stubborn, attribute grativity, attribute cankill)
+GameObject::GameObject(GamePage *parent, initializer_list<QString> img_str, QPoint p, QPointF v, qreal omega, QRect border, attribute collision, attribute stubborn, attribute grativity, attribute cankill)
     : QWidget(parent), source(img_str), v(v), omega(omega), cameraP(parent->cameraP), cameraV(parent->cameraV), border(border), collision(collision), stubborn(stubborn), grativity(grativity), cankill(cankill)
 {
     for (auto i:img_str)
