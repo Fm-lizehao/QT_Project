@@ -15,6 +15,7 @@ public:
     QRect backgroundArea; //背景图区域
     map<QString, VirtualObject*> topVirtualObjects; //顶层遮挡物
     vector<TextItem> topText; //顶层文字
+    QPixmap* img = nullptr; //储存顶层文字图片
     map<QString, GameButton*> topButtons; //顶层按钮
     map<QString, GameButton*> buttons; //页面中的按钮
     map<QString, VirtualObject*> virtualObjects; //页面中不碰撞的物体
@@ -26,7 +27,7 @@ public:
     QPointF cameraP = {0,0}; //相机左上角位置
     QPointF cameraV = {0,0}; //相机速度
     explicit GamePage(MainWindow *parent = nullptr, int wid = windowWidth, int heig = windowHeight, QString bg = "", QRect bgarea = {0,0,windowWidth,windowHeight}, QPointF cameraP = {0,0});
-    virtual ~GamePage() { }
+    virtual ~GamePage() {delete img; }
     void paintEvent(QPaintEvent *event);
     QRect pageRect() {return QRect(0,0,pageWidth,pageHeight); } //返回页面矩形
     void updateCamera(); //更新相机位置和速度

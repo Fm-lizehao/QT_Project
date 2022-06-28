@@ -65,7 +65,12 @@ void GamePage::updateAll()
 }
 
 void GamePage::paintEvent(QPaintEvent *event)
-{int t = clock();
+{
+    if(img==nullptr)
+    {   img=new QPixmap(QSize(windowWidth,windowHeight));
+        img->fill(QColor(0,0,0,0));
+        QPainter painter(img);
+        for (auto i : topText)  {painter.setFont(i.font); painter.drawText(i.rect,Qt::AlignCenter|Qt::TextWordWrap,i.str); } }
     QPainter painter(this);
     painter.setFont(standard_font);
     painter.drawPixmap(backgroundArea.translated(-cameraP.toPoint()), QPixmap(background));
@@ -78,11 +83,10 @@ void GamePage::paintEvent(QPaintEvent *event)
     {   painter.drawPixmap(i.second->getRect(), i.second->getImg());
         painter.drawText(i.second->getRect(), Qt::AlignCenter, i.second->getText()); }
     for (auto i : topVirtualObjects)   painter.drawPixmap(i.second->getRect(), i.second->getImg());
-    for (auto i : topText)  {painter.setFont(i.font); painter.drawText(i.rect,Qt::AlignCenter|Qt::TextWordWrap,i.str); }
-    painter.setFont(standard_font);
+    if(img) painter.drawPixmap(QPoint(0,0),*img);
     for (auto i : topButtons)
     {   painter.drawPixmap(i.second->getRect(), i.second->getImg());
-        painter.drawText(i.second->getRect(), Qt::AlignCenter, i.second->getText()); }qDebug()<<clock()-t;
+        painter.drawText(i.second->getRect(), Qt::AlignCenter, i.second->getText()); }
 }
 
 StartPage::StartPage(MainWindow *parent, int wid, int heig)
@@ -113,6 +117,13 @@ PlayPage::PlayPage(MainWindow *parent, int wid, int heig, int Level, int Iq, QSt
 
 void PlayPage::playerKilled()
 {
+    for(auto i : topVirtualObjects) delete i.second;
+    for(auto i : topButtons) delete i.second;
+    topVirtualObjects.clear();
+    topText.clear();
+    topButtons.clear();
+    delete img;
+    img = nullptr;
     topVirtualObjects.insert(make_pair("001:Killed", new VirtualObject(this, {pic(FailFrame)}, {450,130})));
     topVirtualObjects.insert(make_pair("002:UpLine", new VirtualObject(this, {pic(Fail_number_frame_up)}, {561,255})));
     topVirtualObjects.insert(make_pair("003:Downline", new VirtualObject(this, {pic(Fail_number_frame_down)}, {561,340})));
@@ -132,6 +143,13 @@ void PlayPage::playerKilled()
 
 void PlayPage::victory()
 {
+    for(auto i : topVirtualObjects) delete i.second;
+    for(auto i : topButtons) delete i.second;
+    topVirtualObjects.clear();
+    topText.clear();
+    topButtons.clear();
+    delete img;
+    img = nullptr;
     topVirtualObjects.insert(make_pair("001:Victory", new VirtualObject(this, {pic(FailFrame)}, {450,130})));
     topVirtualObjects.insert(make_pair("002:UpLine", new VirtualObject(this, {pic(Fail_number_frame_up)}, {561,255})));
     topVirtualObjects.insert(make_pair("003:Downline", new VirtualObject(this, {pic(Fail_number_frame_down)}, {561,340})));
