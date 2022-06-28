@@ -1,6 +1,7 @@
 #ifndef GLOBAL_H
 #define GLOBAL_H
 #include <cstring>
+#include <ctime>
 #include <fstream>
 #include <map>
 #include <vector>
@@ -37,6 +38,7 @@ typedef bool state;
 typedef bool attribute;
 typedef int mode;
 typedef char direction;
+typedef struct{QRect rect;QFont font;QString str;} TextItem;
 class GameButton;
 class GameObject;
 class VirtualObject;
@@ -45,6 +47,7 @@ class Pushable;
 class Role;
 class NPC;
 class Player;
+class Trigger;
 class GamePage;
 class StartPage;
 class MainWindow;

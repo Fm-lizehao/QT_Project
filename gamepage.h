@@ -14,7 +14,7 @@ public:
     QPixmap background; //背景图
     QRect backgroundArea; //背景图区域
     map<QString, VirtualObject*> topVirtualObjects; //顶层遮挡物
-    vector<pair<QPoint,QTextItem>> topText; //顶层文字
+    vector<TextItem> topText; //顶层文字
     map<QString, GameButton*> topButtons; //顶层按钮
     map<QString, GameButton*> buttons; //页面中的按钮
     map<QString, VirtualObject*> virtualObjects; //页面中不碰撞的物体
@@ -22,6 +22,7 @@ public:
     map<QString, Pushable*> pushables; //页面中碰撞会改变运动状态的物体
     vector<NPC*> npcs; //页面中的npc角色
     Player* player = nullptr; //主角
+    vector<Trigger*> triggers; //事件触发器
     QPointF cameraP = {0,0}; //相机左上角位置
     QPointF cameraV = {0,0}; //相机速度
     explicit GamePage(MainWindow *parent = nullptr, int wid = windowWidth, int heig = windowHeight, QString bg = "", QRect bgarea = {0,0,windowWidth,windowHeight}, QPointF cameraP = {0,0});
@@ -48,18 +49,24 @@ class PlayPage : public GamePage
 {
     Q_OBJECT
 public:
-    explicit PlayPage(MainWindow *parent = nullptr, int wid = windowWidth, int heig = windowHeight, QString bgm = "", QString bg = "", QRect bgarea = {0,0,windowWidth,windowHeight}, QPointF cameraP = {0,0});
+    int level = 1;
+    int IQ = 250;
+    const QString comment[5] = {"卧梅又闻花\n卧枝伤恨底\n鱼闻卧石水\n卧石答春绿","君有疾在脑门\n不治而将恐深","手残者剁手即愈\n脑残者无药医也","赞你妹！\n这关这么简单\n你怎么还没过？","牡丹初放却先残\n未捣黄龙死不甘\n冒险正常何所惧\n拼将热血洒红毡"};
+    explicit PlayPage(MainWindow *parent = nullptr, int wid = windowWidth, int heig = windowHeight, int Level = 1, int Iq = 250, QString bgm = "", QString bg = "", QRect bgarea = {0,0,windowWidth,windowHeight}, QPointF cameraP = {0,0});
     ~PlayPage() {}
-    void playerKilled(); //死亡画面
 signals:
+    void restarted(int Level, int Iq); //告诉主窗口重新来过
 public slots:
+    void playerKilled(); //死亡画面
+    void victory(); //胜利画面
+    void restart() {emit restarted(level,IQ); } //重新来过
 }; //游戏页面
 
 class PlayPage1 : public PlayPage
 {
     Q_OBJECT
 public:
-    explicit PlayPage1(MainWindow *parent = nullptr, int wid = windowWidth, int heig = windowHeight);
+    explicit PlayPage1(MainWindow *parent = nullptr, int wid = windowWidth, int heig = windowHeight, int Iq = 250);
     ~PlayPage1() {}
 signals:
 public slots:

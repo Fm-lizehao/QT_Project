@@ -167,7 +167,6 @@ debug/qrc_source.cpp: source.qrc \
 		image/Startup_screen_1_3.png \
 		image/Arch_column.png \
 		image/Float_144.png \
-		image/Fail_number_frame.png \
 		image/PipeBad_cute.png \
 		image/Fish_1.png \
 		image/Hero_muffler_2.png \
@@ -230,6 +229,7 @@ debug/qrc_source.cpp: source.qrc \
 		image/Startup_cloud_1.png \
 		image/Missile_1.png \
 		image/Stage4_screen.png \
+		image/Fail_number_frame_down.png \
 		image/BrickGround.png \
 		image/Startup_button_main_2.png \
 		image/Stage4_screen_cute.png \
@@ -479,6 +479,7 @@ debug/qrc_source.cpp: source.qrc \
 		image/Corner.png \
 		image/Emoji_king_3.png \
 		image/Stage3_get_book.png \
+		image/Fail_number_frame_up.png \
 		image/Startup_button_setting_disabled.png \
 		image/Stage4_scrip_func_asc.png \
 		image/Stage4_btn.png \

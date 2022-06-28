@@ -10,6 +10,7 @@ GamePage::GamePage(MainWindow *parent, int wid, int heig, QString bg, QRect bgar
     playlist->setPlaybackMode(QMediaPlaylist::Loop);
     music->setPlaylist(playlist);
     INTIME(updateAll);
+    show();
 }
 
 void GamePage::updateCamera()
@@ -59,11 +60,12 @@ void GamePage::updateAll()
     for (auto i : npcs)              i->selfUpdate();
     if  (player != nullptr)          player->selfUpdate();
     for (auto i : heavyBodies)       i.second->selfUpdate();
+    for (auto i : triggers)          if(!i->triggered) i->check(player->getCollisionRect());
     update();
 }
 
 void GamePage::paintEvent(QPaintEvent *event)
-{
+{int t = clock();
     QPainter painter(this);
     painter.setFont(standard_font);
     painter.drawPixmap(backgroundArea.translated(-cameraP.toPoint()), QPixmap(background));
@@ -76,10 +78,11 @@ void GamePage::paintEvent(QPaintEvent *event)
     {   painter.drawPixmap(i.second->getRect(), i.second->getImg());
         painter.drawText(i.second->getRect(), Qt::AlignCenter, i.second->getText()); }
     for (auto i : topVirtualObjects)   painter.drawPixmap(i.second->getRect(), i.second->getImg());
-    for (auto i : topText)  painter.drawTextItem(i.first, i.second);
+    for (auto i : topText)  {painter.setFont(i.font); painter.drawText(i.rect,Qt::AlignCenter|Qt::TextWordWrap,i.str); }
+    painter.setFont(standard_font);
     for (auto i : topButtons)
     {   painter.drawPixmap(i.second->getRect(), i.second->getImg());
-        painter.drawText(i.second->getRect(), Qt::AlignCenter, i.second->getText()); }
+        painter.drawText(i.second->getRect(), Qt::AlignCenter, i.second->getText()); }qDebug()<<clock()-t;
 }
 
 StartPage::StartPage(MainWindow *parent, int wid, int heig)
@@ -99,9 +102,10 @@ StartPage::StartPage(MainWindow *parent, int wid, int heig)
     music->play();
 }
 
-PlayPage::PlayPage(MainWindow *parent, int wid, int heig, QString bgm, QString bg, QRect bgarea, QPointF cameraP)
-    : GamePage(parent, wid, heig, bg, bgarea, cameraP)
+PlayPage::PlayPage(MainWindow *parent, int wid, int heig, int Level, int Iq, QString bgm, QString bg, QRect bgarea, QPointF cameraP)
+    : GamePage(parent, wid, heig, bg, bgarea, cameraP), level(Level), IQ(Iq)
 {
+    connect(this,SIGNAL(restarted(int,int)),parent,SLOT(restart(int,int)));
     buttons.insert(make_pair("001:Back", new GameButton(this, {pic(Startup_button_main_3)}, {"返回"}, {20, 0}, parent, SLOT(backMain()))));
     playlist->addMedia(QUrl(bgm));
     music->play();
@@ -110,16 +114,45 @@ PlayPage::PlayPage(MainWindow *parent, int wid, int heig, QString bgm, QString b
 void PlayPage::playerKilled()
 {
     topVirtualObjects.insert(make_pair("001:Killed", new VirtualObject(this, {pic(FailFrame)}, {450,130})));
+    topVirtualObjects.insert(make_pair("002:UpLine", new VirtualObject(this, {pic(Fail_number_frame_up)}, {561,255})));
+    topVirtualObjects.insert(make_pair("003:Downline", new VirtualObject(this, {pic(Fail_number_frame_down)}, {561,340})));
+    topVirtualObjects.insert(make_pair("004:Emoji", new VirtualObject(this, {pic(Emoji_hero_1)}, {603,110})));
+    topText.push_back({QRect(600,220,70,30),QFont("Felix Titling", 15, QFont::Bold, false),QString("IQ")});
+    topText.push_back({QRect(560,255,150,100),QFont("Bahnschrift SemiBold Condensed", 36, QFont::Bold, false),QString::number(IQ)});
+    topText.push_back({QRect(500,350,266,30),QFont("幼圆", 8, QFont::Bold, false),QString("国际砖家组织权威认证")});
+    topText.push_back({QRect(490,366,166,50),QFont("幼圆", 10, QFont::Bold, false),QString("后人有诗赞曰：")});
+    topText.push_back({QRect(500,383,266,150),QFont("幼圆", 12, QFont::Bold, false),comment[(250-IQ)/50%4]});
+    topButtons.insert(make_pair("001:Restart",new GameButton(this,{pic(Startup_button_main_3)}, {"不服!"}, {570,515}, this, SLOT(restart()))));
+    IQ-=50;
     QMediaPlayer * killedMusic = new QMediaPlayer(this);
     killedMusic->setVolume(defaultVolume);
     killedMusic->setMedia(QUrl(snd(Audio_boos)));
     killedMusic->play();
 }
 
-PlayPage1::PlayPage1(MainWindow *parent, int wid, int heig)
-    : PlayPage(parent, wid, heig, snd(Audio_bgm_aquatic_circus), pic(Startup_leftCastle), {80, 120, 1100, 600}, {0,0})
+void PlayPage::victory()
 {
+    topVirtualObjects.insert(make_pair("001:Victory", new VirtualObject(this, {pic(FailFrame)}, {450,130})));
+    topVirtualObjects.insert(make_pair("002:UpLine", new VirtualObject(this, {pic(Fail_number_frame_up)}, {561,255})));
+    topVirtualObjects.insert(make_pair("003:Downline", new VirtualObject(this, {pic(Fail_number_frame_down)}, {561,340})));
+    topVirtualObjects.insert(make_pair("004:Emoji", new VirtualObject(this, {pic(Emoji_hero_6)}, {603,110})));
+    topText.push_back({QRect(600,220,70,30),QFont("Felix Titling", 15, QFont::Bold, false),QString("IQ")});
+    topText.push_back({QRect(560,255,150,100),QFont("Bahnschrift SemiBold Condensed", 36, QFont::Bold, false),QString::number(IQ)});
+    topText.push_back({QRect(500,350,266,30),QFont("幼圆", 8, QFont::Bold, false),QString("国际砖家组织权威认证")});
+    topText.push_back({QRect(490,366,166,50),QFont("幼圆", 10, QFont::Bold, false),QString("后人有诗赞曰：")});
+    topText.push_back({QRect(500,383,266,150),QFont("幼圆", 12, QFont::Bold, false),comment[4]});
+    topButtons.insert(make_pair("001:Restart",new GameButton(this,{pic(Startup_button_main_3)}, {"继续!"}, {570,515}, this, SLOT(restart()))));
+    QMediaPlayer * victoryMusic = new QMediaPlayer(this);
+    victoryMusic->setVolume(defaultVolume);
+    victoryMusic->setMedia(QUrl(snd(Audio_congratulations)));
+    victoryMusic->play();
+}
 
+PlayPage1::PlayPage1(MainWindow *parent, int wid, int heig, int Iq)
+    : PlayPage(parent, wid, heig, 1, Iq, snd(Audio_bgm_aquatic_circus))
+{
+    player = new Player(this,QPoint(100,100));
+    triggers.push_back(new Trigger(this,pageRect(),SLOT(victory())));
 }
 
 EditPage::EditPage(MainWindow *parent, int wid, int heig)
@@ -166,12 +199,9 @@ PVZPage::PVZPage(MainWindow *parent, int wid, int heig)
     virtualObjects.insert(make_pair("006:Fork", new VirtualObject(this, {pic(Fork)}, {268, 250})));
     virtualObjects.insert(make_pair("007:Fork", new VirtualObject(this, {pic(Fork)}, {268, 350})));
     virtualObjects.insert(make_pair("008:Fork", new VirtualObject(this, {pic(Fork)}, {268, 450})));
-
     random_shuffle(EnemyPer,EnemyPer+3); //将敌人所在行随机打乱
-
     T.setInterval(10);
     connect(&T,&QTimer::timeout,this,[=](){Timeout();}); //设置计时器
-
     for (int i=0;i<3;i++)  //生成植物框
         for (int j=0;j<6;j++){
             sprintf(str,"%d%d:Slot",i,j);
@@ -184,7 +214,6 @@ PVZPage::PVZPage(MainWindow *parent, int wid, int heig)
     for (int i=0;i<3;i++){  //生成鱼
         picFish[i]=new VirtualObject(this,{pic(Fish_1)},{xFish[i],yFish[i]});
         virtualObjects.insert(make_pair(strFish[i],picFish[i])); }
-
     playlist->addMedia(QUrl(snd(Audio_bgm_strategic_war)));
     music->play();  //接着奏乐
     T.start();  //计时器开始
@@ -200,8 +229,7 @@ void PVZPage::swap(){  //切换选中状态后，重新生成3*6的植物区
             for (int i=0;i<3;i++)
                 for (int j=0;j<6;j++)
                     if (!Plant[i][j]) {btnPlt[i][j]->show(); buttons.insert(make_pair(strPlt[i][j],btnPlt[i][j])); } }
-        else{
-            for (int i=0;i<3;i++)
+        else {for (int i=0;i<3;i++)
                 for (int j=0;j<6;j++)
                     if (Plant[i][j]){
                     picPlt[i][j]->hide();

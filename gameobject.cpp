@@ -9,6 +9,7 @@ GameObject::GameObject(GamePage *parent, initializer_list<QString> img_str, QPoi
         else collisionRect.push_back(img.rbegin()->rect()); }
     resize(img[imgNow].size());
     setLocation(p);
+    show();
 }
 
 void GameObject::checkCollision(GameObject* other)
@@ -266,3 +267,10 @@ void Player::changeImg()
     setImg(flip[getImgNumNow()]);
     if(getImgNumNow()==14||getImgNumNow()==15) ((PlayPage*)parent())->playerKilled();
 }
+
+Trigger::Trigger(GamePage *parent, QRect region, const char* slot):QWidget(parent),rect(region)
+{
+    connect(this,SIGNAL(reached()),parent,slot);
+}
+
+void Trigger::check(const QRectF& p) {if(p.intersects(rect)) {triggered = true; reached(); } }

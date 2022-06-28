@@ -89,7 +89,6 @@
         <file>image/Fail_emoji_1.png</file>
         <file>image/Fail_emoji_2.png</file>
         <file>image/Fail_emoji_3.png</file>
-        <file>image/Fail_number_frame.png</file>
         <file>image/FailFrame.png</file>
         <file>image/FightMenu.png</file>
         <file>image/FightMenu_btn.png</file>
@@ -457,5 +456,7 @@
         <file>image/Line.png</file>
         <file>image/Line1.png</file>
         <file>image/Fork.png</file>
+        <file>image/Fail_number_frame_down.png</file>
+        <file>image/Fail_number_frame_up.png</file>
     </qresource>
 </RCC>

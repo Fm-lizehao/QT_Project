@@ -177,4 +177,18 @@ signals:
 public slots:
     void changeImg(); //同一状态切换图片
 };//主角
+
+class Trigger : public QWidget
+{
+    Q_OBJECT
+public:
+    state triggered = false;
+    QRectF rect={};
+    Trigger(GamePage *parent = nullptr, QRect region = {}, const char* slot = nullptr);
+    ~Trigger(){}
+    void check(const QRectF& p);
+signals:
+    void reached();
+};//事件触发器
+
 #endif // GAMEOBJECT_H

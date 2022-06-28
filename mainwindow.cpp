@@ -15,35 +15,41 @@ void MainWindow::backMain()
 {
     page->deleteLater();
     page = new StartPage(this, this->width(), this->height());
-    page->show();
+}
+
+void MainWindow::restart(int Level, int Iq)
+{
+    switch(Level)
+    {
+    case 1:
+        page->deleteLater();
+        page = new PlayPage1(this, this->width(), this->height(), Iq);
+        break;
+    }
 }
 
 void MainWindow::startGame()
 {
     page->deleteLater();
     page = new PlayPage1(this, this->width(), this->height());
-    page->show();
 }
 
 void MainWindow::mapEdit()
 {
     page->deleteLater();
     page = new EditPage(this, this->width(), this->height());
-    page->show();
 }
 
 void MainWindow::PVZ()
 {
     page->deleteLater();
     page = new PVZPage(this, this->width(), this->height());
-    page->show();
 }
 
 void MainWindow::config()
 {
     page->deleteLater();
 
-    page->show();
 }
 
 void MainWindow::exit()
