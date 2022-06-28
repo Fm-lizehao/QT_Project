@@ -66,7 +66,7 @@ void GamePage::updateAll()
 
 void GamePage::paintEvent(QPaintEvent *event)
 {
-    if(img==nullptr)
+    if(img==nullptr&&!topText.empty())
     {   img=new QPixmap(QSize(windowWidth,windowHeight));
         img->fill(QColor(0,0,0,0));
         QPainter painter(img);
@@ -117,13 +117,7 @@ PlayPage::PlayPage(MainWindow *parent, int wid, int heig, int Level, int Iq, QSt
 
 void PlayPage::playerKilled()
 {
-    for(auto i : topVirtualObjects) delete i.second;
-    for(auto i : topButtons) delete i.second;
-    topVirtualObjects.clear();
-    topText.clear();
-    topButtons.clear();
-    delete img;
-    img = nullptr;
+    if(img) return;
     topVirtualObjects.insert(make_pair("001:Killed", new VirtualObject(this, {pic(FailFrame)}, {450,130})));
     topVirtualObjects.insert(make_pair("002:UpLine", new VirtualObject(this, {pic(Fail_number_frame_up)}, {561,255})));
     topVirtualObjects.insert(make_pair("003:Downline", new VirtualObject(this, {pic(Fail_number_frame_down)}, {561,340})));
@@ -143,13 +137,7 @@ void PlayPage::playerKilled()
 
 void PlayPage::victory()
 {
-    for(auto i : topVirtualObjects) delete i.second;
-    for(auto i : topButtons) delete i.second;
-    topVirtualObjects.clear();
-    topText.clear();
-    topButtons.clear();
-    delete img;
-    img = nullptr;
+    if(img) return;
     topVirtualObjects.insert(make_pair("001:Victory", new VirtualObject(this, {pic(FailFrame)}, {450,130})));
     topVirtualObjects.insert(make_pair("002:UpLine", new VirtualObject(this, {pic(Fail_number_frame_up)}, {561,255})));
     topVirtualObjects.insert(make_pair("003:Downline", new VirtualObject(this, {pic(Fail_number_frame_down)}, {561,340})));
@@ -170,7 +158,7 @@ PlayPage1::PlayPage1(MainWindow *parent, int wid, int heig, int Iq)
     : PlayPage(parent, wid, heig, 1, Iq, snd(Audio_bgm_aquatic_circus))
 {
     player = new Player(this,QPoint(100,100));
-    triggers.push_back(new Trigger(this,pageRect(),SLOT(victory())));
+    triggers.push_back(new Trigger(this,{100,300,100,100},SLOT(victory())));
 }
 
 EditPage::EditPage(MainWindow *parent, int wid, int heig)
