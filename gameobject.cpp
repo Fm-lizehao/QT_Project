@@ -67,7 +67,7 @@ void GameObject::useState()
     a = QPointF(0.0,0.0);
     if(grativity&&!propup&&!bounceup&&!bouncedown)   { a.setY(g); }
     if(bounceup)                                     { if(downObject==nullptr)setUpSpeed(); else v.setY(-bounceSpeed); bounceup = false; }
-    if(bouncedown)                                   { setDownSpeed(); bouncedown = false; }
+    if(bouncedown)                                   { if(upObject==nullptr)setDownSpeed(); else v.setY(0.1); bouncedown = false; }
     if(bounceleft)                                   { setLeftSpeed(); bounceleft = false; }
     if(bounceright)                                  { setRightSpeed(); bounceright = false; }
     if(pushleft)                                     { v.setX(-pushSpeed); }
@@ -178,9 +178,9 @@ void Player::keyPressEvent(QKeyEvent *event)
 {
     if(event->isAutoRepeat()) return;
     switch(event->key())
-    {case Qt::Key_A: case Qt::Key_Left: pushright = false; if(!killed) pushleft = true; break;
-     case Qt::Key_D: case Qt::Key_Right: pushleft = false; if(!killed) pushright = true; break;
-     case Qt::Key_W: case Qt::Key_Up: case Qt::Key_Space: if(!killed&&(propup||flying)) {bounceup = true;QMediaPlayer*m = new QMediaPlayer(this);m->setVolume(50);m->setMedia(QUrl(snd(Audio_jump)));m->play();}break; }
+    {case Qt::Key_A: case Qt::Key_Left: pushright = false; if(!killed&&!victory) pushleft = true; break;
+     case Qt::Key_D: case Qt::Key_Right: pushleft = false; if(!killed&&!victory) pushright = true; break;
+     case Qt::Key_W: case Qt::Key_Up: case Qt::Key_Space: if(!killed&&!victory&&(propup||flying)) {bounceup = true;QMediaPlayer*m = new QMediaPlayer(this);m->setVolume(50);m->setMedia(QUrl(snd(Audio_jump)));m->play();}break; }
 }
 
 void Player::keyReleaseEvent(QKeyEvent *event)
@@ -196,7 +196,7 @@ void Player::stand()
     if(timer.isActive()&&getImgNumNow()==leftOrRight()) return;
     timer.stop();
     setImg(leftOrRight());
-    timer.setInterval(250);
+    timer.setInterval(233);
     timer.start();
 }
 
@@ -206,7 +206,7 @@ void Player::walk()
     timer.stop();
     setImg(2+leftOrRight());
     if(propleft||propright) return;
-    timer.setInterval(250);
+    timer.setInterval(233);
     timer.start();
 }
 
@@ -215,7 +215,7 @@ void Player::jump()
     if(timer.isActive()&&getImgNumNow()==6+leftOrRight()) return;
     timer.stop();
     setImg(6+leftOrRight());
-    timer.setInterval(250);
+    timer.setInterval(233);
     timer.start();
 }
 
@@ -224,7 +224,7 @@ void Player::fly()
     if(timer.isActive()&&getImgNumNow()==8+2*(v.y()<-bounceSpeed/3)+leftOrRight()) return;
     timer.stop();
     setImg(8+2*(v.y()<-bounceSpeed/3)+leftOrRight());
-    timer.setInterval(250);
+    timer.setInterval(233);
     timer.start();
 }
 
@@ -270,7 +270,7 @@ void Player::changeImg()
 
 Trigger::Trigger(GamePage *parent, QRect region, const char* slot):QWidget(parent),rect(region)
 {
-    connect(this,SIGNAL(reached()),parent,slot);
+    connect(this,SIGNAL(reached(Trigger*)),parent,slot);
 }
 
-void Trigger::check(const QRectF& p) {if(p.intersects(rect)) {triggered = true; reached(); } }
+void Trigger::check(const QRectF& p) {if(p.intersects(rect)) {triggered = true; reached(this); } }

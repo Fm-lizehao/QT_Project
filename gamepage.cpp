@@ -17,8 +17,8 @@ void GamePage::updateCamera()
 {
     cameraV = {0,0};
     if(player != nullptr)
-    {   if(cameraP.x()>0&&player->getCollisionRect().left()<cameraP.x()+250) cameraV.setX(-pushSpeed);
-        if(cameraP.x()+windowWidth<pageWidth&&player->getCollisionRect().right()>cameraP.x()+1030) cameraV.setX(pushSpeed);
+    {   if(cameraP.x()>0&&player->getCollisionRect().left()<cameraP.x()+300) cameraV.setX(-pushSpeed);
+        if(cameraP.x()+windowWidth<pageWidth&&player->getCollisionRect().right()>cameraP.x()+800) cameraV.setX(pushSpeed);
         if(cameraP.y()>0&&player->getCollisionRect().top()<cameraP.y()+120) cameraV.setY(-pushSpeed);
         if(cameraP.y()+windowHeight<pageHeight&&player->getCollisionRect().bottom()>cameraP.y()+600) cameraV.setY(pushSpeed); }
     cameraP += cameraV;
@@ -53,7 +53,6 @@ void GamePage::updateAll()
     {   for(auto j: npcs) i.second->checkCollision(j);
         if(player != nullptr) i.second->checkCollision(player);
         for(auto j : pushables) i.second->checkCollision(j.second);
-        for(auto j : heavyBodies) {if(i.second==j.second)continue; i.second->checkCollision(j.second); }
         i.second->doCollision(); }
     for (auto i : virtualObjects)    i.second->selfUpdate();
     for (auto i : pushables)         i.second->selfUpdate();
@@ -65,7 +64,7 @@ void GamePage::updateAll()
 }
 
 void GamePage::paintEvent(QPaintEvent *event)
-{
+{auto t=clock();
     if(img==nullptr&&!topText.empty())
     {   img=new QPixmap(QSize(windowWidth,windowHeight));
         img->fill(QColor(0,0,0,0));
@@ -82,11 +81,11 @@ void GamePage::paintEvent(QPaintEvent *event)
     for (auto i : buttons)
     {   painter.drawPixmap(i.second->getRect(), i.second->getImg());
         painter.drawText(i.second->getRect(), Qt::AlignCenter, i.second->getText()); }
-    for (auto i : topVirtualObjects)   painter.drawPixmap(i.second->getRect(), i.second->getImg());
+    for (auto i : topVirtualObjects)   painter.drawPixmap(i.second->getCollisionRect().toRect(), i.second->getImg());
     if(img) painter.drawPixmap(QPoint(0,0),*img);
     for (auto i : topButtons)
     {   painter.drawPixmap(i.second->getRect(), i.second->getImg());
-        painter.drawText(i.second->getRect(), Qt::AlignCenter, i.second->getText()); }
+        painter.drawText(i.second->getRect(), Qt::AlignCenter, i.second->getText()); }qDebug()<<clock()-t;
 }
 
 StartPage::StartPage(MainWindow *parent, int wid, int heig)
@@ -109,7 +108,8 @@ StartPage::StartPage(MainWindow *parent, int wid, int heig)
 PlayPage::PlayPage(MainWindow *parent, int wid, int heig, int Level, int Iq, QString bgm, QString bg, QRect bgarea, QPointF cameraP)
     : GamePage(parent, wid, heig, bg, bgarea, cameraP), level(Level), IQ(Iq)
 {
-    connect(this,SIGNAL(restarted(int,int)),parent,SLOT(restart(int,int)));
+    connect(this,SIGNAL(restartSignal(int,int)),parent,SLOT(restart(int,int)));
+    connect(this,SIGNAL(nextSignal(int)),parent,SLOT(next(int)));
     buttons.insert(make_pair("001:Back", new GameButton(this, {pic(Startup_button_main_3)}, {"返回"}, {20, 0}, parent, SLOT(backMain()))));
     playlist->addMedia(QUrl(bgm));
     music->play();
@@ -138,6 +138,7 @@ void PlayPage::playerKilled()
 void PlayPage::victory()
 {
     if(img) return;
+    if(player) {player->victory = true; player->v.setX(0); player->pushleft=player->pushright=false; }
     topVirtualObjects.insert(make_pair("001:Victory", new VirtualObject(this, {pic(FailFrame)}, {450,130})));
     topVirtualObjects.insert(make_pair("002:UpLine", new VirtualObject(this, {pic(Fail_number_frame_up)}, {561,255})));
     topVirtualObjects.insert(make_pair("003:Downline", new VirtualObject(this, {pic(Fail_number_frame_down)}, {561,340})));
@@ -147,18 +148,67 @@ void PlayPage::victory()
     topText.push_back({QRect(500,350,266,30),QFont("幼圆", 8, QFont::Bold, false),QString("国际砖家组织权威认证")});
     topText.push_back({QRect(490,366,166,50),QFont("幼圆", 10, QFont::Bold, false),QString("后人有诗赞曰：")});
     topText.push_back({QRect(500,383,266,150),QFont("幼圆", 12, QFont::Bold, false),comment[4]});
-    topButtons.insert(make_pair("001:Restart",new GameButton(this,{pic(Startup_button_main_3)}, {"继续!"}, {570,515}, this, SLOT(restart()))));
+    topButtons.insert(make_pair("001:Next",new GameButton(this,{pic(Startup_button_main_3)}, {"继续!"}, {570,515}, this, SLOT(next()))));
     QMediaPlayer * victoryMusic = new QMediaPlayer(this);
     victoryMusic->setVolume(defaultVolume);
     victoryMusic->setMedia(QUrl(snd(Audio_congratulations)));
     victoryMusic->play();
 }
 
-PlayPage1::PlayPage1(MainWindow *parent, int wid, int heig, int Iq)
-    : PlayPage(parent, wid, heig, 1, Iq, snd(Audio_bgm_aquatic_circus))
+PlayPage1::PlayPage1(MainWindow *parent, int Iq)
+    : PlayPage(parent, 3000, windowHeight, 1, Iq, snd(Audio_bgm_aquatic_circus))
 {
-    player = new Player(this,QPoint(100,100));
-    triggers.push_back(new Trigger(this,{100,300,100,100},SLOT(victory())));
+    player = new Player(this,QPoint(200,200));
+    triggers.push_back(new Trigger(this,{2870,550,14,50},SLOT(victory())));
+    triggers.push_back(new Trigger(this,{515,218,40,1},SLOT(brickFall())));
+    triggers.push_back(new Trigger(this,{644,218,40,1},SLOT(newBrick())));
+    virtualObjects.insert(make_pair("001:Hill",new VirtualObject(this,{pic(Hill_1)},{450,420})));
+    virtualObjects.insert(make_pair("002:Hill",new VirtualObject(this,{pic(Hill_2)},{1150,483})));
+    virtualObjects.insert(make_pair("003:Cloud",new VirtualObject(this,{pic(Cloud_0),pic(Cloud_0_bad)},{780,100},{0.0,0.0},0.0,noBorder,false,true)));
+    virtualObjects.insert(make_pair("004:Cloud",new VirtualObject(this,{pic(Cloud_2)},{180,110})));
+    virtualObjects.insert(make_pair("005:Grass",new VirtualObject(this,{pic(Grass_2)},{40,572})));
+    virtualObjects.insert(make_pair("006:Grass",new VirtualObject(this,{pic(Grass_1)},{750,572})));
+    virtualObjects.insert(make_pair("007:Grass",new VirtualObject(this,{pic(Grass_2)},{660,572})));
+    virtualObjects.insert(make_pair("008:Saw",new VirtualObject(this,{pic(Saw_252_invisible),pic(Saw_252)},{660,579},{0.0,0.0},0.0,noBorder,false,true)));
+    virtualObjects.insert(make_pair("009:Castle",new VirtualObject(this,{pic(Castle_2)},{2800,444})));
+    heavyBodies.insert(make_pair("001:Ground",new HeavyBody(this,{pic(Grass_ground)},{0,600})));
+    heavyBodies.insert(make_pair("002:Ground",new HeavyBody(this,{pic(Grass_ground)},{200,600})));
+    heavyBodies.insert(make_pair("003:Ground",new HeavyBody(this,{pic(Grass_ground)},{400,600})));
+    heavyBodies.insert(make_pair("004:Ground",new HeavyBody(this,{pic(Grass_ground)},{600,600})));
+    heavyBodies.insert(make_pair("005:Ground",new HeavyBody(this,{pic(Grass_ground)},{800,600})));
+    heavyBodies.insert(make_pair("006:Ground",new HeavyBody(this,{pic(Grass_ground)},{1000,600})));
+    heavyBodies.insert(make_pair("007:Ground",new HeavyBody(this,{pic(Grass_ground)},{1200,600})));
+    heavyBodies.insert(make_pair("008:Ground",new HeavyBody(this,{pic(Grass_ground)},{1400,600})));
+    heavyBodies.insert(make_pair("009:Ground",new HeavyBody(this,{pic(Grass_ground)},{1600,600})));
+    heavyBodies.insert(make_pair("010:Ground",new HeavyBody(this,{pic(Grass_ground)},{1800,600})));
+    heavyBodies.insert(make_pair("011:Ground",new HeavyBody(this,{pic(Grass_ground)},{2000,600})));
+    heavyBodies.insert(make_pair("012:Ground",new HeavyBody(this,{pic(Grass_ground)},{2200,600})));
+    heavyBodies.insert(make_pair("013:Ground",new HeavyBody(this,{pic(Grass_ground)},{2400,600})));
+    heavyBodies.insert(make_pair("014:Ground",new HeavyBody(this,{pic(Grass_ground)},{2600,600})));
+    heavyBodies.insert(make_pair("015:Ground",new HeavyBody(this,{pic(Grass_ground)},{2800,600})));
+    heavyBodies.insert(make_pair("016:Pipe",new HeavyBody(this,{pic(Pipe)},{900,396})));
+    heavyBodies.insert(make_pair("017:Brick",new HeavyBody(this,{pic(BrickUnknown),pic(UnknownBrickOver)},{265,375})));
+    heavyBodies.insert(make_pair("018:Brick",new HeavyBody(this,{pic(Brick)},{415,375})));
+    heavyBodies.insert(make_pair("019:Brick",new HeavyBody(this,{pic(BrickUnknown),pic(UnknownBrickOver)},{463,375})));
+    heavyBodies.insert(make_pair("020:Brick",new HeavyBody(this,{pic(Brick)},{511,375})));
+    heavyBodies.insert(make_pair("021:Brick",new HeavyBody(this,{pic(BrickUnknown),pic(UnknownBrickOver)},{559,375})));
+    heavyBodies.insert(make_pair("022:Brick",new HeavyBody(this,{pic(Brick)},{607,375})));
+    heavyBodies.insert(make_pair("023:Brick",new HeavyBody(this,{pic(BrickUnknown),pic(UnknownBrickOver)},{511,170})));
+
+}
+
+void PlayPage1::brickFall()
+{
+    heavyBodies["018:Brick"]->grativity=true;
+    heavyBodies["019:Brick"]->grativity=true;
+    heavyBodies["020:Brick"]->grativity=true;
+    heavyBodies["021:Brick"]->grativity=true;
+    heavyBodies["022:Brick"]->grativity=true;
+}
+
+void PlayPage1::newBrick()
+{
+    heavyBodies.insert(make_pair("101:Brick",new HeavyBody(this,{pic(UnknownBrickOver)},{640,170})));
 }
 
 EditPage::EditPage(MainWindow *parent, int wid, int heig)

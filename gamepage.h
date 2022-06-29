@@ -56,21 +56,25 @@ public:
     explicit PlayPage(MainWindow *parent = nullptr, int wid = windowWidth, int heig = windowHeight, int Level = 1, int Iq = 250, QString bgm = "", QString bg = "", QRect bgarea = {0,0,windowWidth,windowHeight}, QPointF cameraP = {0,0});
     ~PlayPage() {}
 signals:
-    void restarted(int Level, int Iq); //告诉主窗口重新来过
+    void restartSignal(int Level, int Iq); //告诉主窗口重新来过
+    void nextSignal(int Level); //告诉主窗口开始下一关
 public slots:
     void playerKilled(); //死亡画面
     void victory(); //胜利画面
-    void restart() {emit restarted(level,IQ); } //重新来过
+    void restart() {restartSignal(level,IQ); } //重新来过
+    void next() {nextSignal(level+1); } //开始下一关
 }; //游戏页面
 
 class PlayPage1 : public PlayPage
 {
     Q_OBJECT
 public:
-    explicit PlayPage1(MainWindow *parent = nullptr, int wid = windowWidth, int heig = windowHeight, int Iq = 250);
+    explicit PlayPage1(MainWindow *parent = nullptr, int Iq = 250);
     ~PlayPage1() {}
 signals:
 public slots:
+    void brickFall();
+    void newBrick();
 }; //关卡1
 
 class EditPage : public GamePage

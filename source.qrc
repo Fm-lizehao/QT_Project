@@ -458,5 +458,17 @@
         <file>image/Fork.png</file>
         <file>image/Fail_number_frame_down.png</file>
         <file>image/Fail_number_frame_up.png</file>
+        <file>image/Grass_ground.png</file>
+        <file>image/Grass_ground_left.png</file>
+        <file>image/Grass_ground_right.png</file>
+        <file>image/Fence.png</file>
+        <file>image/Grass_1.png</file>
+        <file>image/Grass_2.png</file>
+        <file>image/Hill_1.png</file>
+        <file>image/Hill_2.png</file>
+        <file>image/Tree_1.png</file>
+        <file>image/Tree_2.png</file>
+        <file>image/Saw_252.png</file>
+        <file>image/Saw_252_invisible.png</file>
     </qresource>
 </RCC>

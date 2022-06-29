@@ -124,6 +124,7 @@ class Role : public GameObject
     Q_OBJECT
 public:
     state killed = false;   //是否死亡
+    state victory = false;   //是否胜利
     QTimer timer;    //自动切换图片计时器
     Role(GamePage *parent, initializer_list<QString> img_str, QPoint p, QPointF v = {0,0}, qreal omega = 0, QRect border = noBorder, attribute grativity = true, attribute cankill = false)
         : GameObject(parent, img_str, p, v, omega, border, true, false, grativity, cankill) { }
@@ -139,7 +140,6 @@ class NPC : public Role
 {
     Q_OBJECT
 public:
-    state victory = false;   //是否杀死了主角
     NPC(GamePage *parent, initializer_list<QString> img_str, QPoint p, QPointF v = {0,0}, qreal omega = 0, QRect border = noBorder, attribute grativity = true, attribute cankill = true)
         : Role(parent, img_str, p, v, omega, border, grativity, cankill) { }
     ~NPC() { }
@@ -188,7 +188,7 @@ public:
     ~Trigger(){}
     void check(const QRectF& p);
 signals:
-    void reached();
+    void reached(Trigger* trigger);
 };//事件触发器
 
 #endif // GAMEOBJECT_H

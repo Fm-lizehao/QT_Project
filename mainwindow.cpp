@@ -23,7 +23,18 @@ void MainWindow::restart(int Level, int Iq)
     {
     case 1:
         page->deleteLater();
-        page = new PlayPage1(this, this->width(), this->height(), Iq);
+        page = new PlayPage1(this, Iq);
+        break;
+    }
+}
+
+void MainWindow::next(int Level)
+{
+    switch(Level)
+    {
+    case 1:case 2:
+        page->deleteLater();
+        page = new PlayPage1(this);
         break;
     }
 }
@@ -31,7 +42,7 @@ void MainWindow::restart(int Level, int Iq)
 void MainWindow::startGame()
 {
     page->deleteLater();
-    page = new PlayPage1(this, this->width(), this->height());
+    page = new PlayPage1(this);
 }
 
 void MainWindow::mapEdit()

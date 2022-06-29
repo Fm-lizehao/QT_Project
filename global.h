@@ -31,9 +31,9 @@ using namespace std;
 #define defaultVolume 50                             //默认音量
 #define pic(x) ":/game_resources/image/"#x".png"     //图片位置宏
 #define snd(x)  "qrc:/game_resources/sound/"#x".mp3" //声音位置宏
-#define pushSpeed 0.38                               //推动标准速度
+#define pushSpeed 0.3                                //推动标准速度
 #define bounceSpeed 1.2                              //弹跳标准速度
-#define g 0.0033                                     //重力加速度
+#define g 0.003                                      //重力加速度
 typedef bool state;
 typedef bool attribute;
 typedef int mode;
