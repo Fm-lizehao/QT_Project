@@ -470,5 +470,8 @@
         <file>image/Tree_2.png</file>
         <file>image/Saw_252.png</file>
         <file>image/Saw_252_invisible.png</file>
+        <file>image/HelloBoard_1.png</file>
+        <file>image/HelloBoard_2.png</file>
+        <file>image/Slime_girl.png</file>
     </qresource>
 </RCC>

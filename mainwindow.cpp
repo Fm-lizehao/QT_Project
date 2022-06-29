@@ -10,59 +10,49 @@ MainWindow::MainWindow(QWidget *parent)
     setWindowTitle("正常的大冒险");
     page = new StartPage(this, this->width(), this->height());
 }
-
 void MainWindow::backMain()
 {
     page->deleteLater();
     page = new StartPage(this, this->width(), this->height());
 }
-
 void MainWindow::restart(int Level, int Iq)
 {
     switch(Level)
-    {
-    case 1:
+    {case 1:
         page->deleteLater();
         page = new PlayPage1(this, Iq);
         break;
     }
 }
-
 void MainWindow::next(int Level)
 {
     switch(Level)
-    {
-    case 1:case 2:
+    {case 1:case 2:
         page->deleteLater();
         page = new PlayPage1(this);
         break;
     }
 }
-
 void MainWindow::startGame()
 {
     page->deleteLater();
     page = new PlayPage1(this);
 }
-
 void MainWindow::mapEdit()
 {
     page->deleteLater();
     page = new EditPage(this, this->width(), this->height());
 }
-
 void MainWindow::PVZ()
 {
     page->deleteLater();
     page = new PVZPage(this, this->width(), this->height());
 }
-
 void MainWindow::config()
 {
     page->deleteLater();
 
 }
-
 void MainWindow::exit()
 {
     if (!(QMessageBox::question(this, tr("退出游戏"), tr("     你真的要退出吗?    (盯) "), tr(" 啊~可耻地逃了T__T "), tr(" 人家点错了>﹏< ")))) quitSignal();

@@ -73,8 +73,14 @@ public:
     ~PlayPage1() {}
 signals:
 public slots:
-    void brickFall();
-    void newBrick();
+    void brickFall() {heavyBodies["018:Brick"]->grativity=true; heavyBodies["019:Brick"]->grativity=true; heavyBodies["020:Brick"]->grativity=true;
+        heavyBodies["021:Brick"]->grativity=true; heavyBodies["022:Brick"]->grativity=true; }
+    void newBrick1() {heavyBodies.insert(make_pair("101:Brick",new HeavyBody(this,{pic(UnknownBrickOver)},{640,170}))); MUSIC(Audio_gold); }
+    void newBoard1() {heavyBodies.insert(make_pair("102:Board",new HeavyBody(this,{pic(HelloBoard_1)},{1485,150}))); MUSIC(Audio_gold); }
+    void newSlime1() {npcs.push_back(new NPC(this,slimeImg,{265,325},{pushSpeed/2.0,0})); MUSIC(Audio_gold); }
+    void newSlime2() {npcs.push_back(new NPC(this,slimeImg,{463,325},{-pushSpeed/2.0,0})); MUSIC(Audio_gold); }
+    void slimeActivate() {pushables.insert(make_pair("001:Slimegirl",new Pushable(this,{pic(Slime_girl)},{1005,540})));
+                npcs[0]->v.setX(-pushSpeed/3.0); virtualObjects["010:HelloBoard"]->deleteLater(); virtualObjects.erase("010:HelloBoard"); }
 }; //关卡1
 
 class EditPage : public GamePage

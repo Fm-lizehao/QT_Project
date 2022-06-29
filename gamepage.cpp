@@ -59,12 +59,12 @@ void GamePage::updateAll()
     for (auto i : npcs)              i->selfUpdate();
     if  (player != nullptr)          player->selfUpdate();
     for (auto i : heavyBodies)       i.second->selfUpdate();
-    for (auto i : triggers)          if(!i->triggered) i->check(player->getCollisionRect());
+    for (auto i : triggers)          if(!i->triggered&&player->v.y()<=0.0) i->check(player->getCollisionRect());
     update();
 }
 
 void GamePage::paintEvent(QPaintEvent *event)
-{auto t=clock();
+{
     if(img==nullptr&&!topText.empty())
     {   img=new QPixmap(QSize(windowWidth,windowHeight));
         img->fill(QColor(0,0,0,0));
@@ -85,7 +85,7 @@ void GamePage::paintEvent(QPaintEvent *event)
     if(img) painter.drawPixmap(QPoint(0,0),*img);
     for (auto i : topButtons)
     {   painter.drawPixmap(i.second->getRect(), i.second->getImg());
-        painter.drawText(i.second->getRect(), Qt::AlignCenter, i.second->getText()); }qDebug()<<clock()-t;
+        painter.drawText(i.second->getRect(), Qt::AlignCenter, i.second->getText()); }
 }
 
 StartPage::StartPage(MainWindow *parent, int wid, int heig)
@@ -101,8 +101,7 @@ StartPage::StartPage(MainWindow *parent, int wid, int heig)
     virtualObjects.insert(make_pair("003:Bottomline", new VirtualObject(this, {pic(Startup_title_line_both)}, {767, 238}, {0, 0}, 0, pageRect(), false)));
     virtualObjects.insert(make_pair("004:Topline", new VirtualObject(this, {pic(Startup_topsep)}, {640, 78}, {0, 0}, 0, pageRect(), false)));
     virtualObjects.insert(make_pair("005:Jp-of", new VirtualObject(this, {pic(Startup_title_jpof)}, {856, 164}, {0, 0}, 0.2, pageRect(), false)));
-    playlist->addMedia(QUrl(snd(Audio_bgm_into_the_castle)));
-    music->play();
+    playlist->addMedia(QUrl(snd(Audio_bgm_into_the_castle))); music->play();
 }
 
 PlayPage::PlayPage(MainWindow *parent, int wid, int heig, int Level, int Iq, QString bgm, QString bg, QRect bgarea, QPointF cameraP)
@@ -111,8 +110,7 @@ PlayPage::PlayPage(MainWindow *parent, int wid, int heig, int Level, int Iq, QSt
     connect(this,SIGNAL(restartSignal(int,int)),parent,SLOT(restart(int,int)));
     connect(this,SIGNAL(nextSignal(int)),parent,SLOT(next(int)));
     buttons.insert(make_pair("001:Back", new GameButton(this, {pic(Startup_button_main_3)}, {"返回"}, {20, 0}, parent, SLOT(backMain()))));
-    playlist->addMedia(QUrl(bgm));
-    music->play();
+    playlist->addMedia(QUrl(bgm)); music->play();
 }
 
 void PlayPage::playerKilled()
@@ -129,10 +127,7 @@ void PlayPage::playerKilled()
     topText.push_back({QRect(500,383,266,150),QFont("幼圆", 12, QFont::Bold, false),comment[(250-IQ)/50%4]});
     topButtons.insert(make_pair("001:Restart",new GameButton(this,{pic(Startup_button_main_3)}, {"不服!"}, {570,515}, this, SLOT(restart()))));
     IQ-=50;
-    QMediaPlayer * killedMusic = new QMediaPlayer(this);
-    killedMusic->setVolume(defaultVolume);
-    killedMusic->setMedia(QUrl(snd(Audio_boos)));
-    killedMusic->play();
+    MUSIC(Audio_boos);
 }
 
 void PlayPage::victory()
@@ -149,28 +144,31 @@ void PlayPage::victory()
     topText.push_back({QRect(490,366,166,50),QFont("幼圆", 10, QFont::Bold, false),QString("后人有诗赞曰：")});
     topText.push_back({QRect(500,383,266,150),QFont("幼圆", 12, QFont::Bold, false),comment[4]});
     topButtons.insert(make_pair("001:Next",new GameButton(this,{pic(Startup_button_main_3)}, {"继续!"}, {570,515}, this, SLOT(next()))));
-    QMediaPlayer * victoryMusic = new QMediaPlayer(this);
-    victoryMusic->setVolume(defaultVolume);
-    victoryMusic->setMedia(QUrl(snd(Audio_congratulations)));
-    victoryMusic->play();
+    MUSIC(Audio_congratulations);
 }
 
 PlayPage1::PlayPage1(MainWindow *parent, int Iq)
     : PlayPage(parent, 3000, windowHeight, 1, Iq, snd(Audio_bgm_aquatic_circus))
 {
     player = new Player(this,QPoint(200,200));
+    npcs.push_back(new NPC(this,slimeImg,{1377,500}));
     triggers.push_back(new Trigger(this,{2870,550,14,50},SLOT(victory())));
-    triggers.push_back(new Trigger(this,{515,218,40,1},SLOT(brickFall())));
-    triggers.push_back(new Trigger(this,{644,218,40,1},SLOT(newBrick())));
+    triggers.push_back(new Trigger(this,{512,218,46,1},SLOT(brickFall())));
+    triggers.push_back(new Trigger(this,{641,218,46,1},SLOT(newBrick1())));
+    triggers.push_back(new Trigger(this,{1389,423,46,1},SLOT(newBoard1())));
+    triggers.push_back(new Trigger(this,{266,423,46,1},SLOT(newSlime1())));
+    triggers.push_back(new Trigger(this,{464,423,46,1},SLOT(newSlime2())));
+    triggers.push_back(new Trigger(this,{1189,423,46,1},SLOT(slimeActivate())));
     virtualObjects.insert(make_pair("001:Hill",new VirtualObject(this,{pic(Hill_1)},{450,420})));
-    virtualObjects.insert(make_pair("002:Hill",new VirtualObject(this,{pic(Hill_2)},{1150,483})));
-    virtualObjects.insert(make_pair("003:Cloud",new VirtualObject(this,{pic(Cloud_0),pic(Cloud_0_bad)},{780,100},{0.0,0.0},0.0,noBorder,false,true)));
+    virtualObjects.insert(make_pair("002:Hill",new VirtualObject(this,{pic(Hill_2)},{1080,483})));
+    virtualObjects.insert(make_pair("003:Cloud",new VirtualObject(this,{pic(Cloud_0),pic(Cloud_0_bad)},{730,100},{0.0,0.0},0.0,noBorder,false,true)));
     virtualObjects.insert(make_pair("004:Cloud",new VirtualObject(this,{pic(Cloud_2)},{180,110})));
     virtualObjects.insert(make_pair("005:Grass",new VirtualObject(this,{pic(Grass_2)},{40,572})));
-    virtualObjects.insert(make_pair("006:Grass",new VirtualObject(this,{pic(Grass_1)},{750,572})));
-    virtualObjects.insert(make_pair("007:Grass",new VirtualObject(this,{pic(Grass_2)},{660,572})));
-    virtualObjects.insert(make_pair("008:Saw",new VirtualObject(this,{pic(Saw_252_invisible),pic(Saw_252)},{660,579},{0.0,0.0},0.0,noBorder,false,true)));
+    virtualObjects.insert(make_pair("006:Grass",new VirtualObject(this,{pic(Grass_1)},{720,572})));
+    virtualObjects.insert(make_pair("007:Grass",new VirtualObject(this,{pic(Grass_2)},{630,572})));
+    virtualObjects.insert(make_pair("008:Saw",new VirtualObject(this,{pic(Saw_252_invisible),pic(Saw_252)},{630,579},{0.0,0.0},0.0,noBorder,false,true)));
     virtualObjects.insert(make_pair("009:Castle",new VirtualObject(this,{pic(Castle_2)},{2800,444})));
+    virtualObjects.insert(make_pair("010:HelloBoard",new VirtualObject(this,{pic(HelloBoard_2)},{1400,438})));
     heavyBodies.insert(make_pair("001:Ground",new HeavyBody(this,{pic(Grass_ground)},{0,600})));
     heavyBodies.insert(make_pair("002:Ground",new HeavyBody(this,{pic(Grass_ground)},{200,600})));
     heavyBodies.insert(make_pair("003:Ground",new HeavyBody(this,{pic(Grass_ground)},{400,600})));
@@ -178,15 +176,15 @@ PlayPage1::PlayPage1(MainWindow *parent, int Iq)
     heavyBodies.insert(make_pair("005:Ground",new HeavyBody(this,{pic(Grass_ground)},{800,600})));
     heavyBodies.insert(make_pair("006:Ground",new HeavyBody(this,{pic(Grass_ground)},{1000,600})));
     heavyBodies.insert(make_pair("007:Ground",new HeavyBody(this,{pic(Grass_ground)},{1200,600})));
-    heavyBodies.insert(make_pair("008:Ground",new HeavyBody(this,{pic(Grass_ground)},{1400,600})));
-    heavyBodies.insert(make_pair("009:Ground",new HeavyBody(this,{pic(Grass_ground)},{1600,600})));
+    heavyBodies.insert(make_pair("008:Groundright",new HeavyBody(this,{pic(Grass_ground_right)},{1400,600})));
+    heavyBodies.insert(make_pair("009:Groundleft",new HeavyBody(this,{pic(Grass_ground_left)},{1770,600})));
     heavyBodies.insert(make_pair("010:Ground",new HeavyBody(this,{pic(Grass_ground)},{1800,600})));
     heavyBodies.insert(make_pair("011:Ground",new HeavyBody(this,{pic(Grass_ground)},{2000,600})));
     heavyBodies.insert(make_pair("012:Ground",new HeavyBody(this,{pic(Grass_ground)},{2200,600})));
     heavyBodies.insert(make_pair("013:Ground",new HeavyBody(this,{pic(Grass_ground)},{2400,600})));
     heavyBodies.insert(make_pair("014:Ground",new HeavyBody(this,{pic(Grass_ground)},{2600,600})));
     heavyBodies.insert(make_pair("015:Ground",new HeavyBody(this,{pic(Grass_ground)},{2800,600})));
-    heavyBodies.insert(make_pair("016:Pipe",new HeavyBody(this,{pic(Pipe)},{900,396})));
+    heavyBodies.insert(make_pair("016:Pipe",new HeavyBody(this,{pic(Pipe)},{870,396})));
     heavyBodies.insert(make_pair("017:Brick",new HeavyBody(this,{pic(BrickUnknown),pic(UnknownBrickOver)},{265,375})));
     heavyBodies.insert(make_pair("018:Brick",new HeavyBody(this,{pic(Brick)},{415,375})));
     heavyBodies.insert(make_pair("019:Brick",new HeavyBody(this,{pic(BrickUnknown),pic(UnknownBrickOver)},{463,375})));
@@ -194,21 +192,8 @@ PlayPage1::PlayPage1(MainWindow *parent, int Iq)
     heavyBodies.insert(make_pair("021:Brick",new HeavyBody(this,{pic(BrickUnknown),pic(UnknownBrickOver)},{559,375})));
     heavyBodies.insert(make_pair("022:Brick",new HeavyBody(this,{pic(Brick)},{607,375})));
     heavyBodies.insert(make_pair("023:Brick",new HeavyBody(this,{pic(BrickUnknown),pic(UnknownBrickOver)},{511,170})));
-
-}
-
-void PlayPage1::brickFall()
-{
-    heavyBodies["018:Brick"]->grativity=true;
-    heavyBodies["019:Brick"]->grativity=true;
-    heavyBodies["020:Brick"]->grativity=true;
-    heavyBodies["021:Brick"]->grativity=true;
-    heavyBodies["022:Brick"]->grativity=true;
-}
-
-void PlayPage1::newBrick()
-{
-    heavyBodies.insert(make_pair("101:Brick",new HeavyBody(this,{pic(UnknownBrickOver)},{640,170})));
+    heavyBodies.insert(make_pair("024:Brick",new HeavyBody(this,{pic(BrickUnknown),pic(UnknownBrickOver)},{1388,375})));
+    heavyBodies.insert(make_pair("025:Brick",new HeavyBody(this,{pic(BrickUnknown),pic(UnknownBrickOver)},{1188,375})));
 }
 
 EditPage::EditPage(MainWindow *parent, int wid, int heig)
@@ -218,8 +203,7 @@ EditPage::EditPage(MainWindow *parent, int wid, int heig)
     buttons.insert(make_pair("008:Eraser",new GameButton(this, {pic(StagePlant_slime_shovel_1)}, {""}, {175, 575}, this, SLOT(clicked(QMouseEvent*,GameButton*)))));
     buttons.insert(make_pair("009:Finish",new GameButton(this, {pic(EndEdit)}, {""}, {1055, 608}, this, SLOT(valuate()))));
     buttons.insert(make_pair("010:Back", new GameButton(this, {pic(Startup_button_main_3)}, {"返回"}, {20, 0}, parent, SLOT(backMain()))));
-    playlist->addMedia(QUrl(snd(Audio_bgm_air_ducts)));
-    music->play();
+    playlist->addMedia(QUrl(snd(Audio_bgm_air_ducts))); music->play();
 }
 
 void EditPage::mousePressEvent(QMouseEvent *event)

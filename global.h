@@ -34,6 +34,8 @@ using namespace std;
 #define pushSpeed 0.3                                //推动标准速度
 #define bounceSpeed 1.2                              //弹跳标准速度
 #define g 0.003                                      //重力加速度
+#define MUSIC(x); {QMediaPlayer * music = new QMediaPlayer(this); music->setVolume(defaultVolume);\
+    music->setMedia(QUrl(snd(x))); music->play();}   //播放音效
 typedef bool state;
 typedef bool attribute;
 typedef int mode;

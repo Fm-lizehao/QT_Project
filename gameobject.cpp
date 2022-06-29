@@ -156,7 +156,6 @@ void Role::updateSpeed()
     GameObject::updateSpeed();
     if(getCollisionRect().left()<0&&v.x()<0) v.setX(0);
     if(getCollisionRect().right()>((GamePage*)parent())->pageWidth&&v.x()>0) v.setX(0);
-    if(getCollisionRect().top()<0&&v.y()<0) v.setY(0);
     if(getCollisionRect().top()>((GamePage*)parent())->pageHeight) killed = true;
 }
 

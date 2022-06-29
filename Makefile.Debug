@@ -202,6 +202,7 @@ debug/qrc_source.cpp: source.qrc \
 		image/Emoji_hero_frown.png \
 		image/Prompt_cuff.png \
 		image/Hero_gun.png \
+		image/HelloBoard_1.png \
 		image/Startup_screen_3_2.png \
 		image/FightMenu.png \
 		image/Slime_idle_right.png \
@@ -264,6 +265,7 @@ debug/qrc_source.cpp: source.qrc \
 		image/TalkBox_no_emoji_left2.png \
 		image/MoreCoin_tier_1.png \
 		image/Notice_1.png \
+		image/Slime_girl.png \
 		image/Player_walk2_left.png \
 		image/ZZZ_0.png \
 		image/BrickChip.png \
@@ -435,6 +437,7 @@ debug/qrc_source.cpp: source.qrc \
 		image/Transition_right.png \
 		image/Player_stand_left.png \
 		image/Emoji_dc_2.png \
+		image/HelloBoard_2.png \
 		image/Box_1.png \
 		image/Player_cry2_left.png \
 		image/Pipe_door.png \
