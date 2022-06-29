@@ -168,7 +168,7 @@ PlayPage1::PlayPage1(MainWindow *parent, int Iq)
     virtualObjects.insert(make_pair("007:Grass",new VirtualObject(this,{pic(Grass_2)},{630,572})));
     virtualObjects.insert(make_pair("008:Saw",new VirtualObject(this,{pic(Saw_252_invisible),pic(Saw_252)},{630,579},{0.0,0.0},0.0,noBorder,false,true)));
     virtualObjects.insert(make_pair("009:Castle",new VirtualObject(this,{pic(Castle_2)},{2800,444})));
-    virtualObjects.insert(make_pair("010:HelloBoard",new VirtualObject(this,{pic(HelloBoard_2)},{1400,438})));
+    virtualObjects.insert(make_pair("010:HelloBoard",new VirtualObject(this,{pic(HelloBoard_2)},{1413,420})));
     heavyBodies.insert(make_pair("001:Ground",new HeavyBody(this,{pic(Grass_ground)},{0,600})));
     heavyBodies.insert(make_pair("002:Ground",new HeavyBody(this,{pic(Grass_ground)},{200,600})));
     heavyBodies.insert(make_pair("003:Ground",new HeavyBody(this,{pic(Grass_ground)},{400,600})));
