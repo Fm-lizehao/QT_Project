@@ -54,7 +54,6 @@ void MainWindow::PVZ()
 }
 void MainWindow::config()
 {
-    page->deleteLater();
 
 }
 void MainWindow::exit()
