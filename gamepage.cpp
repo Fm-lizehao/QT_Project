@@ -17,10 +17,10 @@ void GamePage::updateCamera()
 {
     cameraV = {0,0};
     if(player != nullptr)
-    {   if(cameraP.x()>0&&player->getCollisionRect().left()<cameraP.x()+300) cameraV.setX(-pushSpeed);
+    {   if(cameraP.x()>0&&player->getCollisionRect().left()<cameraP.x()+200) cameraV.setX(-pushSpeed);
         if(cameraP.x()+windowWidth<pageWidth&&player->getCollisionRect().right()>cameraP.x()+800) cameraV.setX(pushSpeed);
-        if(cameraP.y()>0&&player->getCollisionRect().top()<cameraP.y()+120) cameraV.setY(-pushSpeed);
-        if(cameraP.y()+windowHeight<pageHeight&&player->getCollisionRect().bottom()>cameraP.y()+600) cameraV.setY(pushSpeed); }
+        if(cameraP.y()>0&&player->getCollisionRect().top()<cameraP.y()+50) cameraV.setY(-pushSpeed);
+        if(cameraP.y()+windowHeight<pageHeight&&player->getCollisionRect().bottom()>cameraP.y()+420) cameraV.setY(pushSpeed); }
     cameraP += cameraV;
 }
 
@@ -126,8 +126,9 @@ void PlayPage::playerKilled()
     topText.push_back({QRect(490,366,166,50),QFont("幼圆", 10, QFont::Bold, false),QString("后人有诗赞曰：")});
     topText.push_back({QRect(500,383,266,150),QFont("幼圆", 12, QFont::Bold, false),comment[(250-IQ)/50%4]});
     topButtons.insert(make_pair("001:Restart",new GameButton(this,{pic(Startup_button_main_3)}, {"不服!"}, {570,515}, this, SLOT(restart()))));
+    if(IQ/50%2) {MUSIC(Audio_laugh);}
+    else {MUSIC(Audio_boos);}
     IQ-=50;
-    MUSIC(Audio_boos);
 }
 
 void PlayPage::victory()
@@ -148,62 +149,203 @@ void PlayPage::victory()
 }
 
 PlayPage1::PlayPage1(MainWindow *parent, int Iq)
-    : PlayPage(parent, 3000, windowHeight, 1, Iq, snd(Audio_bgm_aquatic_circus))
+    : PlayPage(parent, 3000, 1000, 1, Iq, snd(Audio_bgm_aquatic_circus), "", {0,0,3000,1000},{0,280})
 {
-    player = new Player(this,QPoint(200,200));
-    npcs.push_back(new NPC(this,slimeImg,{1377,500}));
-    triggers.push_back(new Trigger(this,{2870,550,14,50},SLOT(victory())));
-    triggers.push_back(new Trigger(this,{512,218,46,1},SLOT(brickFall())));
-    triggers.push_back(new Trigger(this,{641,218,46,1},SLOT(newBrick1())));
-    triggers.push_back(new Trigger(this,{1389,423,46,1},SLOT(newBoard1())));
-    triggers.push_back(new Trigger(this,{266,423,46,1},SLOT(newSlime1())));
-    triggers.push_back(new Trigger(this,{464,423,46,1},SLOT(newSlime2())));
-    triggers.push_back(new Trigger(this,{1189,423,46,1},SLOT(slimeActivate())));
-    virtualObjects.insert(make_pair("001:Hill",new VirtualObject(this,{pic(Hill_1)},{450,420})));
-    virtualObjects.insert(make_pair("002:Hill",new VirtualObject(this,{pic(Hill_2)},{1080,483})));
-    virtualObjects.insert(make_pair("003:Cloud",new VirtualObject(this,{pic(Cloud_0),pic(Cloud_0_bad)},{730,100},{0.0,0.0},0.0,noBorder,false,true)));
-    virtualObjects.insert(make_pair("004:Cloud",new VirtualObject(this,{pic(Cloud_2)},{180,110})));
-    virtualObjects.insert(make_pair("005:Grass",new VirtualObject(this,{pic(Grass_2)},{40,572})));
-    virtualObjects.insert(make_pair("006:Grass",new VirtualObject(this,{pic(Grass_1)},{720,572})));
-    virtualObjects.insert(make_pair("007:Grass",new VirtualObject(this,{pic(Grass_2)},{630,572})));
-    virtualObjects.insert(make_pair("008:Saw",new VirtualObject(this,{pic(Saw_252_invisible),pic(Saw_252)},{630,579},{0.0,0.0},0.0,noBorder,false,true)));
-    virtualObjects.insert(make_pair("009:Castle",new VirtualObject(this,{pic(Castle_2)},{2800,444})));
-    virtualObjects.insert(make_pair("010:HelloBoard",new VirtualObject(this,{pic(HelloBoard_2)},{1413,420})));
+    player = new Player(this,QPoint(200,580));
+    npcs.push_back(new NPC(this,slimeImg,{1377,780}));
+    triggers.push_back(new Trigger(this,{2870,830,14,50},SLOT(victory())));
+    triggers.push_back(new Trigger(this,{512,498,46,1},SLOT(brickFall())));
+    triggers.push_back(new Trigger(this,{641,498,46,1},SLOT(newBrick1())));
+    triggers.push_back(new Trigger(this,{1389,703,46,1},SLOT(newBoard1())));
+    triggers.push_back(new Trigger(this,{266,703,46,1},SLOT(newSlime1())));
+    triggers.push_back(new Trigger(this,{464,703,46,1},SLOT(newSlime2())));
+    triggers.push_back(new Trigger(this,{560,703,46,1},SLOT(empty())));
+    triggers.push_back(new Trigger(this,{1189,703,46,1},SLOT(slimeActivate())));
+    triggers.push_back(new Trigger(this,{2000,0,1,880},SLOT(kingActivate())));
+    triggers.push_back(new Trigger(this,{2200,0,1,880},SLOT(kingNormal())));
+    triggers.push_back(new Trigger(this,{2680,0,1,880},SLOT(kingKill())));
+    virtualObjects.insert(make_pair("001:Hill",new VirtualObject(this,{pic(Hill_1)},{450,700})));
+    virtualObjects.insert(make_pair("002:Hill",new VirtualObject(this,{pic(Hill_2)},{1080,763})));
+    virtualObjects.insert(make_pair("003:Cloud",new VirtualObject(this,{pic(Cloud_0),pic(Cloud_0_bad)},{730,380},{0.0,0.0},0.0,noBorder,false,true)));
+    virtualObjects.insert(make_pair("004:Cloud",new VirtualObject(this,{pic(Cloud_2)},{365,390},{0.05,0},0,{330,0,370,1000})));
+    virtualObjects.insert(make_pair("005:Grass",new VirtualObject(this,{pic(Grass_2)},{40,852})));
+    virtualObjects.insert(make_pair("006:Grass",new VirtualObject(this,{pic(Grass_1)},{720,852})));
+    virtualObjects.insert(make_pair("007:Grass",new VirtualObject(this,{pic(Grass_2)},{630,852})));
+    virtualObjects.insert(make_pair("008:Saw",new VirtualObject(this,{pic(Saw_252_invisible),pic(Saw_252)},{630,859},{0.0,0.0},0.0,noBorder,false,true)));
+    virtualObjects.insert(make_pair("009:Castle",new VirtualObject(this,{pic(Castle_2)},{2800,724})));
+    virtualObjects.insert(make_pair("010:HelloBoard",new VirtualObject(this,{pic(HelloBoard_2)},{1405,703})));
+    virtualObjects.insert(make_pair("011:Cloud",new VirtualObject(this,{pic(Cloud_3_cute)},{1200,390})));
+    virtualObjects.insert(make_pair("012:HelloBoard",new VirtualObject(this,{pic(HelloBoard_3)},{100,390})));
+    virtualObjects.insert(make_pair("013:Cloud",new VirtualObject(this,{pic(Cloud_0_cute)},{1900,390},{0.05,0},0,{1830,0,600,1000})));
+    virtualObjects.insert(make_pair("014:Fence",new VirtualObject(this,{pic(Fence)},{1970,810})));
+    virtualObjects.insert(make_pair("015:Cloud",new VirtualObject(this,{pic(Cloud_2)},{2550,395})));
+    heavyBodies.insert(make_pair("001:Ground",new HeavyBody(this,{pic(Grass_ground)},{0,880})));
+    heavyBodies.insert(make_pair("002:Ground",new HeavyBody(this,{pic(Grass_ground)},{200,880})));
+    heavyBodies.insert(make_pair("003:Ground",new HeavyBody(this,{pic(Grass_ground)},{400,880})));
+    heavyBodies.insert(make_pair("004:Ground",new HeavyBody(this,{pic(Grass_ground)},{600,880})));
+    heavyBodies.insert(make_pair("005:Ground",new HeavyBody(this,{pic(Grass_ground)},{800,880})));
+    heavyBodies.insert(make_pair("006:Ground",new HeavyBody(this,{pic(Grass_ground)},{1000,880})));
+    heavyBodies.insert(make_pair("007:Ground",new HeavyBody(this,{pic(Grass_ground)},{1200,880})));
+    heavyBodies.insert(make_pair("008:Groundright",new HeavyBody(this,{pic(Grass_ground_right)},{1400,880})));
+    heavyBodies.insert(make_pair("009:Groundleft",new HeavyBody(this,{pic(Grass_ground_left)},{1770,880})));
+    heavyBodies.insert(make_pair("010:Ground",new HeavyBody(this,{pic(Grass_ground)},{1800,880})));
+    heavyBodies.insert(make_pair("011:Ground",new HeavyBody(this,{pic(Grass_ground)},{2000,880})));
+    heavyBodies.insert(make_pair("012:Ground",new HeavyBody(this,{pic(Grass_ground)},{2200,880})));
+    heavyBodies.insert(make_pair("013:Ground",new HeavyBody(this,{pic(Grass_ground)},{2400,880})));
+    heavyBodies.insert(make_pair("014:Ground",new HeavyBody(this,{pic(Grass_ground)},{2600,880})));
+    heavyBodies.insert(make_pair("015:Ground",new HeavyBody(this,{pic(Grass_ground)},{2800,880})));
+    heavyBodies.insert(make_pair("016:Pipe",new HeavyBody(this,{pic(Pipe)},{870,676})));
+    heavyBodies.insert(make_pair("017:Brick",new HeavyBody(this,{pic(BrickUnknown),pic(UnknownBrickOver)},{265,655})));
+    heavyBodies.insert(make_pair("018:Brick",new HeavyBody(this,{pic(Brick)},{415,655})));
+    heavyBodies.insert(make_pair("019:Brick",new HeavyBody(this,{pic(BrickUnknown),pic(UnknownBrickOver)},{463,655})));
+    heavyBodies.insert(make_pair("020:Brick",new HeavyBody(this,{pic(Brick)},{511,655})));
+    heavyBodies.insert(make_pair("021:Brick",new HeavyBody(this,{pic(BrickUnknown),pic(UnknownBrickOver)},{559,655})));
+    heavyBodies.insert(make_pair("022:Brick",new HeavyBody(this,{pic(Brick)},{607,655})));
+    heavyBodies.insert(make_pair("023:Brick",new HeavyBody(this,{pic(BrickUnknown),pic(UnknownBrickOver)},{511,450})));
+    heavyBodies.insert(make_pair("024:Brick",new HeavyBody(this,{pic(BrickUnknown),pic(UnknownBrickOver)},{1388,655})));
+    heavyBodies.insert(make_pair("025:Brick",new HeavyBody(this,{pic(BrickUnknown),pic(UnknownBrickOver)},{1188,655})));
+}
+
+PlayPage2::PlayPage2(MainWindow *parent, int Iq)
+    : PlayPage(parent, windowWidth, windowHeight, 2, Iq, snd(Audio_bgm_the_survival))
+{
+    player = new Player(this,QPoint(1080,600));
+    triggers.push_back(new Trigger(this,{530,429,48,1},SLOT(brickFall_010())));
+    triggers.push_back(new Trigger(this,{480,429,48,1},SLOT(brickFall_017())));
+    triggers.push_back(new Trigger(this,{400,549,48,1},SLOT(brickFall_011())));
+    triggers.push_back(new Trigger(this,{1080,20,200,200},SLOT(victory())));
+    triggers.push_back(new Trigger(this,{850,100,100,50},SLOT(newSaw())));
+    virtualObjects.insert(make_pair("200:Saw",new VirtualObject(this,{pic(Saw2),pic(Saw2)},{880,480},{0.0,0.0},0.0,noBorder,false,true)));
+    virtualObjects.insert(make_pair("201:Cloud",new VirtualObject(this,{pic(Cloud_0),pic(Cloud_0_bad)},{100,110},{0.0,0.0},0.0,noBorder,false,true)));
+    virtualObjects.insert(make_pair("202:Cloud",new VirtualObject(this,{pic(Cloud_2)},{300,400})));
+    virtualObjects.insert(make_pair("203:Cloud",new VirtualObject(this,{pic(Cloud_0)},{1050,450})));
+    virtualObjects.insert(make_pair("300:Castle",new VirtualObject(this,{pic(Castle_2)},{1080,20})));
+    virtualObjects.insert(make_pair("400:Slime", new VirtualObject(this, {pic(Slime_idle_left)},{700,112},{-0.08,0},0.0,QRect(600,112,400,400),false,true)));
+    heavyBodies.insert(make_pair("001:Brick",new HeavyBody(this,{pic(Brick)},{1050,620})));
+    heavyBodies.insert(make_pair("002:Brick",new HeavyBody(this,{pic(Brick)},{1100,620})));
+    heavyBodies.insert(make_pair("003:Brick",new HeavyBody(this,{pic(Brick)},{1150,620})));
+    heavyBodies.insert(make_pair("004:Brick",new HeavyBody(this,{pic(Brick)},{980,600})));
+    heavyBodies.insert(make_pair("005:Brick",new HeavyBody(this,{pic(Brick)},{930,600})));
+    heavyBodies.insert(make_pair("006:Brick",new HeavyBody(this,{pic(Brick)},{870,500})));
+    heavyBodies.insert(make_pair("007:Brick",new HeavyBody(this,{pic(Brick)},{700,500})));
+    heavyBodies.insert(make_pair("008:Brick",new HeavyBody(this,{pic(Brick)},{650,500})));
+    heavyBodies.insert(make_pair("010:Brick",new HeavyBody(this,{pic(UnknownBrickOver_broken)},{530,430})));
+    heavyBodies.insert(make_pair("011:Brick",new HeavyBody(this,{pic(UnknownBrickOver)},{400,550})));
+    heavyBodies.insert(make_pair("012:Brick",new HeavyBody(this,{pic(Brick)},{310,600})));
+    heavyBodies.insert(make_pair("013:Brick",new HeavyBody(this,{pic(Brick)},{200,520})));
+    heavyBodies.insert(make_pair("014:Brick",new HeavyBody(this,{pic(Brick)},{80,500})));
+    heavyBodies.insert(make_pair("015:Brick",new HeavyBody(this,{pic(Brick)},{120,430})));
+    heavyBodies.insert(make_pair("016:Brick",new HeavyBody(this,{pic(Brick)},{580,430})));
+    heavyBodies.insert(make_pair("017:Brick",new HeavyBody(this,{pic(UnknownBrickOver)},{480,430})));
+    heavyBodies.insert(make_pair("018:Brick",new HeavyBody(this,{pic(Brick)},{220,300})));
+    heavyBodies.insert(make_pair("019:Brick",new HeavyBody(this,{pic(Brick)},{270,300})));
+    heavyBodies.insert(make_pair("020:Brick",new HeavyBody(this,{pic(Brick)},{400,80})));
+    heavyBodies.insert(make_pair("021:Brick",new HeavyBody(this,{pic(Brick)},{600,150})));
+    heavyBodies.insert(make_pair("022:Brick",new HeavyBody(this,{pic(Brick)},{650,150})));
+    heavyBodies.insert(make_pair("023:Brick",new HeavyBody(this,{pic(Brick)},{700,150})));
+    heavyBodies.insert(make_pair("024:Brick",new HeavyBody(this,{pic(Brick)},{750,150})));
+    heavyBodies.insert(make_pair("025:Brick",new HeavyBody(this,{pic(Brick)},{800,150})));
+    heavyBodies.insert(make_pair("026:Brick",new HeavyBody(this,{pic(Brick)},{530,150})));
+    heavyBodies.insert(make_pair("027:Brick",new HeavyBody(this,{pic(Brick)},{850,150})));
+    heavyBodies.insert(make_pair("028:Brick",new HeavyBody(this,{pic(Brick)},{900,150})));
+    heavyBodies.insert(make_pair("029:Brick",new HeavyBody(this,{pic(Brick)},{950,150})));
+    heavyBodies.insert(make_pair("030:Brick",new HeavyBody(this,{pic(Brick)},{1080,178})));
+    heavyBodies.insert(make_pair("031:Brick",new HeavyBody(this,{pic(Brick)},{1130,178})));
+    heavyBodies.insert(make_pair("032:Brick",new HeavyBody(this,{pic(Brick)},{1180,178})));
+    heavyBodies.insert(make_pair("033:Brick",new HeavyBody(this,{pic(Brick)},{1030,178})));
+    heavyBodies.insert(make_pair("034:Brick",new HeavyBody(this,{pic(Brick)},{1230,178})));
+    ifstream inFile; inFile.open("Usermap.txt");
+    char temp[200]; int tempx,tempy;
+    while(inFile>>tempx>>tempy>>temp)
+    {
+        QString string_temp = QString::number(tempx,10);
+        QString string_temp2(temp);
+        if(temp[25]=='w'&&temp[26]=='2') virtualObjects.insert(make_pair(string_temp,new VirtualObject(this,{string_temp2},{tempx,tempy},{0.0,0.0},0.0,noBorder,false,true)));
+        else if(temp[23]=='S'&&temp[24]=='l') virtualObjects.insert(make_pair(string_temp,new VirtualObject(this,{string_temp2},{tempx,tempy},{0.0,0.0},0.0,noBorder,false,true)));
+        else if(temp[25]=='w'&&temp[26]=='_')
+        {   if(temp[33]=='t') virtualObjects.insert(make_pair(string_temp,new VirtualObject(this,{string_temp2},{tempx,tempy},{0.0,0.2},0.0,pageRect(),false,true)));
+            else virtualObjects.insert(make_pair(string_temp,new VirtualObject(this,{string_temp2},{tempx,tempy},{0.3,0.0},0.0,pageRect(),false,true))); }
+        else if(temp[23]=='F') virtualObjects.insert(make_pair(string_temp,new VirtualObject(this,{string_temp2},{tempx,tempy},{0.25,0.0},0.0,pageRect(),false,true)));
+        else heavyBodies.insert(make_pair(string_temp,new HeavyBody(this,{string_temp2},{tempx,tempy}))); }
+    inFile.close();
+}
+
+PlayPage3::PlayPage3(MainWindow *parent, int Iq)
+    : PlayPage(parent, MAX, windowHeight, 3, Iq, snd(Audio_bgm_cactus_land), "", {0,0,MAX,windowHeight},{1280,0})
+{
+    player = new Player(this,QPoint(1500,380));
+    triggers.push_back(new Trigger(this,{70,550,14,50},SLOT(victory())));
+    triggers.push_back(new Trigger(this,{1170,0,1,720},SLOT(board())));
+    triggers.push_back(new Trigger(this,{1650,575,43,21},SLOT(fly())));
+    triggers.push_back(new Trigger(this,{800,0,400,720},SLOT(fish())));
+    buttons.insert(make_pair("010:Process", new GameButton(this, {pic(Startup_button_main_3)}, {"0%"}, {550,0}, this, SLOT(empty()))));
+    virtualObjects.insert(make_pair("001:Board",new VirtualObject(this,{pic(HelloBoard_5),pic(HelloBoard_6)},{1350,100})));
+    virtualObjects.insert(make_pair("002:Wing",new VirtualObject(this,{pic(Wing),""},{1650,575})));
+    virtualObjects.insert(make_pair("003:Fence",new VirtualObject(this,{pic(Fence)},{1360,530})));
+    virtualObjects.insert(make_pair("004:Fence",new VirtualObject(this,{pic(Fence)},{300,530})));
+    virtualObjects.insert(make_pair("005:Tree",new VirtualObject(this,{pic(Tree_1)},{760,505})));
+    virtualObjects.insert(make_pair("201:Cloud",new VirtualObject(this,{pic(Cloud_0),pic(Cloud_0_bad)},{220,110},{0.0,0.0},0.0,noBorder,false,true)));
+    virtualObjects.insert(make_pair("202:Cloud",new VirtualObject(this,{pic(Cloud_2)},{550,110})));
+    virtualObjects.insert(make_pair("203:Cloud",new VirtualObject(this,{pic(Cloud_0)},{1050,110})));
+    virtualObjects.insert(make_pair("300:Castle",new VirtualObject(this,{pic(Castle_2)},{0,444})));
     heavyBodies.insert(make_pair("001:Ground",new HeavyBody(this,{pic(Grass_ground)},{0,600})));
     heavyBodies.insert(make_pair("002:Ground",new HeavyBody(this,{pic(Grass_ground)},{200,600})));
     heavyBodies.insert(make_pair("003:Ground",new HeavyBody(this,{pic(Grass_ground)},{400,600})));
     heavyBodies.insert(make_pair("004:Ground",new HeavyBody(this,{pic(Grass_ground)},{600,600})));
-    heavyBodies.insert(make_pair("005:Ground",new HeavyBody(this,{pic(Grass_ground)},{800,600})));
-    heavyBodies.insert(make_pair("006:Ground",new HeavyBody(this,{pic(Grass_ground)},{1000,600})));
+    heavyBodies.insert(make_pair("005:Groundright",new HeavyBody(this,{pic(Grass_ground_right)},{800,600})));
+    heavyBodies.insert(make_pair("006:Groundleft",new HeavyBody(this,{pic(Grass_ground_left)},{1170,600})));
     heavyBodies.insert(make_pair("007:Ground",new HeavyBody(this,{pic(Grass_ground)},{1200,600})));
-    heavyBodies.insert(make_pair("008:Groundright",new HeavyBody(this,{pic(Grass_ground_right)},{1400,600})));
-    heavyBodies.insert(make_pair("009:Groundleft",new HeavyBody(this,{pic(Grass_ground_left)},{1770,600})));
+    heavyBodies.insert(make_pair("008:Ground",new HeavyBody(this,{pic(Grass_ground)},{1400,600})));
+    heavyBodies.insert(make_pair("009:Ground",new HeavyBody(this,{pic(Grass_ground)},{1600,600})));
     heavyBodies.insert(make_pair("010:Ground",new HeavyBody(this,{pic(Grass_ground)},{1800,600})));
     heavyBodies.insert(make_pair("011:Ground",new HeavyBody(this,{pic(Grass_ground)},{2000,600})));
     heavyBodies.insert(make_pair("012:Ground",new HeavyBody(this,{pic(Grass_ground)},{2200,600})));
     heavyBodies.insert(make_pair("013:Ground",new HeavyBody(this,{pic(Grass_ground)},{2400,600})));
     heavyBodies.insert(make_pair("014:Ground",new HeavyBody(this,{pic(Grass_ground)},{2600,600})));
-    heavyBodies.insert(make_pair("015:Ground",new HeavyBody(this,{pic(Grass_ground)},{2800,600})));
-    heavyBodies.insert(make_pair("016:Pipe",new HeavyBody(this,{pic(Pipe)},{870,396})));
-    heavyBodies.insert(make_pair("017:Brick",new HeavyBody(this,{pic(BrickUnknown),pic(UnknownBrickOver)},{265,375})));
-    heavyBodies.insert(make_pair("018:Brick",new HeavyBody(this,{pic(Brick)},{415,375})));
-    heavyBodies.insert(make_pair("019:Brick",new HeavyBody(this,{pic(BrickUnknown),pic(UnknownBrickOver)},{463,375})));
-    heavyBodies.insert(make_pair("020:Brick",new HeavyBody(this,{pic(Brick)},{511,375})));
-    heavyBodies.insert(make_pair("021:Brick",new HeavyBody(this,{pic(BrickUnknown),pic(UnknownBrickOver)},{559,375})));
-    heavyBodies.insert(make_pair("022:Brick",new HeavyBody(this,{pic(Brick)},{607,375})));
-    heavyBodies.insert(make_pair("023:Brick",new HeavyBody(this,{pic(BrickUnknown),pic(UnknownBrickOver)},{511,170})));
-    heavyBodies.insert(make_pair("024:Brick",new HeavyBody(this,{pic(BrickUnknown),pic(UnknownBrickOver)},{1388,375})));
-    heavyBodies.insert(make_pair("025:Brick",new HeavyBody(this,{pic(BrickUnknown),pic(UnknownBrickOver)},{1188,375})));
+    heavyBodies.insert(make_pair("000:Pipe0",new HeavyBody(this,{pic(PipeBad)},{1800,-200},{0,0},0,noBorder,false,true)));
+    heavyBodies.insert(make_pair("000:Pipe1",new HeavyBody(this,{pic(PipeBad_up)},{1800,500},{0,0},0,noBorder,false,true)));
+    triggers.push_back(new Trigger(this,{1800,0,135,720},SLOT(insert())));
+    heavyBodies.insert(make_pair("000:Pipe2",new HeavyBody(this,{pic(PipeBad)},{2000,-230},{0,0},0,noBorder,false,true)));
+    heavyBodies.insert(make_pair("000:Pipe3",new HeavyBody(this,{pic(PipeBad_up)},{2000,470},{0,0},0,noBorder,false,true)));
+    triggers.push_back(new Trigger(this,{2000,0,135,720},SLOT(insert())));
+    heavyBodies.insert(make_pair("000:Pipe4",new HeavyBody(this,{pic(PipeBad)},{2200,-180},{0,0},0,noBorder,false,true)));
+    heavyBodies.insert(make_pair("000:Pipe5",new HeavyBody(this,{pic(PipeBad_up)},{2200,520},{0,0},0,noBorder,false,true)));
+    triggers.push_back(new Trigger(this,{2200,0,135,720},SLOT(insert())));
+    heavyBodies.insert(make_pair("000:Pipe6",new HeavyBody(this,{pic(PipeBad)},{2400,-190},{0,0},0,noBorder,false,true)));
+    heavyBodies.insert(make_pair("000:Pipe7",new HeavyBody(this,{pic(PipeBad_up)},{2400,510},{0,0},0,noBorder,false,true)));
+    triggers.push_back(new Trigger(this,{2400,0,135,720},SLOT(insert())));
+    heavyBodies.insert(make_pair("000:Pipe8",new HeavyBody(this,{pic(PipeBad)},{2600,-200},{0,0},0,noBorder,false,true)));
+    heavyBodies.insert(make_pair("000:Pipe9",new HeavyBody(this,{pic(PipeBad_up)},{2600,500},{0,0},0,noBorder,false,true)));
+    triggers.push_back(new Trigger(this,{2600,0,135,720},SLOT(insert())));
 }
 
-EditPage::EditPage(MainWindow *parent, int wid, int heig)
-    :GamePage(parent, wid, heig, pic(MapEdit), {0, 0, 1280, 720})
+void PlayPage3::insert()
+{
+    int x=triggers[triggers.size()-1]->rect.left()+200, y = rand()%70;
+    char str[20] = {};
+    sprintf(str,"%03d:Ground",x/200+1);
+    heavyBodies.insert(make_pair(str,new HeavyBody(this,{pic(Grass_ground)},{x,600})));
+    sprintf(str,"000:Pipe%d",(x-1800)/100);
+    heavyBodies.insert(make_pair(QString(str),new HeavyBody(this,{pic(PipeBad)},{x,-230+y},{0,0},0,noBorder,false,true)));
+    sprintf(str,"000:Pipe%d",(x-1800)/100+1);
+    heavyBodies.insert(make_pair(QString(str),new HeavyBody(this,{pic(PipeBad_up)},{x,440+y},{0,0},0,noBorder,false,true)));
+    triggers.push_back(new Trigger(this,{x,0,135,720},SLOT(insert())));
+    sprintf(str,"%d%%",(x-1800)/20-50);
+    buttons["010:Process"]->text[0]=QString(str);
+}
+
+EditPage::EditPage(MainWindow *parent, int Iq, int wid, int heig)
+    :PlayPage(parent, wid, heig, 5, Iq, snd(Audio_bgm_air_ducts), pic(MapEdit2), {0, 0, 1280, 720})//最后这里把mapedit2替换掉
 {
     buttons.insert(make_pair("001:Brick",new GameButton(this, {pic(Brick)}, {""}, {62, 100}, this, SLOT(clicked(QMouseEvent*,GameButton*)))));
+    buttons.insert(make_pair("002:Slime",new GameButton(this, {pic(Slime_idle_left)}, {""}, {215, 100}, this, SLOT(clicked(QMouseEvent*,GameButton*)))));
+    buttons.insert(make_pair("003:Brick2",new GameButton(this, {pic(UnknownBrickOver)}, {""}, {62, 235}, this, SLOT(clicked(QMouseEvent*,GameButton*)))));
+    buttons.insert(make_pair("004:Saw",new GameButton(this, {pic(Saw2)}, {""}, {220, 245}, this, SLOT(clicked(QMouseEvent*,GameButton*)))));
+    buttons.insert(make_pair("005:Saw2",new GameButton(this, {pic(Saw_48x12_left)}, {""}, {70, 450}, this, SLOT(clicked(QMouseEvent*,GameButton*)))));
+    buttons.insert(make_pair("006:Saw3",new GameButton(this, {pic(Saw_48x12_top)}, {""}, {215, 460}, this, SLOT(clicked(QMouseEvent*,GameButton*)))));
+    buttons.insert(make_pair("007:Fish",new GameButton(this, {pic(Fish_1)}, {""}, {65, 585}, this, SLOT(clicked(QMouseEvent*,GameButton*)))));
     buttons.insert(make_pair("008:Eraser",new GameButton(this, {pic(StagePlant_slime_shovel_1)}, {""}, {175, 575}, this, SLOT(clicked(QMouseEvent*,GameButton*)))));
     buttons.insert(make_pair("009:Finish",new GameButton(this, {pic(EndEdit)}, {""}, {1055, 608}, this, SLOT(valuate()))));
-    buttons.insert(make_pair("010:Back", new GameButton(this, {pic(Startup_button_main_3)}, {"返回"}, {20, 0}, parent, SLOT(backMain()))));
-    playlist->addMedia(QUrl(snd(Audio_bgm_air_ducts))); music->play();
 }
 
 void EditPage::mousePressEvent(QMouseEvent *event)
@@ -216,14 +358,16 @@ void EditPage::mousePressEvent(QMouseEvent *event)
         {   setCursor(QCursor(QPixmap(pic(StagePlant_slime_shovel_2))));
             erase(event->pos()); }
         else
-        {   char temp[10]={}; sprintf(temp,"%d",virtualObjects.size());
+        {   tot++; int tmp=0;
+            if(current==buttons["001:Brick"]) tmp=1;
+            char temp[10]={}; sprintf(temp,"%d%d",tmp,tot);
             virtualObjects.insert(make_pair(temp, new VirtualObject(this,{current->source[0]},QPoint(event->x()-current->width()/2,event->y()-current->height()/2)))); }}
 }
 
 void EditPage::mouseReleaseEvent(QMouseEvent *event) {if(event->button()==Qt::LeftButton&&current==buttons["008:Eraser"]) setCursor(QCursor(current->getImg())); }
 
-PVZPage::PVZPage(MainWindow *parent, int wid, int heig)
-    : GamePage(parent, wid, heig, pic(StageSimple_block_bottom), {80, 120, 1100, 600})
+PVZPage::PVZPage(MainWindow *parent, int Iq, int wid, int heig)
+    : PlayPage(parent, wid, heig, 4, Iq, snd(Audio_bgm_strategic_war), pic(StageSimple_block_bottom), {80, 120, 1100, 600})
 {
     static char str[100];
     buttons.insert(make_pair("001:Flower", new GameButton(this, {pic(StagePlant_btn_flower)}, {""}, {100, 568}, this, SLOT(selectplt(QMouseEvent*,GameButton*)))));
@@ -254,8 +398,6 @@ PVZPage::PVZPage(MainWindow *parent, int wid, int heig)
     for (int i=0;i<3;i++){  //生成鱼
         picFish[i]=new VirtualObject(this,{pic(Fish_1)},{xFish[i],yFish[i]});
         virtualObjects.insert(make_pair(strFish[i],picFish[i])); }
-    playlist->addMedia(QUrl(snd(Audio_bgm_strategic_war)));
-    music->play();  //接着奏乐
     T.start();  //计时器开始
 }
 void PVZPage::UpdateCoins(){   //更新硬币情况
@@ -281,7 +423,8 @@ void PVZPage::swap(){  //切换选中状态后，重新生成3*6的植物区
                 picEne[i]->hide();
                 virtualObjects.erase(strEne[i]);
                 btnEne[i]->show();
-                buttons.insert(make_pair(strEne[i],btnEne[i])); } } }
+                buttons.insert(make_pair(strEne[i],btnEne[i])); }
+        setCursor(QCursor(QPixmap(pic(StagePlant_slime_shovel_1)))); } }
     else     //使用了植物/铲子，回归正常状态
     {   if (Type<=2)
             for (int i=0;i<3;i++)
@@ -303,7 +446,8 @@ void PVZPage::swap(){  //切换选中状态后，重新生成3*6的植物区
                 buttons.erase(strEne[i]);
                 delete picEne[i];
                 picEne[i]=new VirtualObject(this,{EnemyStr[i]},{xEne[i],yEne[i]});
-                virtualObjects.insert(make_pair(strEne[i],picEne[i])); } } }
+                virtualObjects.insert(make_pair(strEne[i],picEne[i])); } }
+        setCursor(Qt::ArrowCursor); }
 }
 void PVZPage::selectplt(QMouseEvent* event,GameButton* btn){
     if (!isSelected){
@@ -459,10 +603,8 @@ void PVZPage::Timeout(){
                             break; } }
 }
 void PVZPage::GameWin(){       //游戏胜利页面
-    this->hide();
-    T.stop();
+    victory();
 }
 void PVZPage::GameLose(){      //游戏失败页面
-    this->hide();
-    T.stop();
+    playerKilled();
 }

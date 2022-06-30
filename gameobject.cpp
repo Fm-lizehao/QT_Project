@@ -9,6 +9,7 @@ GameObject::GameObject(GamePage *parent, initializer_list<QString> img_str, QPoi
         else collisionRect.push_back(img.rbegin()->rect()); }
     resize(img[imgNow].size());
     setLocation(p);
+    setAttribute(Qt::WA_TransparentForMouseEvents);
     show();
 }
 
@@ -143,11 +144,13 @@ void Pushable::useState()
     if(weighdown)                                    { setImg(getImgNumTotal()-1); setDownSpeed(); }
     else if(getImgNumNow()!=0)                       { setImg(0); }
     GameObject::useState();
+    if(propleft&&rightObject->stubborn)              {stubborn = true; }
+    if(propright&&leftObject->stubborn)              {stubborn = true; }
 }
 
 void Role::checkCollision(GameObject* other)
 {
-    if(other->cankill&&intersect(getCollisionRect(),other->getCollisionRect())) killed = true;
+    if(other->cankill&&!killed&&intersect(getCollisionRect(),other->getCollisionRect())) {killed = true; MUSIC(Audio_hit); }
     else GameObject::checkCollision(other);
 }
 
@@ -156,6 +159,7 @@ void Role::updateSpeed()
     GameObject::updateSpeed();
     if(getCollisionRect().left()<0&&v.x()<0) v.setX(0);
     if(getCollisionRect().right()>((GamePage*)parent())->pageWidth&&v.x()>0) v.setX(0);
+    if(getCollisionRect().top()<0&&v.y()<0) v.setY(0);
     if(getCollisionRect().top()>((GamePage*)parent())->pageHeight) killed = true;
 }
 
@@ -168,7 +172,7 @@ void NPC::checkCollision(GameObject* other)
 void NPC::useState()
 {
     setImg(leftOrRight());
-    if(victory)                                      { v.setX(0); if(getImgNumTotal()>=4) setImg(getImgNumTotal()-4+leftOrRight()); if(downObject!=nullptr) v.setY(-bounceSpeed/2); }
+    if(victory)                                      { v.setX(0); if(getImgNumTotal()>=4) setImg(getImgNumTotal()-4+leftOrRight()); if(vicBounce&&downObject!=nullptr) v.setY(-bounceSpeed/2); }
     if(killed)                                       { v.setX(0); if(getImgNumTotal()>=2) setImg(getImgNumTotal()-2+leftOrRight()); cankill = false; stubborn = true; victory = false; }
     GameObject::useState();
 }
@@ -246,7 +250,7 @@ void Player::checkState()
 void Player::useState()
 {
     if(killed)                                       { v.setX(0); stubborn = true; pushleft = pushright = false; }
-    if(bounceup)                                     { if(!flying) jumping = true; v.setY(-bounceSpeed); bounceup = false; }
+    if(bounceup)                                     { if(!flying) jumping = true; v.setY(flying?-bounceSpeed/1.1:-bounceSpeed); bounceup = false; }
     if(propup&&downObject->v.y()<v.y())              { v.setY(downObject->v.y()); jumping = flying = false; }
     GameObject::useState();
 }

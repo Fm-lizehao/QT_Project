@@ -18,7 +18,6 @@
 #include <QtMultimedia/QMediaPlayer>
 #include <QMediaPlaylist>
 using namespace std;
-#define INTIME(x) connect(&main_timer,SIGNAL(timeout()),this,SLOT(x()),Qt::DirectConnection) //每秒将一个函数触发60次
 #define MIN -2147483648                              //MIN宏
 #define MAX 2147483647                               //MAX宏
 #define NONE   0                                     //方位码   char:
@@ -29,13 +28,16 @@ using namespace std;
 #define windowWidth 1280                             //窗口宽度
 #define windowHeight 720                             //窗口高度
 #define defaultVolume 50                             //默认音量
-#define pic(x) ":/game_resources/image/"#x".png"     //图片位置宏
-#define snd(x)  "qrc:/game_resources/sound/"#x".mp3" //声音位置宏
 #define pushSpeed 0.3                                //推动标准速度
 #define bounceSpeed 1.2                              //弹跳标准速度
 #define g 0.003                                      //重力加速度
+#define pic(x) ":/game_resources/image/"#x".png"     //图片位置宏
+#define snd(x)  "qrc:/game_resources/sound/"#x".mp3" //声音位置宏
+#define INTIME(x); connect(&main_timer,SIGNAL(timeout()),this,SLOT(x()),Qt::DirectConnection); //每秒将一个函数触发1000次
 #define MUSIC(x); {QMediaPlayer * music = new QMediaPlayer(this); music->setVolume(defaultVolume);\
-    music->setMedia(QUrl(snd(x))); music->play();}   //播放音效
+    music->setMedia(QUrl(snd(x))); music->play(); }  //播放音效
+#define MUSIC_VOL(x,y); {QMediaPlayer * music = new QMediaPlayer(this); music->setVolume(y);\
+    music->setMedia(QUrl(snd(x))); music->play(); }  //播放音效，含音量设置
 typedef bool state;
 typedef bool attribute;
 typedef int mode;

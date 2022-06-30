@@ -73,23 +73,60 @@ public:
     ~PlayPage1() {}
 signals:
 public slots:
-    void brickFall() {heavyBodies["018:Brick"]->grativity=true; heavyBodies["019:Brick"]->grativity=true; heavyBodies["020:Brick"]->grativity=true;
-        heavyBodies["021:Brick"]->grativity=true; heavyBodies["022:Brick"]->grativity=true; }
-    void newBrick1() {heavyBodies.insert(make_pair("101:Brick",new HeavyBody(this,{pic(UnknownBrickOver)},{640,170}))); MUSIC(Audio_gold); }
-    void newBoard1() {heavyBodies.insert(make_pair("102:Board",new HeavyBody(this,{pic(HelloBoard_1)},{1485,150}))); MUSIC(Audio_gold); }
-    void newSlime1() {npcs.push_back(new NPC(this,slimeImg,{265,325},{pushSpeed/2.0,0})); MUSIC(Audio_gold); }
-    void newSlime2() {npcs.push_back(new NPC(this,slimeImg,{463,325},{-pushSpeed/2.0,0})); MUSIC(Audio_gold); }
-    void slimeActivate() {pushables.insert(make_pair("001:Slimegirl",new Pushable(this,{pic(Slime_girl)},{1005,540})));
-                npcs[0]->v.setX(-pushSpeed/3.0); virtualObjects["010:HelloBoard"]->deleteLater(); virtualObjects.erase("010:HelloBoard"); }
+    void empty() {MUSIC(Audio_gold); }
+    void brickFall() { MUSIC(Audio_spring); heavyBodies["018:Brick"]->grativity=true; heavyBodies["019:Brick"]->grativity=true; heavyBodies["020:Brick"]->grativity=true;
+        heavyBodies["021:Brick"]->grativity=true; heavyBodies["022:Brick"]->grativity=true; triggers[5]->triggered=triggers[6]->triggered=true; }
+    void newBrick1() {heavyBodies.insert(make_pair("101:Brick",new HeavyBody(this,{pic(UnknownBrickOver)},{640,450}))); MUSIC(Audio_ao); }
+    void newBoard1() {heavyBodies.insert(make_pair("102:Board",new HeavyBody(this,{pic(HelloBoard_1)},{1485,430}))); MUSIC(Audio_error); }
+    void newSlime1() {npcs.push_back(new NPC(this,slimeImg,{265,605},{pushSpeed/2.0,0})); MUSIC(Audio_gold); }
+    void newSlime2() {npcs.push_back(new NPC(this,slimeImg,{463,605},{-pushSpeed/2.0,0})); MUSIC(Audio_gold); }
+    void slimeActivate() {pushables.insert(make_pair("001:Slimegirl",new Pushable(this,{pic(Slime_girl)},{1005,820})));
+                npcs[0]->v.setX(-pushSpeed/3.0); virtualObjects["010:HelloBoard"]->deleteLater(); virtualObjects.erase("010:HelloBoard"); MUSIC(Audio_gold); }
+    void kingActivate() {npcs.push_back(new NPC(this,{pic(ShitKing_sword),pic(ShitKing)},{2450,820})); npcs[npcs.size()-1]->setImg(1); npcs[npcs.size()-1]->vicBounce=false;
+                virtualObjects.insert(make_pair("101:Dialog",new VirtualObject(this,{pic(HelloBoard_4)},{2250,700}))); MUSIC(Audio_kim_laugh); }
+    void kingNormal() {virtualObjects["101:Dialog"]->deleteLater(); virtualObjects.erase("101:Dialog"); }
+    void kingKill() {npcs[npcs.size()-1]->v.setX(pushSpeed*2); MUSIC(Audio_miss); MUSIC_VOL(Audio_liangfeifan,defaultVolume*1.5); }
 }; //关卡1
 
-class EditPage : public GamePage
+class PlayPage2 : public PlayPage
 {
     Q_OBJECT
 public:
+    explicit PlayPage2(MainWindow *parent = nullptr, int Iq = 250);
+    ~PlayPage2() {}
+signals:
+public slots:
+    void brickFall_010() {heavyBodies["010:Brick"]->grativity=true;}
+    void brickFall_011() {heavyBodies["011:Brick"]->grativity=true;}
+    void brickFall_017() {heavyBodies["017:Brick"]->grativity=true;}
+    void newSaw() {virtualObjects.insert(make_pair("500:Saw", new VirtualObject(this,{pic(Saw_48x12_top)}, {850, 0}, {0, 0.25}, 0.0, noBorder, false,true)));}
+}; //关卡2
+
+class PlayPage3 : public PlayPage
+{
+    Q_OBJECT
+public:
+    explicit PlayPage3(MainWindow *parent = nullptr, int Iq = 250);
+    ~PlayPage3() {}
+signals:
+public slots:
+    void empty() {MUSIC(Audio_gold); }
+    void board() { if(player&&player->flying)virtualObjects["001:Board"]->breakin=true; }
+    void insert();
+    void fly() {if(player) player->flying=true; }
+    void fish() { virtualObjects.insert(make_pair("200:Fish1",new VirtualObject(this,{pic(Fish)},{900,720},{0,-0.5},0,noBorder,false,true)));
+                  virtualObjects.insert(make_pair("201:Fish2",new VirtualObject(this,{pic(Fish)},{940,720},{0,-0.5},0,noBorder,false,true)));
+                  virtualObjects.insert(make_pair("202:Fish3",new VirtualObject(this,{pic(Fish)},{980,720},{0,-0.5},0,noBorder,false,true)));}
+}; //关卡3
+
+class EditPage : public PlayPage
+{
+    Q_OBJECT
+public:
+    int tot=0;
     ofstream outFile;
     GameButton* current = nullptr;
-    explicit EditPage(MainWindow *parent = nullptr, int wid = windowWidth, int heig = windowHeight);
+    explicit EditPage(MainWindow *parent = nullptr, int Iq = 250, int wid = windowWidth, int heig = windowHeight);
     ~EditPage() { }
 signals:
 public slots:
@@ -97,29 +134,35 @@ public slots:
     {   setCursor(QCursor(ptr->getImg()));
         current = ptr; }
     void print()
-    {   outFile.open("Usermap.map");
-        for(auto i : virtualObjects)
-            outFile<<i.second->p.x()<<' '<<i.second->p.y()<<' '<<i.second->source[0].toStdString()<<endl;
+    {   outFile.open("Usermap.txt");
+        for(auto i : virtualObjects) //画上去的物体实际x2 y2值与在地图编辑页面上x y值的关系：x2=1280-(1280-x)*4/3; y2=y*4/3;
+        {   int tmpx=1280-(1280-i.second->p.x())*4/3,tmpy=i.second->p.y()*4/3;
+            if(i.second->p.y()<560) outFile<<tmpx<<' '<<tmpy<<' '<<i.second->source[0].toStdString()<<endl; }
         outFile.close(); }
     void erase(QPoint pos)
     {   for(auto i=virtualObjects.begin(); i!=virtualObjects.end(); i++)
             if(i->second->getRect().contains(pos))
                 virtualObjects.erase(i); }
-    void valuate() {if(true) print(); }
+    void valuate()
+    {   int val=0;
+        for(auto i : virtualObjects){ if(i.second->p.y()>=560) continue; if(i.first[0]=='0') val++; else val--; }
+        if(val>=3){ print();
+            next();
+        }
+        else{char temp[10]={}; sprintf(temp,"9999999");
+            virtualObjects.insert(make_pair(temp, new VirtualObject(this,{pic(mapedit_failed)},QPoint(700,570)))); }
+    }
     void mousePressEvent(QMouseEvent* event);
     void mouseReleaseEvent(QMouseEvent* event);
 }; //地图编辑页面
 
-class PVZPage : public GamePage
+
+class PVZPage : public PlayPage
 {
     Q_OBJECT
-
 public:
-
-    explicit PVZPage(MainWindow *parent = nullptr, int wid = 1280, int heig = 720);
-
+    explicit PVZPage(MainWindow *parent = nullptr, int Iq = 250, int wid = windowWidth, int heig = windowHeight);
     ~PVZPage() {}
-
     static const int N_Enemy = 14;      //敌人个数
     static const int N_Last = 8;    //最后一波之前的敌人个数
     static const int N_Bullet = 1000;    //子弹数量上限

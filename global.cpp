@@ -21,7 +21,8 @@ const map<QString, QRect> collisionRectMap
     {pic(Player_cry2_right),{26,0,25,48}},
     {pic(Player_cry2_left),{21,0,25,48}},
     {pic(Player_cry3_right),{24,16,48,32}},
-    {pic(Player_cry3_left),{0,16,48,32}}
+    {pic(Player_cry3_left),{0,16,48,32}},
+    {pic(ShitKing),{-64,0,100,64}}
      }; //此处插入需要限制碰撞区域的图片的pair<QString, QRect>
 const initializer_list<QString> slimeImg
     ={

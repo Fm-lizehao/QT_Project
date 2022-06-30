@@ -18,19 +18,23 @@ void MainWindow::backMain()
 void MainWindow::restart(int Level, int Iq)
 {
     switch(Level)
-    {case 1:
-        page->deleteLater();
-        page = new PlayPage1(this, Iq);
-        break;
+    {
+    case 1: page->deleteLater(); page = new PlayPage1(this, Iq); break;
+    case 2: page->deleteLater(); page = new PlayPage2(this, Iq); break;
+    case 3: page->deleteLater(); page = new PlayPage3(this, Iq); break;
+    case 4: page->deleteLater(); page = new PVZPage(this, Iq); break;
+    case 5: page->deleteLater(); page = new EditPage(this, Iq); break;
     }
 }
 void MainWindow::next(int Level)
 {
     switch(Level)
-    {case 1:case 2:
-        page->deleteLater();
-        page = new PlayPage1(this);
-        break;
+    {
+    case 2:page->deleteLater(); page = new PlayPage2(this); break;
+    case 3:page->deleteLater(); page = new PlayPage3(this); break;
+    case 4:page->deleteLater(); page = new PVZPage(this); break;
+    case 5:page->deleteLater(); page = new EditPage(this); break;
+    case 6:page->deleteLater(); page = new PlayPage2(this); break;
     }
 }
 void MainWindow::startGame()
@@ -41,12 +45,12 @@ void MainWindow::startGame()
 void MainWindow::mapEdit()
 {
     page->deleteLater();
-    page = new EditPage(this, this->width(), this->height());
+    page = new EditPage(this);
 }
 void MainWindow::PVZ()
 {
     page->deleteLater();
-    page = new PVZPage(this, this->width(), this->height());
+    page = new PVZPage(this);
 }
 void MainWindow::config()
 {

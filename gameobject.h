@@ -129,7 +129,7 @@ public:
     Role(GamePage *parent, initializer_list<QString> img_str, QPoint p, QPointF v = {0,0}, qreal omega = 0, QRect border = noBorder, attribute grativity = true, attribute cankill = false)
         : GameObject(parent, img_str, p, v, omega, border, true, false, grativity, cankill) { }
     ~Role() { }
-    int leftOrRight()const {if(v.x()>0) return 0; if(v.x()<0) return 1; return getImgNumNow()%2; } //返回人物朝向，0为右，1为左
+    int leftOrRight()const {if(v.x()>0.0) return 0; if(v.x()<0.0) return 1; return getImgNumNow()%2; } //返回人物朝向，0为右，1为左
     void checkCollision(GameObject* other); //检查与另一物体的碰撞方位，更新order和killed
     void updateSpeed(); //增加了页面边界速度设为0的判断
 signals:
@@ -140,6 +140,7 @@ class NPC : public Role
 {
     Q_OBJECT
 public:
+    state vicBounce = true;
     NPC(GamePage *parent, initializer_list<QString> img_str, QPoint p, QPointF v = {0,0}, qreal omega = 0, QRect border = noBorder, attribute grativity = true, attribute cankill = true)
         : Role(parent, img_str, p, v, omega, border, grativity, cankill) { }
     ~NPC() { }

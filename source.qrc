@@ -416,7 +416,6 @@
         <file>sound/Audio_into.mp3</file>
         <file>sound/Audio_jump.mp3</file>
         <file>sound/Audio_kim_laugh.mp3</file>
-        <file>sound/Audio_laugh.mp3</file>
         <file>sound/Audio_lazer.mp3</file>
         <file>sound/Audio_light.mp3</file>
         <file>sound/Audio_menu_btn_click.mp3</file>
@@ -473,5 +472,18 @@
         <file>image/HelloBoard_1.png</file>
         <file>image/HelloBoard_2.png</file>
         <file>image/Slime_girl.png</file>
+        <file>image/HelloBoard_3.png</file>
+        <file>image/ShitKing.png</file>
+        <file>image/ShitKing_sword.png</file>
+        <file>image/HelloBoard_4.png</file>
+        <file>sound/Audio_liangfeifan.mp3</file>
+        <file>sound/Audio_laugh.mp3</file>
+        <file>image/mapedit_failed.png</file>
+        <file>image/MapEdit2.png</file>
+        <file>image/Saw2.png</file>
+        <file>image/HelloBoard_5.png</file>
+        <file>image/HelloBoard_6.png</file>
+        <file>image/PipeBad_up.png</file>
+        <file>image/Fish.png</file>
     </qresource>
 </RCC>

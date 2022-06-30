@@ -124,6 +124,7 @@ debug/qrc_source.cpp: source.qrc \
 		image/Thumb_dpad_fly.png \
 		image/HillMonster_jump.png \
 		image/PipeBad_smile.png \
+		image/PipeBad_up.png \
 		image/Brick.png \
 		image/StageSimple_right.png \
 		image/Player_fly2_right.png \
@@ -190,6 +191,7 @@ debug/qrc_source.cpp: source.qrc \
 		image/Saw_252.png \
 		image/PromptGoOn_1.png \
 		image/ZZZ_3.png \
+		image/HelloBoard_6.png \
 		image/Castle_2.png \
 		image/Wing.png \
 		image/Stage4_scrip_dot.png \
@@ -268,6 +270,7 @@ debug/qrc_source.cpp: source.qrc \
 		image/Slime_girl.png \
 		image/Player_walk2_left.png \
 		image/ZZZ_0.png \
+		image/HelloBoard_3.png \
 		image/BrickChip.png \
 		image/StagePlant_btn_flower.png \
 		image/Box_2.png \
@@ -280,6 +283,7 @@ debug/qrc_source.cpp: source.qrc \
 		image/StagePlant_flower.png \
 		image/Startup_screen_7_3.png \
 		image/Stage4_screen_raw.png \
+		image/Fish.png \
 		image/QuestionMark.png \
 		image/Stage4_screen_lock_2.png \
 		image/PipeBad.png \
@@ -294,6 +298,7 @@ debug/qrc_source.cpp: source.qrc \
 		image/Player_cry1_right.png \
 		image/Line.png \
 		image/Cloud_2_bad.png \
+		image/ShitKing_sword.png \
 		image/King.png \
 		image/Stage4_book_anim_2.png \
 		image/StagePlant_slime_angry_1.png \
@@ -342,8 +347,10 @@ debug/qrc_source.cpp: source.qrc \
 		image/Notice_3.png \
 		image/Stage4_book_middle_3.png \
 		image/Startup_screen_4_1.png \
+		image/ShitKing.png \
 		image/Player_cry3_left.png \
 		image/ZZZ_2.png \
+		image/HelloBoard_5.png \
 		image/Castle_1.png \
 		image/Transition_emoji_2.png \
 		image/Slime_tear_left.png \
@@ -351,6 +358,7 @@ debug/qrc_source.cpp: source.qrc \
 		image/TreeTiny_tall_2.png \
 		image/Startup_bottomsep.png \
 		image/Stage1_III.png \
+		image/Saw2.png \
 		image/Corner_white.png \
 		image/Cloud_3_cute.png \
 		image/Bridge_left.png \
@@ -448,6 +456,7 @@ debug/qrc_source.cpp: source.qrc \
 		image/StrangePlaceLastFrame.png \
 		image/TalkBox_right_2.png \
 		image/Stage4_screen_lock_1.png \
+		image/mapedit_failed.png \
 		image/StageEnd_3.png \
 		image/Hero_dual.png \
 		image/Shit.png \
@@ -461,6 +470,7 @@ debug/qrc_source.cpp: source.qrc \
 		image/Civilian_knee_3.png \
 		image/Startup_title_line_both.png \
 		image/Slime_idle_left.png \
+		image/MapEdit2.png \
 		image/Stage4_scrip_square.png \
 		image/TalkBox_no_emoji_up.png \
 		image/Emoji_hero_7.png \
@@ -515,6 +525,7 @@ debug/qrc_source.cpp: source.qrc \
 		image/Grass_ground_left.png \
 		image/Thumb_red_dot.png \
 		image/ZZZ_1.png \
+		image/HelloBoard_4.png \
 		image/Stage5_dyna_platform.png \
 		image/StagePlant_slime_hurt.png \
 		sound/Audio_lazer.mp3 \
@@ -531,6 +542,7 @@ debug/qrc_source.cpp: source.qrc \
 		sound/Audio_slap.mp3 \
 		sound/Audio_en.mp3 \
 		sound/Audio_into.mp3 \
+		sound/Audio_liangfeifan.mp3 \
 		sound/Audio_bgm_cactus_land.mp3 \
 		sound/Audio_go.mp3 \
 		sound/Audio_bgm_duel.mp3 \
